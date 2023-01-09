@@ -1,0 +1,35 @@
+.footer {
+  padding: 3rem 9%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* justify-items: center; */
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 1rem;
+}
+.list {
+  list-style-type: none;
+}
+.heading {
+  margin-bottom: 0.5rem;
+}
+.search {
+  margin-top: 1rem;
+}
+.input {
+  width: 15rem;
+  min-width: 10rem;
+}
+.input,
+.button {
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.473);
+  border-radius: 5px 0px 0px 5px;
+}
+.input:focus {
+  outline: none;
+}
+.button {
+  border-radius: 0px 5px 5px 0px;
+  background-color: #0e0e0f;
+  color: white;
+}

@@ -1,0 +1,13 @@
+.icons {
+  position: absolute;
+  top: -2rem;
+  right: 0;
+  padding: 0.3rem;
+  margin-left: 0.5rem;
+  border: 1px solid rgb(167, 166, 166);
+  border-radius: 3px;
+  color: grey;
+}
+.icons:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,22 @@
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  width: 78%;
+  margin: 0 auto;
+  padding: 2rem;
+  row-gap: 1.4rem;
+  column-gap: 0.8rem;
+  background: #dddfe2;
+  font-size: 0.8rem;
+}
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 1rem;
+}
+.logo {
+  font-size: 2rem;
+  color: #eec707;
+  align-self: center;
+}

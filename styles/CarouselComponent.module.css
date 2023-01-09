@@ -1,0 +1,8 @@
+.header {
+  display: flex;
+  padding: 0.8rem 0;
+  justify-content: space-between;
+}
+.carousel_wrapper {
+  padding: 0 9%;
+}

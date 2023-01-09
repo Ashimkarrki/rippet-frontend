@@ -1,0 +1,18 @@
+.img {
+  width: 13rem;
+  height: 15rem;
+  object-fit: cover;
+}
+.card {
+  position: relative;
+  margin-bottom: 2rem;
+  /* text-align: center; */
+}
+.discount {
+  position: absolute;
+  top: 0;
+
+  padding: 0.2rem 1rem;
+  background-color: #0e0e0f;
+  color: white;
+}
