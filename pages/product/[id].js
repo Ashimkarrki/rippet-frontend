@@ -9,6 +9,7 @@ import styles from "../../styles/Product.module.css";
 import QuestionAnswer from "../../components/QuestionAnswer";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/router";
+import Review from "../../components/Review";
 
 const Product = ({ data }) => {
   const [noOfItem, setNoOfItem] = useState(0);
@@ -143,7 +144,10 @@ const Product = ({ data }) => {
           )}
         </div>
       </div>
+      <Review reviews={dataInfo.reviews} />
+
       <QuestionAnswer qa={dataInfo.asks} />
+
       <Footer />
     </div>
   );

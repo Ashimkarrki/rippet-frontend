@@ -32,3 +32,21 @@
   background: #d3d2d6;
   margin-bottom: 0.7rem;
 } */
+.ask {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+.text_area {
+  width: 100%;
+  font-size: 1rem;
+  resize: none;
+}
+.text_area:focus {
+  outline: none;
+}
+.button_ask {
+  margin-top: 10px;
+  padding: 0.4rem 0.8rem;
+}

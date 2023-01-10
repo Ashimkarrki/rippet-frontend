@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/QuestionAnswer.module.css";
 import { RiQuestionnaireFill, RiQuestionAnswerFill } from "react-icons/ri";
 const QuestionAnswer = ({ qa }) => {
+  const [row, setRow] = useState(2);
+  const [textArea, setTextArea] = useState("");
+
   return (
     <div className={styles.qa}>
       <h3>Questions About This Product ({qa.length})</h3>
+      <form className={styles.ask}>
+        <textarea
+          onClick={() => {
+            setRow(6);
+          }}
+          className={styles.text_area}
+          onChange={(e) => setTextArea(e.target.value)}
+          cols="30"
+          rows={row}
+        ></textarea>
+        <button className={styles.button_ask} onSubmit={() => {}}>
+          Ask Question
+        </button>
+      </form>
       <div className={styles.ask_wrapper}>
         {qa.map(({ _id, Question, Answer }) => {
           return (
