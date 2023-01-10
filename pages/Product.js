@@ -3,14 +3,17 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import cat from "../public/cat.jpg";
+import luffy from "../public/luffy.jpeg";
+import dog from "../public/dog.jpeg";
 import styles from "../styles/Product.module.css";
 const Product = () => {
   const [noOfItem, setNoOfItem] = useState(0);
   const [which, setWhich] = useState(1);
+  const [headPic, setHeadPic] = useState(0);
 
   const data = {
     id: 1,
-    pic: [cat, cat, cat],
+    pic: [cat, luffy, dog],
     title: "Atomic",
     price: 550,
     discount: 70,
@@ -24,24 +27,41 @@ const Product = () => {
         <div className={styles.image_section}>
           <Image
             className={styles.header_image}
-            src={data.pic[0]}
+            src={data.pic[headPic]}
             alt={data.title}
           />
-          <Image
-            className={styles.sub_image}
-            src={data?.pic[0]}
-            alt={data.title}
-          />
-          <Image
-            className={styles.sub_image}
-            src={data?.pic[1]}
-            alt={data.title}
-          />
-          <Image
-            className={styles.sub_image}
-            src={data?.pic[2]}
-            alt={data.title}
-          />
+          <div className={styles.choose_image_wrapper}>
+            <Image
+              onClick={() => {
+                setHeadPic(0);
+              }}
+              className={`${styles.sub_image} ${
+                headPic === 0 ? styles.outline : ""
+              }`}
+              src={data?.pic[0]}
+              alt={data.title}
+            />
+            <Image
+              onClick={() => {
+                setHeadPic(1);
+              }}
+              className={`${styles.sub_image} ${
+                headPic === 1 ? styles.outline : ""
+              }`}
+              src={data?.pic[1]}
+              alt={data.title}
+            />
+            <Image
+              onClick={() => {
+                setHeadPic(2);
+              }}
+              className={`${styles.sub_image} ${
+                headPic === 2 ? styles.outline : ""
+              }`}
+              src={data?.pic[2]}
+              alt={data.title}
+            />
+          </div>
         </div>
         <div className={styles.desc_section}>
           <h3 className={styles.header}>{data?.title}</h3>

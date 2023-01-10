@@ -10,11 +10,14 @@ import {
 import { RiAccountCircleLine, RiAccountCircleFill } from "react-icons/ri";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
+import Link from "next/link";
 const Navbar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.upper_nav}>
-        <Image src={rippet_logo} alt="logo" className={styles.rippet_logo} />
+        <Link href={"/"}>
+          <Image src={rippet_logo} alt="logo" className={styles.rippet_logo} />
+        </Link>
         <div className={styles.icon_wrapper}>
           <input className={styles.input} type="text" placeholder="Search..." />
           <button className={styles.search_button}>

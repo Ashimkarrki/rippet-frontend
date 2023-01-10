@@ -16,3 +16,6 @@
   background-color: #0e0e0f;
   color: white;
 }
+.line_through {
+  text-decoration: line-through;
+}
