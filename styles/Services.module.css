@@ -1,7 +1,7 @@
 .services {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  width: 78%;
+  width: 82%;
   margin: 0 auto;
   padding: 2rem;
   row-gap: 1.4rem;
