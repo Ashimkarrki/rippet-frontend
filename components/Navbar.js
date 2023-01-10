@@ -27,14 +27,16 @@ const Navbar = () => {
 
         <div className={styles.navigate_icons}>
           <button className={styles.icons}>
-            <RiAccountCircleLine />
+            <Link href="/signup">
+              <RiAccountCircleLine className={styles.navbar_icons} />
+            </Link>
           </button>
           <button className={styles.icons}>
-            <AiOutlineHeart />
+            <AiOutlineHeart className={styles.navbar_icons} />
           </button>
           <button className={styles.icons}>
             <Link href="/Cart">
-              <BsBag />
+              <BsBag className={styles.navbar_icons} />
             </Link>
           </button>
         </div>

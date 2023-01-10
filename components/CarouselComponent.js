@@ -70,14 +70,14 @@ const CarouselComponent = ({ list, title }) => {
         <h3>{title}</h3>
       </div>
       <Slider {...settings}>
-        {list.map(({ id, title, pic, price, discount, newPrice }) => {
+        {list.map(({ id, Name, MainImage, Price, discount, newPrice }) => {
           return (
             <ProductsCard
               key={id}
               id={id}
-              title={title}
-              pic={pic}
-              price={price}
+              title={Name}
+              pic={MainImage}
+              price={Price}
               discount={discount}
               newPrice={newPrice}
             />

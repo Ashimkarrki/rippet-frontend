@@ -1,31 +1,21 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import cat from "../public/cat.jpg";
-import luffy from "../public/luffy.jpeg";
-import dog from "../public/dog.jpeg";
-import styles from "../styles/Product.module.css";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import cat from "../../public/cat.jpg";
+import luffy from "../../public/luffy.jpeg";
+import dog from "../../public/dog.jpeg";
+import styles from "../../styles/Product.module.css";
+import QuestionAnswer from "../../components/QuestionAnswer";
 import { AiOutlineHeart } from "react-icons/ai";
-import {
-  PictureInPictureMagnifier,
-  MOUSE_ACTIVATION,
-  TOUCH_ACTIVATION,
-} from "react-image-magnifiers";
-const Product = () => {
+import { useRouter } from "next/router";
+
+const Product = ({ data }) => {
   const [noOfItem, setNoOfItem] = useState(0);
   const [which, setWhich] = useState(1);
   const [headPic, setHeadPic] = useState(0);
-
-  const data = {
-    id: 1,
-    pic: [cat, luffy, dog],
-    title: "Atomic",
-    price: 550,
-    discount: 70,
-    newPrice: 480,
-  };
-
+  const dataInfo = data.data.product;
+  console.log(dataInfo);
   return (
     <div>
       <Navbar />
@@ -38,53 +28,59 @@ const Product = () => {
           /> */}
           <img
             className={styles.header_image}
-            src={data.pic[headPic]}
+            src={dataInfo.Images[headPic]}
             alt={data.title}
           />
           <div className={styles.choose_image_wrapper}>
-            <img
-              onClick={() => {
-                setHeadPic(0);
-              }}
-              className={`${styles.sub_image} ${
-                headPic === 0 ? styles.outline : ""
-              }`}
-              src={data?.pic[0]}
-              alt={data.title}
-            />
-            <img
-              onClick={() => {
-                setHeadPic(1);
-              }}
-              className={`${styles.sub_image} ${
-                headPic === 1 ? styles.outline : ""
-              }`}
-              src={data?.pic[1]}
-              alt={data.title}
-            />
-            <img
-              onClick={() => {
-                setHeadPic(2);
-              }}
-              className={`${styles.sub_image} ${
-                headPic === 2 ? styles.outline : ""
-              }`}
-              src={data?.pic[2]}
-              alt={data.title}
-            />
+            {dataInfo.Images[0] && (
+              <img
+                onClick={() => {
+                  setHeadPic(0);
+                }}
+                className={`${styles.sub_image} ${
+                  headPic === 0 ? styles.outline : ""
+                }`}
+                src={dataInfo?.Images[0]}
+                alt={dataInfo.name}
+              />
+            )}
+            {dataInfo.Images[1] && (
+              <img
+                onClick={() => {
+                  setHeadPic(1);
+                }}
+                className={`${styles.sub_image} ${
+                  headPic === 1 ? styles.outline : ""
+                }`}
+                src={dataInfo?.Images[1]}
+                alt={dataInfo.name}
+              />
+            )}
+            {dataInfo.Images[2] && (
+              <img
+                onClick={() => {
+                  setHeadPic(2);
+                }}
+                className={`${styles.sub_image} ${
+                  headPic === 2 ? styles.outline : ""
+                }`}
+                src={dataInfo?.Images[2]}
+                alt={dataInfo.name}
+              />
+            )}
           </div>
         </div>
         <div className={styles.desc_section}>
-          <h3 className={styles.header}>{data?.title}</h3>
+          <h3 className={styles.header}>{dataInfo?.Name}</h3>
           <div className={styles.st_line}></div>
           <h4>
-            {data.discount ? (
+            {dataInfo.discount ? (
               <>
-                <strike>Rs {data.price} </strike>
-                Rs {data?.newPrice}
+                <strike>Rs {dataInfo.Price} </strike>
+                Rs {dataInfo?.newPrice}
               </>
             ) : (
-              ` Rs${data?.price}`
+              ` Rs ${dataInfo?.Price}`
             )}
           </h4>
           <div className={styles.button_group}>
@@ -124,37 +120,20 @@ const Product = () => {
           >
             DESCRIPTION
           </button>
+
           <button
             onClick={() => setWhich(2)}
             className={`${styles.not_so_button} ${
               which == 2 ? styles.toggle_active : ""
             }`}
           >
-            REVIEWS(0)
-          </button>
-          <button
-            onClick={() => setWhich(3)}
-            className={`${styles.not_so_button} ${
-              which == 3 ? styles.toggle_active : ""
-            }`}
-          >
             META INFORMATION
           </button>
           {which === 1 && (
-            <div className={styles.hidden_content}>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Doloremque enim ipsam, nostrum accusantium facere id et porro
-              natus rerum aliquam!
-            </div>
+            <div className={styles.hidden_content}>{dataInfo.Description}</div>
           )}
+
           {which == 2 && (
-            <div className={styles.hidden_content}>
-              revies of user s are here Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Delectus saepe eligendi, tempore inventore vero
-              corrupti est accusamus ullam totam fugiat!
-            </div>
-          )}
-          {which == 3 && (
             <div className={styles.hidden_content}>
               meta info Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Delectus cum sit nam veritatis aliquid impedit ab fugiat accusamus
@@ -164,9 +143,19 @@ const Product = () => {
           )}
         </div>
       </div>
+      <QuestionAnswer qa={dataInfo.asks} />
       <Footer />
     </div>
   );
 };
-
+export async function getServerSideProps(context) {
+  const res = await fetch(
+    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/" +
+      context.params.id
+  );
+  const data = await res.json();
+  return {
+    props: { data },
+  };
+}
 export default Product;

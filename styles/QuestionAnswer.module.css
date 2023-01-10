@@ -1,0 +1,34 @@
+.qa {
+  padding: 1rem;
+  width: 82%;
+  margin: 0 auto;
+  /* background-color: #dddfe2; */
+  border: 2px solid #2457aa;
+}
+.sentence {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+.ask_wrapper {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+}
+.icons {
+  font-size: 1.5rem;
+}
+.question {
+  color: rgba(255, 0, 0, 0.747);
+}
+.answer {
+  color: rgba(0, 128, 0, 0.685);
+}
+/* .st_line {
+  width: 100%;
+  height: 1px;
+  background: #d3d2d6;
+  margin-bottom: 0.7rem;
+} */

@@ -4,6 +4,81 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import cat from "../public/cat.jpg";
 import styles from "../styles/Cart.module.css";
+/*
+const addQuantity = async() =>{
+        if(quantityState<5){
+            let passingArgument = {
+                productId: data.productId._id,
+                _id:data._id,
+                quantity: quantityState+1 
+            }   
+            const instance = await axios.create({
+                withCredentials: true
+            })
+              instance.patch(${URL}api/v1/cart,passingArgument).then((data)=>{
+                console.log(data?.data?.data?.updateUser?.Cart, "hes")
+                const Amount = calculatingAmout(data?.data?.data?.updateUser?.Cart)
+                const passingArgument =
+                { Cart: data?.data?.data?.updateUser?.Cart,
+                  Amount
+                }
+                dispatch({type: "ADDSUB_CART",
+                        payload: passingArgument
+                    });
+            setQuantityState((prev)=> {
+                return(prev + 1)});
+              });
+        }else{
+            setQuantityState(5)
+        }
+    }
+    
+    const subQuantity = async() =>{
+        if((quantityState>1)){
+            let passingArgument = {
+                productId: data.productId._id,
+                _id:data._id,
+                quantity: quantityState-1 
+            }
+            const instance = await axios.create({
+                withCredentials: true
+            })
+              instance.patch(${URL}api/v1/cart,passingArgument).then((data)=>{
+                const Amount = calculatingAmout(data?.data?.data?.updateUser?.Cart)
+                const passingArgument =
+                { Cart: data?.data?.data?.updateUser?.Cart,
+                  Amount
+                }
+                dispatch({type: "ADDSUB_CART",
+                        payload: passingArgument
+            })
+            setQuantityState((prev)=> {return(prev - 1)});
+              });
+        }else{
+            setQuantityState(1)
+        }
+    }
+
+
+    const deleteHandler = async(e) =>{
+        console.log(data._id, "hello world")
+        let CartId = data._id;
+        e.preventDefault();
+        const instance = await axios.create({
+            withCredentials: true
+          })
+          instance.post(${URL}api/v1/cart/delete/${CartId}).then((data)=>{
+            console.log(data.data.data.Cart)
+
+            const Amount = calculatingAmout(data.data.data.Cart)
+            const passingArgument = {
+                Cart:data?.data?.data?.Cart,
+                Amount: Amount
+            }
+            dispatch({type:"UPDATE__CART", payload:passingArgument})
+
+          });
+    }*/
 const Cart = () => {
   const [data, setData] = useState([
     {
@@ -50,7 +125,7 @@ const Cart = () => {
           {data.map(({ id, pic, title, price, discount, newPrice, inCart }) => {
             return (
               <div key={id} className={styles.item}>
-                <Image className={styles.image} src={pic} alt="products" />
+                <img className={styles.image} src={pic} alt="products" />
                 <div className={styles.item_info}>
                   <h4>{title}</h4>
                   <h5>
