@@ -6,6 +6,12 @@ import cat from "../public/cat.jpg";
 import luffy from "../public/luffy.jpeg";
 import dog from "../public/dog.jpeg";
 import styles from "../styles/Product.module.css";
+import { AiOutlineHeart } from "react-icons/ai";
+import {
+  PictureInPictureMagnifier,
+  MOUSE_ACTIVATION,
+  TOUCH_ACTIVATION,
+} from "react-image-magnifiers";
 const Product = () => {
   const [noOfItem, setNoOfItem] = useState(0);
   const [which, setWhich] = useState(1);
@@ -25,6 +31,11 @@ const Product = () => {
       <Navbar />
       <div className={styles.product}>
         <div className={styles.image_section}>
+          {/* <PictureInPictureMagnifier
+            imageSrc={data.pic[headPic]}
+            imageAlt="Example"
+            largeImageSrc={data.pic[headPic]} // Optional
+          /> */}
           <Image
             className={styles.header_image}
             src={data.pic[headPic]}
@@ -99,8 +110,10 @@ const Product = () => {
             <button className={`${styles.buttons} ${styles.add_to_cart}`}>
               <h4> ADD TO CART</h4>
             </button>
-            <button className={styles.buttons}>H</button>
-            <button className={styles.buttons}>?</button>
+            <button className={styles.buttons}>
+              <AiOutlineHeart className={styles.heart} />
+            </button>
+            {/* <button className={styles.buttons}>?</button>  -->no idea */}
           </div>
 
           <button

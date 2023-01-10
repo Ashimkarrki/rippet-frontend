@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { BsSearch, BsBag, BsFillBagFill } from "react-icons/bs";
 import {
   AiOutlineHeart,
@@ -10,7 +11,6 @@ import {
 import { RiAccountCircleLine, RiAccountCircleFill } from "react-icons/ri";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
-import Link from "next/link";
 const Navbar = () => {
   return (
     <nav className={styles.nav}>
@@ -33,22 +33,24 @@ const Navbar = () => {
             <AiOutlineHeart />
           </button>
           <button className={styles.icons}>
-            <BsBag />
+            <Link href="/Cart">
+              <BsBag />
+            </Link>
           </button>
         </div>
       </div>
       <div className={styles.lower_nav}>
         <div className={styles.first_element}>
-          <AiOutlineMenu />
-          <h5>Category</h5>
-          <AiOutlineDown />
+          <AiOutlineMenu className={styles.icon} />
+          <h3>Category</h3>
+          <AiOutlineDown className={styles.icon} />
         </div>
-        <h5>Home</h5>
-        <h5>Shop</h5>
-        <h5>Books For Rent</h5>
-        <h5>Digital Study Material</h5>
-        <h5>Available Roooms</h5>
-        <h5>Contact Us</h5>
+        <h3>Home</h3>
+        <h3>Shop</h3>
+        <h3>Books For Rent</h3>
+        <h3>Digital Study Material</h3>
+        <h3>Available Roooms</h3>
+        <h3>Contact Us</h3>
       </div>
     </nav>
   );
