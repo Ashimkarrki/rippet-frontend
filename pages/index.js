@@ -100,6 +100,8 @@ export default function Home() {
       newPrice: 480,
     }
   ];
+  
+  const URL = "https://localhost:4000/"
 
   return (
     <div className={styles.home}>

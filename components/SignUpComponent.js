@@ -3,7 +3,12 @@ import Image from "next/image";
 import Googlelogo from "../public/google.png";
 import Link from "next/link";
 import { useState } from "react";
-export const SignUpComponent = () => {
+import { useRouter } from "next/router";
+import axios from "axios";
+export const SignUpComponent = () => { 
+  const router = useRouter();
+  const URL = "http://localhost:4000/"
+
   const [userData, setuserData] = useState({
     Username: "",
     Password: "",
@@ -16,9 +21,24 @@ export const SignUpComponent = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const submitHandler = async (e) =>{
+    e.preventDefault();
+    const instance = await axios.create({
+      withCredentials: true,
+      headers: {authorization: "Bearer"}
+    })
+    instance.post(`${URL}api/v1/users/signup`,userData ).then((data)=>{
+      router.push('/');
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+  
+  
+  
   return (
     <div className={style.FormContainer}>
-      <form className={style.FormSubContainer}>
+      <form className={style.FormSubContainer} onSubmit={submitHandler}>
         <div>
           <div className={style.inputContainer}>
             <label className={style.formlabel}>Full name*</label>
