@@ -13,7 +13,7 @@ const CarouselComponent = ({ list, title }) => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    rows: 2,
+    rows: 1,
     responsive: [
       {
         breakpoint: 3000,
