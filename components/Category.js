@@ -1,13 +1,11 @@
 import React from "react";
-// import "react-multi-carousel/lib/styles.css";
-import { CgShapeCircle } from "react-icons/cg";
 import PrevButton from "./PrevButton";
-import ProductsCard from "./ProductCard";
-import styles from "../styles/CarouselComponent.module.css";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
 import NextButton from "./NextButton";
-const CarouselComponent = ({ list, title }) => {
+import { CgShapeCircle } from "react-icons/cg";
+
+import styles from "../styles/Category.module.css";
+import Slider from "react-slick";
+const Category = ({ list }) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -66,30 +64,27 @@ const CarouselComponent = ({ list, title }) => {
     nextArrow: <NextButton />,
   };
   return (
-    <div className={styles.carousel_wrapper}>
+    <div className={styles.category_wrapper}>
       <div className={styles.header}>
         <CgShapeCircle className={styles.yellow} />
 
-        {/* <div className={styles.yellow}></div> */}
-        <h3 className={styles.title}>{title}</h3>
+        <h3 className={styles.title}>Choose Category</h3>
       </div>
-      <Slider className={styles.slider} {...settings}>
-        {list.map(({ id, Name, MainImage, Price, discount, newPrice }) => {
-          return (
-            <ProductsCard
-              key={id}
-              id={id}
-              title={Name}
-              pic={MainImage}
-              price={Price}
-              discount={discount}
-              newPrice={newPrice}
-            />
-          );
-        })}
-      </Slider>
+      <div className={styles.category}>
+        <Slider {...settings}>
+          {console.log(list)}
+          {list.map(({ id, pic, name }) => {
+            return (
+              <div className={styles.category_item} key={id}>
+                <img className={styles.image} src={pic} alt={name} />
+                <h4 className={styles.align}>{name}</h4>
+              </div>
+            );
+          })}
+        </Slider>
+      </div>
     </div>
   );
 };
 
-export default CarouselComponent;
+export default Category;

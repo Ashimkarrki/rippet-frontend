@@ -6,12 +6,12 @@ const ProductsCard = ({ id, pic, title, price, newPrice, discount }) => {
   return (
     <Link className={styles.card} href={`/product/${id}`}>
       <img src={pic} alt="product" className={styles.img} />
-      <h5>{title}</h5>
-      <h5>
+      <h5 className={styles.title}>{title}</h5>
+      <h5 className={styles.price}>
         {discount ? (
           <>
-            <strike>Rs{price} </strike>
-            Rs{newPrice}
+            <strike className={styles.strike}>Rs {price} </strike>
+            Rs {newPrice}
           </>
         ) : (
           ` Rs${price}`

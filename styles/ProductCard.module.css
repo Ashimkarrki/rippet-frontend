@@ -6,6 +6,7 @@
 .card {
   position: relative;
   margin-bottom: 2rem;
+  outline: none;
   /* text-align: center; */
 }
 .discount {
@@ -16,6 +17,13 @@
   background-color: #0e0e0f;
   color: white;
 }
-.line_through {
-  text-decoration: line-through;
+.title {
+  padding-top: 1rem;
+  font-weight: 500;
+}
+.price {
+  color: rgb(42, 42, 245);
+}
+.strike {
+  color: #0e0e0f;
 }

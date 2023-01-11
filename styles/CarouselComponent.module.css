@@ -1,8 +1,22 @@
 .header {
   display: flex;
-  padding: 0.8rem 0;
-  justify-content: space-between;
+  gap: 0.4rem;
+  align-items: center;
+  margin-bottom: 10px;
 }
 .carousel_wrapper {
-  padding: 0 9%;
+  width: 82%;
+  margin: 1rem auto;
+}
+.title {
+  font-weight: 500;
+}
+.slider {
+  background-color: white;
+  padding: 1rem 1rem;
+}
+.yellow {
+  color: rgb(253, 253, 31);
+
+  font-size: 1.7rem;
 }
