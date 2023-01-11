@@ -47,12 +47,14 @@ const Navbar = () => {
           <h3>Category</h3>
           <AiOutlineDown className={styles.icon} />
         </div>
-        <h3>Home</h3>
-        <h3>Shop</h3>
-        <h3>Books For Rent</h3>
-        <h3>Digital Study Material</h3>
-        <h3>Available Roooms</h3>
-        <h3>Contact Us</h3>
+        <div className={styles.Linktext}>
+        <h3 className={styles.textStlingLink}>Home</h3>
+        <h3 className={styles.textStlingLink}>Shop</h3>
+        <h3 className={styles.textStlingLink}>Books For Rent</h3>
+        <h3 className={styles.textStlingLink}>Digital Study Material</h3>
+        <h3 className={styles.textStlingLink}>Available Roooms</h3>
+        <h3 className={styles.textStlingLink}>Contact Us</h3>
+        </div>
       </div>
     </nav>
   );

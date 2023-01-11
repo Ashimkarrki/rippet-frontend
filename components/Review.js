@@ -8,9 +8,7 @@ const Review = ({ reviews,averagerating,noofrating }) => {
   const reviewChangeHandler =(next,prev,name) =>{
     setCreateReviewData((data)=> {return{...createReviewData, [name]:next}})
 }  
-
-
-  console.log(reviews);
+  // console.log(reviews);
   return (
     <div className={styles.review}>
     <h3 className={styles.reviewprimaryheading}>Review</h3>
@@ -18,7 +16,7 @@ const Review = ({ reviews,averagerating,noofrating }) => {
     <div className={styles.reviewsummary}>
       <h4 className={styles.averageratingwriitem}><span className={styles.averageRating}>{averagerating}</span><span className={styles.totalrating}>/5</span></h4>
       <Star num={averagerating}/>
-      <p>{noofrating} rating</p>
+      <p>{noofrating? noofrating :(0)} rating</p>
     </div>
     <div className={styles.reviewInputContainer}>
       <input className={styles.reviewinput} type="text" placeholder="Submit Your Review"/>
@@ -36,6 +34,10 @@ const Review = ({ reviews,averagerating,noofrating }) => {
 
     </div>
     </div>
+    <div className={styles.allreviewcontainer}>
+    {
+    (reviews?.length) ?
+      <>    
       {reviews.map(({ _id, review, rating, user }) => {
         return (
           <div className={styles.review_item} key={_id}>
@@ -45,6 +47,9 @@ const Review = ({ reviews,averagerating,noofrating }) => {
           </div>
         );
       })}
+      </> : <div className={styles.noreview}><p className={styles.noreviewtext}>No Review</p></div>
+    }
+      </div>
     </div>
   );
 };

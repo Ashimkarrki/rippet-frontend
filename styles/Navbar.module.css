@@ -70,3 +70,12 @@
 .navbar_icons {
   font-size: 1.2rem;
 }
+
+.Linktext{
+  display: flex;
+  gap: 2rem;
+}
+.textStlingLink{
+  font-size: 1rem;
+  font-weight: 500;
+}

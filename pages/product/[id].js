@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import cat from "../../public/cat.jpg";
-import luffy from "../../public/luffy.jpeg";
-import dog from "../../public/dog.jpeg";
 import styles from "../../styles/Product.module.css";
 import QuestionAnswer from "../../components/QuestionAnswer";
 import { AiOutlineHeart } from "react-icons/ai";
-import { useRouter } from "next/router";
 import Review from "../../components/Review";
 
 const Product = ({ data }) => {
@@ -156,7 +151,7 @@ const Product = ({ data }) => {
 };
 export async function getServerSideProps(context) {
   const res = await fetch(
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/" +
+    "http://localhost:4000/api/v1/products/" +
       context.params.id
   );
   const data = await res.json();

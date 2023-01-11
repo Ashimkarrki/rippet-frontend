@@ -1,9 +1,25 @@
 import React, { useState } from "react";
 import styles from "../styles/QuestionAnswer.module.css";
 import { RiQuestionnaireFill, RiQuestionAnswerFill } from "react-icons/ri";
+import axios from "axios"
 const QuestionAnswer = ({ qa }) => {
   const [row, setRow] = useState(2);
   const [textArea, setTextArea] = useState("");
+  // const URL = "http://localhost:4000/"
+
+  // const asksubmitHandler = async(e)=>{
+  //   e.preventDefault();
+  //   const instance = await axios.create({
+  //     withCredentials: true,
+  //     headers: {authorization: "Bearer"}
+  //   })
+  //   instance.post(`${URL}api/v1/users/login`,userData ).then((data)=>{
+  //     console.log(data)
+  //     router.push('/');
+  //   }).catch((err)=>{
+  //     console.log(err)
+  //   })
+  // }
 
   return (
     <div className={styles.qa}>
@@ -23,7 +39,12 @@ const QuestionAnswer = ({ qa }) => {
         </button>
       </form>
       <div className={styles.ask_wrapper}>
-        {qa.map(({ _id, Question, Answer }) => {
+
+        {
+          (qa?.length) ?
+          <>
+          {
+          qa.map(({ _id, Question, Answer }) => {
           return (
             <div key={_id}>
               <div className={styles.sentence}>
@@ -43,7 +64,10 @@ const QuestionAnswer = ({ qa }) => {
               {/* <div className={styles.st_line}></div> */}
             </div>
           );
-        })}
+        })
+          }
+          </> : <div className={styles.noquesans}><p className={styles.noquesanstext}>No Question</p></div>
+        }
       </div>
     </div>
   );
