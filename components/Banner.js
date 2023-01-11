@@ -20,6 +20,7 @@ const Banner = () => {
       {/* <Slider {...settings}> */}
       <img
         className={styles.image}
+        alt="banner"
         src="https://static.vecteezy.com/system/resources/previews/001/637/223/non_2x/big-sale-discount-banner-template-vector.jpg"
       />
 
