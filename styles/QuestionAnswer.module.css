@@ -1,9 +1,10 @@
 .qa {
-  padding: 1rem;
+  padding: 2rem;
   width: 82%;
   margin: 0 auto;
   /* background-color: #dddfe2; */
-  border: 2px solid #2457aa;
+  /* border: 2px solid #2457aa; */
+  background-color: white;
 }
 .sentence {
   margin-top: 1rem;
@@ -42,6 +43,9 @@
   width: 100%;
   font-size: 1rem;
   resize: none;
+  border: none;
+  border: 1px solid gray;
+  outline: none;
 }
 .text_area:focus {
   outline: none;
@@ -49,4 +53,14 @@
 .button_ask {
   margin-top: 10px;
   padding: 0.4rem 0.8rem;
+  border: none;
+  background-color: #2457aa;
+  font-size: 1rem;
+  color: white;
+}
+
+.reviewaskquestionheading{
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #6c6c6c;
 }

@@ -20,6 +20,7 @@ const Product = ({ data }) => {
   return (
     <div>
       <Navbar />
+      <div className={styles.productContainer}>
       <div className={styles.product}>
         <div className={styles.image_section}>
           {/* <PictureInPictureMagnifier
@@ -144,9 +145,10 @@ const Product = ({ data }) => {
           )}
         </div>
       </div>
-      <Review reviews={dataInfo.reviews} />
+      <Review reviews={dataInfo?.reviews} averagerating={dataInfo?.AverageRating} noofrating={dataInfo?.NumberRating} />
 
       <QuestionAnswer qa={dataInfo.asks} />
+      </div>
 
       <Footer />
     </div>

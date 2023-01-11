@@ -8,6 +8,8 @@
   column-gap: 0.8rem;
   background: #dddfe2;
   font-size: 0.8rem;
+  margin-bottom: 6rem;
+  margin-top: 6rem;
 }
 .card {
   display: flex;

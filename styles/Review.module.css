@@ -1,11 +1,12 @@
 .review {
   width: 82%;
   margin: 1rem auto;
-  border: 2px solid rgba(0, 0, 255, 0.568);
-  padding: 1rem;
+  /* border: 2px solid rgba(0, 0, 255, 0.568); */
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  background-color: white;
 }
 /* .review_item {
   display: flex;
@@ -15,4 +16,64 @@
 .name {
   margin-bottom: 0.4rem;
   font-weight: 300;
+}
+
+.reviewPrimaryContainer{
+  display: flex;
+  gap: 2rem;
+  border-bottom: 2px solid rgb(222, 222, 222);
+  padding-bottom: 1rem;
+
+}
+.reviewsummary{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.averageratingwriitem{
+  font-size: 2rem;
+}
+
+.averageRating{
+  font-size: 3rem;
+}
+
+.totalrating{
+  color: rgb(214, 214, 214);
+}
+
+.reviewInputContainer{
+  width: 35%;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.reviewinput{
+  width: 100%;
+  padding: 1rem;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid rgb(222, 222, 222);
+}
+
+.reviewbutton{
+  width: 100%;
+  padding: 1rem;
+  border:none;
+  background-color: #2457aa;
+  color: white;
+  font-size: 1rem;
+}
+.createreviewicon{
+  font-size: 2.3rem;
+  width: 2rem;
+}
+.reviewprimaryheading{
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #6c6c6c;
 }

@@ -7,7 +7,7 @@ const QuestionAnswer = ({ qa }) => {
 
   return (
     <div className={styles.qa}>
-      <h3>Questions About This Product ({qa.length})</h3>
+      <h3 className={styles.reviewaskquestionheading}>Questions About This Product ({qa.length})</h3>
       <form className={styles.ask}>
         <textarea
           onClick={() => {

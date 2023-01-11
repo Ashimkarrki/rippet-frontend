@@ -1,9 +1,17 @@
 .product {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   align-items: flex-start;
+  padding: 2rem;
   width: 82%;
-  margin: 2rem auto;
+  margin: 0rem auto;
+  background-color: white;
+  /* padding-top: 2rem; */
+}
+
+.productContainer{
+  background-color: #eff0f5;
+  padding: 2rem 0rem;
 }
 .image_section {
   width: 40%;
