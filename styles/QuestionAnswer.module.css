@@ -57,10 +57,21 @@
   background-color: #2457aa;
   font-size: 1rem;
   color: white;
+  cursor: pointer;
 }
 
 .reviewaskquestionheading{
   font-size: 1.5rem;
   font-weight: 300;
   color: #6c6c6c;
+}
+
+.noquesans{
+  display: flex;
+  justify-content: center;
+}
+
+.noquesanstext{
+  font-size: 1.2rem;
+  font-weight: 500;
 }

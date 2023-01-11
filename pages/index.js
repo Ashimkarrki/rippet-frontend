@@ -68,7 +68,7 @@ export default function Home({ data }) {
 }
 export async function getServerSideProps() {
   const res = await fetch(
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products"
+    "http://localhost:4000/api/v1/products"
   );
   const data = await res.json();
   return {
