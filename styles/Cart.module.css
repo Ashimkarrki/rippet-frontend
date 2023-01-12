@@ -24,9 +24,8 @@
   padding: 2rem;
   gap: 1rem;
   min-height: 50vh;
- 
 }
-.cartContainer{
+.cartContainer {
   display: flex;
   justify-content: center;
   background-color: #eff0f5;
@@ -37,7 +36,7 @@
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  border: 2px solid hsla(0,0%,62%,.2);
+  border: 2px solid hsla(0, 0%, 62%, 0.2);
   justify-content: space-between;
 
   /* align-items: stretch; */
@@ -56,17 +55,17 @@
   margin-top: 1rem;
 }
 
-.deletebutton{
+.deletebutton {
   background-color: transparent;
   margin-right: 2rem;
-  font-size: .6rem;
+  font-size: 0.6rem;
   border: none;
   outline: none;
   cursor: pointer;
   margin-top: 1rem;
-  background-color: red;
-  padding: .5rem .7rem;
-  color: white;
+  padding: 0.5rem 0.7rem;
+  padding: 0.4rem 1rem;
+  /* color: white; */
 }
 
 .summary {
@@ -85,98 +84,97 @@
   margin-bottom: 0.7rem;
 }
 
-.cartprimaryheading{
+.cartprimaryheading {
   font-size: 1.5rem;
   font-weight: 300;
   color: #6c6c6c;
   background-color: white;
 }
-.button_group{
+.button_group {
   display: flex;
   flex-direction: column-reverse;
 }
 
-.discounttext{
+.discounttext {
   font-size: 1rem;
   font-weight: 500;
   color: #a1a1a1;
-  margin-right: .4rem;
+  margin-right: 0.4rem;
 }
 
-.realprice{
+.realprice {
   font-size: 1.3rem;
   font-weight: 500;
   color: #2457aa;
   display: flex;
   flex-direction: column-reverse;
 }
-.imagetextcart{
+.imagetextcart {
   display: flex;
   gap: 1rem;
 }
-.carttitle{
+.carttitle {
   max-width: 18rem;
   font-size: 1rem;
   font-weight: 500;
 }
 
-
-.headingContainer{
+.headingContainer {
   padding: 1rem;
 }
 
-.subtotal{
+.subtotal {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
   border-bottom: 2px solid rgba(180, 180, 180, 0.385);
 }
 
-.subtotalPrimary{
+.subtotalPrimary {
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
-.subtotalSecondary{
+.subtotalSecondary {
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
-.shipping{
+.shipping {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
   border-bottom: 2px solid rgba(180, 180, 180, 0.385);
 }
 
-.shippingPrimary{
+.shippingPrimary {
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
-.shippingSecondary{
+.shippingSecondary {
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
-.tax{
+.tax {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
   border-bottom: 2px solid rgba(180, 180, 180, 0.385);
 }
 
-.taxPrimary{
+.taxPrimary {
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
-.taxSecondary{
+.taxSecondary {
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
-.total{
+.total {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
@@ -185,17 +183,17 @@
   border-bottom: 2px solid rgba(180, 180, 180, 0.385);
 }
 
-.totalPrimary{
+.totalPrimary {
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
-.totalSecondary{
+.totalSecondary {
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
-.submitProducts{
+.submitProducts {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -205,9 +203,9 @@
   margin-top: 3rem;
 }
 
-.checkoutbutton{
+.checkoutbutton {
   padding: 1rem;
-  width:100%;
+  width: 100%;
   background-color: orange;
   color: white;
   font-size: 1rem;
@@ -216,7 +214,7 @@
   outline: none;
   cursor: pointer;
 }
-.checkoutesewa{
+.checkoutesewa {
   padding: 1rem;
   width: 100%;
   background: white;
@@ -227,6 +225,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
+  gap: 0.5rem;
   cursor: pointer;
+}
+.delete_icon {
+  font-size: 1.2rem;
+  color: red;
 }

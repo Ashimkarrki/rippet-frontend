@@ -16,133 +16,139 @@ const Product = ({ data }) => {
     <div>
       <Navbar />
       <div className={styles.productContainer}>
-      <div className={styles.product}>
-        <div className={styles.image_section}>
-          {/* <PictureInPictureMagnifier
+        <div className={styles.product}>
+          <div className={styles.image_section}>
+            {/* <PictureInPictureMagnifier
             imageSrc={data.pic[headPic]}
             imageAlt="Example"
             largeImageSrc={data.pic[headPic]} // Optional
           /> */}
-          <img
-            className={styles.header_image}
-            src={dataInfo.Images[headPic]}
-            alt={data.title}
-          />
-          <div className={styles.choose_image_wrapper}>
-            {dataInfo.Images[0] && (
-              <img
-                onClick={() => {
-                  setHeadPic(0);
-                }}
-                className={`${styles.sub_image} ${
-                  headPic === 0 ? styles.outline : ""
-                }`}
-                src={dataInfo?.Images[0]}
-                alt={dataInfo.name}
-              />
+            <img
+              className={styles.header_image}
+              src={dataInfo.Images[headPic]}
+              alt={data.title}
+            />
+            <div className={styles.choose_image_wrapper}>
+              {dataInfo.Images[0] && (
+                <img
+                  onClick={() => {
+                    setHeadPic(0);
+                  }}
+                  className={`${styles.sub_image} ${
+                    headPic === 0 ? styles.outline : ""
+                  }`}
+                  src={dataInfo?.Images[0]}
+                  alt={dataInfo.name}
+                />
+              )}
+              {dataInfo.Images[1] && (
+                <img
+                  onClick={() => {
+                    setHeadPic(1);
+                  }}
+                  className={`${styles.sub_image} ${
+                    headPic === 1 ? styles.outline : ""
+                  }`}
+                  src={dataInfo?.Images[1]}
+                  alt={dataInfo.name}
+                />
+              )}
+              {dataInfo.Images[2] && (
+                <img
+                  onClick={() => {
+                    setHeadPic(2);
+                  }}
+                  className={`${styles.sub_image} ${
+                    headPic === 2 ? styles.outline : ""
+                  }`}
+                  src={dataInfo?.Images[2]}
+                  alt={dataInfo.name}
+                />
+              )}
+            </div>
+          </div>
+          <div className={styles.desc_section}>
+            <h3 className={styles.header}>{dataInfo?.Name}</h3>
+            <div className={styles.st_line}></div>
+            <h4>
+              {dataInfo.discount ? (
+                <>
+                  <strike>Rs {dataInfo.Price} </strike>
+                  Rs {dataInfo?.newPrice}
+                </>
+              ) : (
+                ` Rs ${dataInfo?.Price}`
+              )}
+            </h4>
+            <div className={styles.button_group}>
+              <div className={styles.button_add}>
+                <button
+                  className={styles.buttons}
+                  onClick={() =>
+                    setNoOfItem((prev) => (prev != 0 ? prev - 1 : 0))
+                  }
+                >
+                  -
+                </button>
+                <button className={`${styles.buttons} ${styles.no_pointer}`}>
+                  {noOfItem}
+                </button>
+                <button
+                  className={styles.buttons}
+                  onClick={() => setNoOfItem((prev) => prev + 1)}
+                >
+                  +
+                </button>
+              </div>
+              <button className={`${styles.buttons} ${styles.add_to_cart}`}>
+                <h4> ADD TO CART</h4>
+              </button>
+              <button className={styles.buttons}>
+                <AiOutlineHeart className={styles.heart} />
+              </button>
+              {/* <button className={styles.buttons}>?</button>  -->no idea */}
+            </div>
+
+            <button
+              onClick={() => setWhich(1)}
+              className={`${styles.not_so_button} ${
+                which == 1 ? styles.toggle_active : ""
+              }`}
+            >
+              DESCRIPTION
+            </button>
+
+            <button
+              onClick={() => setWhich(2)}
+              className={`${styles.not_so_button} ${
+                which == 2 ? styles.toggle_active : ""
+              }`}
+            >
+              META INFORMATION
+            </button>
+            {which === 1 && (
+              <div className={styles.hidden_content}>
+                {dataInfo.Description}
+              </div>
             )}
-            {dataInfo.Images[1] && (
-              <img
-                onClick={() => {
-                  setHeadPic(1);
-                }}
-                className={`${styles.sub_image} ${
-                  headPic === 1 ? styles.outline : ""
-                }`}
-                src={dataInfo?.Images[1]}
-                alt={dataInfo.name}
-              />
-            )}
-            {dataInfo.Images[2] && (
-              <img
-                onClick={() => {
-                  setHeadPic(2);
-                }}
-                className={`${styles.sub_image} ${
-                  headPic === 2 ? styles.outline : ""
-                }`}
-                src={dataInfo?.Images[2]}
-                alt={dataInfo.name}
-              />
+
+            {which == 2 && (
+              <div className={styles.hidden_content}>
+                meta info Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. Delectus cum sit nam veritatis aliquid impedit ab fugiat
+                accusamus repudiandae temporibus laborum, aliquam soluta
+                mollitia, alias blanditiis harum molestias laboriosam. Eaque.
+              </div>
             )}
           </div>
         </div>
-        <div className={styles.desc_section}>
-          <h3 className={styles.header}>{dataInfo?.Name}</h3>
-          <div className={styles.st_line}></div>
-          <h4>
-            {dataInfo.discount ? (
-              <>
-                <strike>Rs {dataInfo.Price} </strike>
-                Rs {dataInfo?.newPrice}
-              </>
-            ) : (
-              ` Rs ${dataInfo?.Price}`
-            )}
-          </h4>
-          <div className={styles.button_group}>
-            <div className={styles.button_add}>
-              <button
-                className={styles.buttons}
-                onClick={() =>
-                  setNoOfItem((prev) => (prev != 0 ? prev - 1 : 0))
-                }
-              >
-                -
-              </button>
-              <button className={`${styles.buttons} ${styles.no_pointer}`}>
-                {noOfItem}
-              </button>
-              <button
-                className={styles.buttons}
-                onClick={() => setNoOfItem((prev) => prev + 1)}
-              >
-                +
-              </button>
-            </div>
-            <button className={`${styles.buttons} ${styles.add_to_cart}`}>
-              <h4> ADD TO CART</h4>
-            </button>
-            <button className={styles.buttons}>
-              <AiOutlineHeart className={styles.heart} />
-            </button>
-            {/* <button className={styles.buttons}>?</button>  -->no idea */}
-          </div>
+        <Review
+          reviews={dataInfo?.reviews}
+          averagerating={dataInfo?.AverageRating}
+          noofrating={dataInfo?.NumberRating}
+        />
 
-          <button
-            onClick={() => setWhich(1)}
-            className={`${styles.not_so_button} ${
-              which == 1 ? styles.toggle_active : ""
-            }`}
-          >
-            DESCRIPTION
-          </button>
-
-          <button
-            onClick={() => setWhich(2)}
-            className={`${styles.not_so_button} ${
-              which == 2 ? styles.toggle_active : ""
-            }`}
-          >
-            META INFORMATION
-          </button>
-          {which === 1 && (
-            <div className={styles.hidden_content}>{dataInfo.Description}</div>
-          )}
-
-          {which == 2 && (
-            <div className={styles.hidden_content}>
-              meta info Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Delectus cum sit nam veritatis aliquid impedit ab fugiat accusamus
-              repudiandae temporibus laborum, aliquam soluta mollitia, alias
-              blanditiis harum molestias laboriosam. Eaque.
-            </div>
-          )}
-        </div>
-      </div>
-      <Review reviews={dataInfo?.reviews} averagerating={dataInfo?.AverageRating} noofrating={dataInfo?.NumberRating} />
-
-      <QuestionAnswer qa={dataInfo.asks} />
+        <QuestionAnswer qa={dataInfo.asks} />
       </div>
 
       <Footer />
@@ -151,7 +157,7 @@ const Product = ({ data }) => {
 };
 export async function getServerSideProps(context) {
   const res = await fetch(
-    "http://localhost:4000/api/v1/products/" +
+    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/" +
       context.params.id
   );
   const data = await res.json();
