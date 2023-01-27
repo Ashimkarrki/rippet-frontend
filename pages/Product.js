@@ -28,7 +28,6 @@ const Product = () => {
 
   return (
     <div>
-      <Navbar />
       <div className={styles.product}>
         <div className={styles.image_section}>
           {/* <PictureInPictureMagnifier
@@ -164,7 +163,6 @@ const Product = () => {
           )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

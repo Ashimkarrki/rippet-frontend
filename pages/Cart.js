@@ -128,7 +128,6 @@ const Cart = () => {
   };
   return (
     <div>
-      <Navbar />
       <div className={styles.cartContainer}>
         <div className={styles.cart}>
           <div className={styles.item_wrapper}>
@@ -244,7 +243,6 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

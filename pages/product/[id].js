@@ -7,14 +7,12 @@ import { AiOutlineHeart } from "react-icons/ai";
 import Review from "../../components/Review";
 
 const Product = ({ data }) => {
-  const [noOfItem, setNoOfItem] = useState(0);
+  const [noOfItem, setNoOfItem] = useState(1);
   const [which, setWhich] = useState(1);
   const [headPic, setHeadPic] = useState(0);
   const dataInfo = data.data.product;
-  console.log(dataInfo);
   return (
     <div>
-      <Navbar />
       <div className={styles.productContainer}>
         <div className={styles.product}>
           <div className={styles.image_section}>
@@ -150,8 +148,6 @@ const Product = ({ data }) => {
 
         <QuestionAnswer qa={dataInfo.asks} />
       </div>
-
-      <Footer />
     </div>
   );
 };

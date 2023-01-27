@@ -55,14 +55,12 @@ export default function Home({ data }) {
   console.log(data);
   return (
     <div className={styles.home}>
-      <Navbar />
       <Banner />
       <CarouselComponent list={list1} title={"Latest Products"} />
       <CarouselComponent list={list2} title={"Popular Products"} />
       <Category list={category} />
       <CarouselComponent list={list1} title={"Most Rated Products"} />
       <Services />
-      <Footer />
     </div>
   );
 }
