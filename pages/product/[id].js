@@ -5,12 +5,15 @@ import styles from "../../styles/Product.module.css";
 import QuestionAnswer from "../../components/QuestionAnswer";
 import { AiOutlineHeart } from "react-icons/ai";
 import Review from "../../components/Review";
-
+import { useContext } from "react";
+import { cartContext } from "../../context/CartContext";
 const Product = ({ data }) => {
+  const { addToCart, state } = useContext(cartContext);
   const [noOfItem, setNoOfItem] = useState(1);
   const [which, setWhich] = useState(1);
   const [headPic, setHeadPic] = useState(0);
   const dataInfo = data.data.product;
+  console.log(state);
   return (
     <div>
       <div className={styles.productContainer}>
@@ -98,7 +101,14 @@ const Product = ({ data }) => {
                   +
                 </button>
               </div>
-              <button className={`${styles.buttons} ${styles.add_to_cart}`}>
+              <button
+                onClick={() => {
+                  addToCart({ amt: noOfItem, id: dataInfo?.id });
+                  console.log("clicked");
+                  console.log(state);
+                }}
+                className={`${styles.buttons} ${styles.add_to_cart}`}
+              >
                 <h4> ADD TO CART</h4>
               </button>
               <button className={styles.buttons}>

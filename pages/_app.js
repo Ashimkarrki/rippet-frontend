@@ -1,18 +1,14 @@
 import "../styles/globals.css";
 import { useState } from "react";
 import NavbarFooterWrapper from "../components/NavbarFooterWrapper";
-import cartContext from "../context/context";
+import CartProvider from "../context/CartContext";
 function MyApp({ Component, pageProps }) {
-  const [cart, setCart] = useState({
-    totalItem: 0,
-    value: {},
-  });
   return (
-    <cartContext.Provider value={{ cart, setCart }}>
+    <CartProvider>
       <NavbarFooterWrapper>
         <Component {...pageProps} />
       </NavbarFooterWrapper>
-    </cartContext.Provider>
+    </CartProvider>
   );
 }
 
