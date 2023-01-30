@@ -4,14 +4,14 @@ import Googlelogo from "../public/google.png";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios"
+import axios from "axios";
 const LoginComponent = () => {
-  const router = useRouter()
-  const URL = "http://localhost:4000/"
+  const router = useRouter();
+  const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
 
   const [userData, setuserData] = useState({
     Email: "",
-    Password: ""
+    Password: "",
   });
 
   const change = (e) => {
@@ -21,19 +21,22 @@ const LoginComponent = () => {
     });
   };
 
-  const submitHandler = async (e) =>{
+  const submitHandler = async (e) => {
     e.preventDefault();
-    const instance = await axios.create({
+    const instance = axios.create({
       withCredentials: true,
-      headers: {authorization: "Bearer"}
-    })
-    instance.post(`${URL}api/v1/users/login`,userData ).then((data)=>{
-      console.log(data)
-      router.push('/');
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
+      headers: { authorization: "Bearer" },
+    });
+    instance
+      .post(`${URL}api/v1/users/login`, userData)
+      .then((data) => {
+        console.log(data);
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className={style.FormContainer}>

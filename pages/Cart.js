@@ -1,87 +1,31 @@
 import React, { useState } from "react";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+
 import esewa from "../public/esewa.webp";
 import Image from "next/image";
+import useSWR from "swr";
+import { useContext } from "react";
 import styles from "../styles/Cart.module.css";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-// import MdDelete from "react-icons/md";
-/*
-const addQuantity = async() =>{
-        if(quantityState<5){
-            let passingArgument = {
-                productId: data.productId._id,
-                _id:data._id,
-                quantity: quantityState+1 
-            }   
-            const instance = await axios.create({
-                withCredentials: true
-            })
-              instance.patch(${URL}api/v1/cart,passingArgument).then((data)=>{
-                console.log(data?.data?.data?.updateUser?.Cart, "hes")
-                const Amount = calculatingAmout(data?.data?.data?.updateUser?.Cart)
-                const passingArgument =
-                { Cart: data?.data?.data?.updateUser?.Cart,
-                  Amount
-                }
-                dispatch({type: "ADDSUB_CART",
-                        payload: passingArgument
-                    });
-            setQuantityState((prev)=> {
-                return(prev + 1)});
-              });
-        }else{
-            setQuantityState(5)
-        }
-    }
-    
-    const subQuantity = async() =>{
-        if((quantityState>1)){
-            let passingArgument = {
-                productId: data.productId._id,
-                _id:data._id,
-                quantity: quantityState-1 
-            }
-            const instance = await axios.create({
-                withCredentials: true
-            })
-              instance.patch(${URL}api/v1/cart,passingArgument).then((data)=>{
-                const Amount = calculatingAmout(data?.data?.data?.updateUser?.Cart)
-                const passingArgument =
-                { Cart: data?.data?.data?.updateUser?.Cart,
-                  Amount
-                }
-                dispatch({type: "ADDSUB_CART",
-                        payload: passingArgument
-            })
-            setQuantityState((prev)=> {return(prev - 1)});
-              });
-        }else{
-            setQuantityState(1)
-        }
-    }
+import axios from "axios";
+import { cartContext } from "../context/CartContext";
+import MdDelete from "react-icons/md";
 
-
-    const deleteHandler = async(e) =>{
-        console.log(data._id, "hello world")
-        let CartId = data._id;
-        e.preventDefault();
-        const instance = await axios.create({
-            withCredentials: true
-          })
-          instance.post(${URL}api/v1/cart/delete/${CartId}).then((data)=>{
-            console.log(data.data.data.Cart)
-
-            const Amount = calculatingAmout(data.data.data.Cart)
-            const passingArgument = {
-                Cart:data?.data?.data?.Cart,
-                Amount: Amount
-            }
-            dispatch({type:"UPDATE__CART", payload:passingArgument})
-
-          });
-    }*/
 const Cart = () => {
+  const { addToCart, cartInfo } = useContext(cartContext);
+  const { dat, error, isLoading } = useSWR(
+    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/carts",
+    (url) => {
+      axios
+        .get(url)
+        .then((res) => {
+          addToCart(res.data.data.AllCart);
+          console.log(res.data.data.AllCart);
+          return res.data.data.AllCart;
+        })
+        .catch((err) => console.log(err.response.data.message));
+    }
+  );
+
   const [data, setData] = useState([
     {
       id: 1,
@@ -126,6 +70,9 @@ const Cart = () => {
     }
     return sum;
   };
+  if (isLoading) return <h1>Loading.....</h1>;
+  if (error) return <h1>{error}</h1>;
+  else return <h1>hello</h1>;
   return (
     <div>
       <div className={styles.cartContainer}>
@@ -134,8 +81,8 @@ const Cart = () => {
             <h3 className={styles.cartprimaryheading}>
               YOUR CART ({data.length})
             </h3>
-            {data.map(
-              ({ id, pic, title, price, discount, newPrice, inCart }) => {
+            {cartInfo.map(
+              ({ id, pic, title, price, discount, newPrice, quantity }) => {
                 return (
                   <div key={id} className={styles.item}>
                     <div className={styles.imagetextcart}>
@@ -187,7 +134,7 @@ const Cart = () => {
                           >
                             -
                           </button>
-                          <button className={styles.button}>{inCart}</button>
+                          <button className={styles.button}>{quantity}</button>
                           <button
                             className={styles.button}
                             onClick={() => {

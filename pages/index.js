@@ -50,9 +50,10 @@ export default function Home({ data }) {
   const list2 = lists.filter((s, i) => {
     return i >= data.results / 2;
   });
+  axios.defaults.baseURL =
+    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/";
 
   axios.defaults.withCredentials = true;
-  console.log(data);
   return (
     <div className={styles.home}>
       <Banner />

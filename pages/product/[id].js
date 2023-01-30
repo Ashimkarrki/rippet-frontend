@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 import styles from "../../styles/Product.module.css";
 import QuestionAnswer from "../../components/QuestionAnswer";
 import { AiOutlineHeart } from "react-icons/ai";
 import Review from "../../components/Review";
 import { useContext } from "react";
 import { cartContext } from "../../context/CartContext";
+import axios from "axios";
 const Product = ({ data }) => {
   const { addToCart, state } = useContext(cartContext);
   const [noOfItem, setNoOfItem] = useState(1);
   const [which, setWhich] = useState(1);
   const [headPic, setHeadPic] = useState(0);
   const dataInfo = data.data.product;
-  console.log(state);
   return (
     <div>
       <div className={styles.productContainer}>
@@ -102,10 +100,14 @@ const Product = ({ data }) => {
                 </button>
               </div>
               <button
-                onClick={() => {
-                  addToCart({ amt: noOfItem, id: dataInfo?.id });
-                  console.log("clicked");
-                  console.log(state);
+                onClick={async () => {
+                  const res = await axios.post("/carts", {
+                    productId: dataInfo.id,
+                    quantity: noOfItem,
+                  });
+
+                  console.log(res.data.data.Cart);
+                  addToCart(res.data.data.Cart);
                 }}
                 className={`${styles.buttons} ${styles.add_to_cart}`}
               >

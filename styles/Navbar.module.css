@@ -56,13 +56,14 @@
   padding: 0.8rem 0;
   padding-left: 9%;
   background: #1f4c94;
-  gap: 1rem;
+  justify-content: space-around;
   font-size: small;
 }
 .first_element {
   display: flex;
+  background: red;
   gap: 1rem;
-  margin-right: 7rem;
+  /* margin-right: 7rem; */
 }
 .icon {
   font-size: 1.2rem;
@@ -71,11 +72,11 @@
   font-size: 1.2rem;
 }
 
-.Linktext{
+.Linktext {
   display: flex;
   gap: 2rem;
 }
-.textStlingLink{
+.textStlingLink {
   font-size: 1rem;
   font-weight: 500;
 }
