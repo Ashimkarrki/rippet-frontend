@@ -11,18 +11,24 @@ import { cartContext } from "../context/CartContext";
 import MdDelete from "react-icons/md";
 
 const Cart = () => {
+  const shipping = 50;
+  const tax = 13;
+  const instance = axios.create({
+    withCredentials: true,
+    headers: { authorization: "Bearer" },
+  });
   const { addToCart, cartInfo } = useContext(cartContext);
   const { dat, error, isLoading } = useSWR(
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/carts",
-    (url) => {
-      axios
+    async (url) => {
+      return instance
         .get(url)
         .then((res) => {
           addToCart(res.data.data.AllCart);
-          console.log(res.data.data.AllCart);
+          // console.log(res.data.data.AllCart);
           return res.data.data.AllCart;
         })
-        .catch((err) => console.log(err.response.data.message));
+        .catch((err) => err);
     }
   );
 
@@ -59,43 +65,55 @@ const Cart = () => {
     },
   ]);
   const total = () => {
-    let array = data.map((s) => {
-      return s.inCart * s.newPrice;
+    let array = cartInfo.items.map((s) => {
+      return s.quantity * s.ProductId?.newPrice
+        ? s.newPrice
+        : s.productId.Price;
     });
     let sum;
-    if (!array) {
-      sum = array?.reduce((total, current) => total + current);
+    if (array[0]) {
+      sum = array.reduce((total, current) => total + current);
     } else {
       sum = 0;
     }
     return sum;
   };
   if (isLoading) return <h1>Loading.....</h1>;
-  if (error) return <h1>{error}</h1>;
-  else return <h1>hello</h1>;
+  console.log(error);
+  // if (error) return <h1>{error.message}</h1>;
+  // else return <h1>hello</h1>;
   return (
     <div>
       <div className={styles.cartContainer}>
         <div className={styles.cart}>
           <div className={styles.item_wrapper}>
             <h3 className={styles.cartprimaryheading}>
-              YOUR CART ({data.length})
+              YOUR CART ({cartInfo.items.length})
             </h3>
-            {cartInfo.map(
-              ({ id, pic, title, price, discount, newPrice, quantity }) => {
+            {/* here _id is cart id and id is productId */}
+            {cartInfo.items.map(
+              ({
+                _id,
+                productId: { MainImage, Name, discount, Price, newPrice, id },
+                quantity,
+              }) => {
                 return (
-                  <div key={id} className={styles.item}>
+                  <div key={_id} className={styles.item}>
                     <div className={styles.imagetextcart}>
-                      <img className={styles.image} src={pic} alt="products" />
+                      <img
+                        className={styles.image}
+                        src={MainImage}
+                        alt="products"
+                      />
                       <div className={styles.deletebuttonandtext}>
-                        <h4 className={styles.carttitle}>{title}</h4>
+                        <h4 className={styles.carttitle}>{Name}</h4>
                         <button
                           className={styles.deletebutton}
-                          onClick={() => {
-                            setData((prev) => {
-                              let temp = prev.filter((s) => s.id !== id);
-                              return temp;
-                            });
+                          onClick={async () => {
+                            const res = await instance.delete(
+                              "carts/delete/" + _id
+                            );
+                            addToCart(res.data.data);
                           }}
                         >
                           <RiDeleteBin6Fill className={styles.delete_icon} />
@@ -107,29 +125,27 @@ const Cart = () => {
                         {discount ? (
                           <>
                             <strike className={styles.discounttext}>
-                              Rs. {price}{" "}
+                              Rs. {Price}{" "}
                             </strike>
                             Rs. {newPrice}
                           </>
                         ) : (
-                          ` Rs. ${price}`
+                          ` Rs. ${Price}`
                         )}
                       </h5>
                       <div className={styles.button_group}>
                         <div>
                           <button
                             className={styles.button}
-                            onClick={() => {
-                              let temp = data.map((s) => {
-                                if (s.id === id && s.inCart !== 1) {
-                                  return {
-                                    ...s,
-                                    inCart: s.inCart - 1,
-                                  };
-                                }
-                                return s;
-                              });
-                              setData(temp);
+                            onClick={async () => {
+                              if (!(quantity <= 1)) {
+                                const res = await instance.patch("/carts", {
+                                  productId: id,
+                                  quantity: quantity - 1,
+                                  _id: _id,
+                                });
+                                addToCart(res.data.data.UpdateCart);
+                              }
                             }}
                           >
                             -
@@ -137,17 +153,13 @@ const Cart = () => {
                           <button className={styles.button}>{quantity}</button>
                           <button
                             className={styles.button}
-                            onClick={() => {
-                              let temp = data.map((s) => {
-                                if (s.id === id && s.inCart !== 1) {
-                                  return {
-                                    ...s,
-                                    inCart: s.inCart + 1,
-                                  };
-                                }
-                                return s;
+                            onClick={async () => {
+                              const res = await instance.patch("/carts", {
+                                productId: id,
+                                quantity: quantity + 1,
+                                _id: _id,
                               });
-                              setData(temp);
+                              addToCart(res.data.data.UpdateCart);
                             }}
                           >
                             +
@@ -170,15 +182,17 @@ const Cart = () => {
             </div>
             <div className={styles.shipping}>
               <p className={styles.shippingPrimary}>SHIPPING CHARGE</p>
-              <p className={styles.shippingSecondary}>Rs. 0</p>
+              <p className={styles.shippingSecondary}>Rs. {shipping}</p>
             </div>
             <div className={styles.tax}>
               <p className={styles.taxPrimary}>TAX</p>
-              <p className={styles.taxSecondary}>Rs. 0</p>
+              <p className={styles.taxSecondary}>Rs. {tax}</p>
             </div>
             <div className={styles.total}>
               <p className={styles.totalPrimary}>TOTAL</p>
-              <p className={styles.totalSecondary}>Rs. {total()}</p>
+              <p className={styles.totalSecondary}>
+                Rs. {total() - shipping - (tax / 100) * total()}
+              </p>
             </div>
             <div className={styles.submitProducts}>
               <button className={styles.checkoutbutton}>CHECKOUT</button>

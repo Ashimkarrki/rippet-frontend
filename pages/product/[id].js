@@ -105,9 +105,7 @@ const Product = ({ data }) => {
                     productId: dataInfo.id,
                     quantity: noOfItem,
                   });
-
-                  console.log(res.data.data.Cart);
-                  addToCart(res.data.data.Cart);
+                  addToCart(res.data.data);
                 }}
                 className={`${styles.buttons} ${styles.add_to_cart}`}
               >
