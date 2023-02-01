@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-import { useState } from "react";
 import axios from "axios";
 import NavbarFooterWrapper from "../components/NavbarFooterWrapper";
 import CartProvider from "../context/CartContext";

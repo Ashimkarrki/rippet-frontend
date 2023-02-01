@@ -25,7 +25,6 @@ const Cart = () => {
         .get(url)
         .then((res) => {
           addToCart(res.data.data.AllCart);
-          // console.log(res.data.data.AllCart);
           return res.data.data.AllCart;
         })
         .catch((err) => err);

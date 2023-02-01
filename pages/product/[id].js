@@ -3,15 +3,14 @@ import styles from "../../styles/Product.module.css";
 import QuestionAnswer from "../../components/QuestionAnswer";
 import { AiOutlineHeart } from "react-icons/ai";
 import Review from "../../components/Review";
-import { useContext } from "react";
-import { cartContext } from "../../context/CartContext";
 import axios from "axios";
 const Product = ({ data }) => {
-  const { addToCart, state } = useContext(cartContext);
   const [noOfItem, setNoOfItem] = useState(1);
   const [which, setWhich] = useState(1);
   const [headPic, setHeadPic] = useState(0);
-  const dataInfo = data.data.product;
+  const [dataInfo, setDataInfo] = useState(data.data.product);
+
+  console.log(dataInfo);
   return (
     <div>
       <div className={styles.productContainer}>
@@ -154,9 +153,17 @@ const Product = ({ data }) => {
           reviews={dataInfo?.reviews}
           averagerating={dataInfo?.AverageRating}
           noofrating={dataInfo?.NumberRating}
+          id={dataInfo.id}
+          dataInfo={dataInfo}
+          setDataInfo={setDataInfo}
         />
 
-        <QuestionAnswer qa={dataInfo.asks} />
+        <QuestionAnswer
+          qa={dataInfo.asks}
+          id={dataInfo.id}
+          dataInfo={dataInfo}
+          setDataInfo={setDataInfo}
+        />
       </div>
     </div>
   );

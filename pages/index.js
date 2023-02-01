@@ -1,13 +1,8 @@
-import Head from "next/head";
-import Image from "next/image";
-import cat from "../public/cat.jpg";
 import Banner from "../components/Banner";
 import axios from "axios";
-import Navbar from "../components/Navbar";
 import styles from "../styles/Home.module.css";
 import CarouselComponent from "../components/CarouselComponent";
 import Services from "../components/Services";
-import Footer from "../components/Footer";
 import Category from "../components/Category";
 export default function Home({ data }) {
   const category = [

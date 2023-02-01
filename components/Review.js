@@ -2,18 +2,25 @@ import styles from "../styles/Review.module.css";
 import Star from "./Star";
 import StarRatingComponent from "react-rating-stars-component";
 import { useState } from "react";
-const Review = ({ reviews, averagerating, noofrating }) => {
+import axios from "axios";
+const Review = ({
+  reviews,
+  dataInfo,
+  setDataInfo,
+  averagerating,
+  noofrating,
+  id,
+}) => {
   const [createReviewData, setCreateReviewData] = useState({
     review: "",
     rating: 5,
   });
-
-  const reviewChangeHandler = (next, prev, name) => {
+  console.log(dataInfo);
+  const reviewChangeHandler = (rating) => {
     setCreateReviewData((data) => {
-      return { ...createReviewData, [name]: next };
+      return { ...data, rating };
     });
   };
-  // console.log(reviews);
   return (
     <div className={styles.review}>
       <h3 className={styles.reviewprimaryheading}>Review</h3>
@@ -30,6 +37,12 @@ const Review = ({ reviews, averagerating, noofrating }) => {
           <input
             className={styles.reviewinput}
             type="text"
+            value={createReviewData.review ? createReviewData.review : ""}
+            onChange={(e) => {
+              setCreateReviewData((data) => {
+                return { ...data, review: e.target.value };
+              });
+            }}
             placeholder="Submit Your Review"
           />
           <StarRatingComponent
@@ -37,9 +50,32 @@ const Review = ({ reviews, averagerating, noofrating }) => {
             value={createReviewData.rating}
             starColor={"#faca51"}
             className={styles.createreviewicon}
-            onStarClick={reviewChangeHandler}
+            onChange={reviewChangeHandler}
           />
-          <button className={styles.reviewbutton}>Submit</button>
+          <button
+            className={styles.reviewbutton}
+            onClick={async () => {
+              const instance = axios.create({
+                withCredentials: true,
+                headers: { authorization: "Bearer" },
+              });
+
+              try {
+                const res = await instance.post("products/" + id + "/reviews", {
+                  ...createReviewData,
+                });
+                let temp = { ...dataInfo };
+                temp.reviews = res.data.data.newReview;
+                console.log(res.data.data);
+                setDataInfo(temp);
+                setCreateReviewData({ review: "", rating: 5 });
+              } catch (err) {
+                console.log(err);
+              }
+            }}
+          >
+            Submit
+          </button>
         </div>
         <div></div>
       </div>
