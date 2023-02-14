@@ -4,7 +4,9 @@ import styles from "../styles/Home.module.css";
 import CarouselComponent from "../components/CarouselComponent";
 import Services from "../components/Services";
 import Category from "../components/Category";
+import useFetchUser from "../features/fetchUser";
 export default function Home({ data }) {
+  const { isLoading, isError, error } = useFetchUser();
   const category = [
     {
       id: 0,

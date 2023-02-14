@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { userContext } from "../context/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import { BsSearch, BsBag, BsFillBagFill } from "react-icons/bs";
@@ -11,7 +12,9 @@ import {
 import { RiAccountCircleLine, RiAccountCircleFill } from "react-icons/ri";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
+import useFetchUser from "../features/fetchUser";
 const Navbar = () => {
+  const { cartInfo } = useContext(userContext);
   return (
     <nav className={styles.nav}>
       <div className={styles.upper_nav}>
@@ -34,8 +37,9 @@ const Navbar = () => {
           <button className={styles.icons}>
             <AiOutlineHeart className={styles.navbar_icons} />
           </button>
-          <button className={styles.icons}>
+          <button className={`${styles.icons} ${styles.relative}`}>
             <Link href="/Cart">
+              <h5 className={styles.cart_no}>{cartInfo.results}</h5>
               <BsBag className={styles.navbar_icons} />
             </Link>
           </button>
@@ -48,12 +52,12 @@ const Navbar = () => {
           <AiOutlineDown className={styles.icon} />
         </div>
         <div className={styles.Linktext}>
-        <h3 className={styles.textStlingLink}>Home</h3>
-        <h3 className={styles.textStlingLink}>Shop</h3>
-        <h3 className={styles.textStlingLink}>Books For Rent</h3>
-        <h3 className={styles.textStlingLink}>Digital Study Material</h3>
-        <h3 className={styles.textStlingLink}>Available Roooms</h3>
-        <h3 className={styles.textStlingLink}>Contact Us</h3>
+          <h3 className={styles.textStlingLink}>Home</h3>
+          <h3 className={styles.textStlingLink}>Shop</h3>
+          <h3 className={styles.textStlingLink}>Books For Rent</h3>
+          <h3 className={styles.textStlingLink}>Digital Study Material</h3>
+          <h3 className={styles.textStlingLink}>Available Roooms</h3>
+          <h3 className={styles.textStlingLink}>Contact Us</h3>
         </div>
       </div>
     </nav>

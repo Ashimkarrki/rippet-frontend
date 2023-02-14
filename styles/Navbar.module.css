@@ -80,3 +80,15 @@
   font-size: 1rem;
   font-weight: 500;
 }
+.cart_no {
+  position: absolute;
+  top: -1rem;
+  right: -1.3rem;
+  background-color: #ffb327;
+  padding: 7px;
+  border-radius: 1rem;
+  width: 2rem;
+}
+.relative {
+  position: relative;
+}

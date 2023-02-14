@@ -1,26 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import styles from "../../styles/Product.module.css";
 import QuestionAnswer from "../../components/QuestionAnswer";
 import { AiOutlineHeart } from "react-icons/ai";
 import Review from "../../components/Review";
+import { useContext } from "react";
+import { userContext } from "../../context/userContext";
+import useFetchUser from "../../features/fetchUser";
+import useSWR from "swr";
 import axios from "axios";
 const Product = ({ data }) => {
+  const { isLoading, isError, error } = useFetchUser();
+  const instance = axios.create({
+    withCredentials: true,
+    headers: { authorization: "Bearer" },
+  });
   const [noOfItem, setNoOfItem] = useState(1);
   const [which, setWhich] = useState(1);
   const [headPic, setHeadPic] = useState(0);
+  const [reviewsInfo, setReviewsInfo] = useState({});
+  const { addToCart, cartInfo } = useContext(userContext);
   const [dataInfo, setDataInfo] = useState(data.data.product);
-
-  console.log(dataInfo);
+  const [cartId, setCartId] = useState();
+  const ispresent = useMemo(() => {
+    console.log("run");
+    let x = false;
+    cartInfo.items.map((s) => {
+      if (s.id === dataInfo.id) {
+        x = true;
+        setCartId(s.cartId);
+      }
+    });
+    return x;
+  }, [cartInfo, dataInfo.id]);
+  console.log(ispresent);
   return (
     <div>
       <div className={styles.productContainer}>
         <div className={styles.product}>
           <div className={styles.image_section}>
-            {/* <PictureInPictureMagnifier
-            imageSrc={data.pic[headPic]}
-            imageAlt="Example"
-            largeImageSrc={data.pic[headPic]} // Optional
-          /> */}
             <img
               className={styles.header_image}
               src={dataInfo.Images[headPic]}
@@ -78,43 +95,68 @@ const Product = ({ data }) => {
                 ` Rs ${dataInfo?.Price}`
               )}
             </h4>
-            <div className={styles.button_group}>
-              <div className={styles.button_add}>
+            {!ispresent ? (
+              <div className={styles.button_group}>
+                <div className={styles.button_add}>
+                  <button
+                    className={styles.buttons}
+                    onClick={() =>
+                      setNoOfItem((prev) => (prev != 0 ? prev - 1 : 0))
+                    }
+                  >
+                    -
+                  </button>
+                  <button className={`${styles.buttons} ${styles.no_pointer}`}>
+                    {noOfItem}
+                  </button>
+                  <button
+                    className={styles.buttons}
+                    onClick={() => setNoOfItem((prev) => prev + 1)}
+                  >
+                    +
+                  </button>
+                </div>
                 <button
-                  className={styles.buttons}
-                  onClick={() =>
-                    setNoOfItem((prev) => (prev != 0 ? prev - 1 : 0))
-                  }
+                  onClick={async () => {
+                    try {
+                      const res = await instance.post("/carts", {
+                        productId: dataInfo.id,
+                        quantity: noOfItem,
+                      });
+                      addToCart(res.data.data);
+                    } catch (error) {
+                      console.log(error.message);
+                    }
+                  }}
+                  className={`${styles.buttons} ${styles.add_to_cart}`}
                 >
-                  -
+                  <h4> ADD TO CART</h4>
                 </button>
-                <button className={`${styles.buttons} ${styles.no_pointer}`}>
-                  {noOfItem}
+                <button className={styles.buttons}>
+                  <AiOutlineHeart className={styles.heart} />
                 </button>
+                {/* <button className={styles.buttons}>?</button>  -->no idea */}
+              </div>
+            ) : (
+              <div className={styles.added_to_cart_container}>
                 <button
-                  className={styles.buttons}
-                  onClick={() => setNoOfItem((prev) => prev + 1)}
+                  className={`${styles.add_to_cart} ${styles.added_to_cart}`}
+                  onClick={async () => {
+                    try {
+                      const res = await instance.delete(
+                        "carts/delete/" + cartId
+                      );
+                      setCartId();
+                      addToCart(res.data.data);
+                    } catch (error) {
+                      console.log(error.message);
+                    }
+                  }}
                 >
-                  +
+                  <h4>ADDED TO CART</h4>
                 </button>
               </div>
-              <button
-                onClick={async () => {
-                  const res = await axios.post("/carts", {
-                    productId: dataInfo.id,
-                    quantity: noOfItem,
-                  });
-                  addToCart(res.data.data);
-                }}
-                className={`${styles.buttons} ${styles.add_to_cart}`}
-              >
-                <h4> ADD TO CART</h4>
-              </button>
-              <button className={styles.buttons}>
-                <AiOutlineHeart className={styles.heart} />
-              </button>
-              {/* <button className={styles.buttons}>?</button>  -->no idea */}
-            </div>
+            )}
 
             <button
               onClick={() => setWhich(1)}
@@ -156,6 +198,8 @@ const Product = ({ data }) => {
           id={dataInfo.id}
           dataInfo={dataInfo}
           setDataInfo={setDataInfo}
+          reviewsInfo={reviewsInfo}
+          setReviewsInfo={setReviewsInfo}
         />
 
         <QuestionAnswer

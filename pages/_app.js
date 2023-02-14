@@ -1,17 +1,17 @@
 import "../styles/globals.css";
 import axios from "axios";
 import NavbarFooterWrapper from "../components/NavbarFooterWrapper";
-import CartProvider from "../context/CartContext";
+import UserProvider from "../context/userContext";
 function MyApp({ Component, pageProps }) {
   axios.defaults.baseURL =
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/";
 
   return (
-    <CartProvider>
+    <UserProvider>
       <NavbarFooterWrapper>
         <Component {...pageProps} />
       </NavbarFooterWrapper>
-    </CartProvider>
+    </UserProvider>
   );
 }
 

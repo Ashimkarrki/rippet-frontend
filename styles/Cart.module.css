@@ -1,8 +1,7 @@
 .image {
   width: 8rem;
-  height: 8rem;
-  object-fit: cover;
-  margin-right: 1rem;
+  aspect-ratio: 3/4;
+  object-fit: contain;
 }
 .item_wrapper {
   display: flex;
@@ -40,6 +39,9 @@
   justify-content: space-between;
 
   /* align-items: stretch; */
+}
+.item:hover {
+  border-color: #ffff42;
 }
 .item_info {
   display: flex;

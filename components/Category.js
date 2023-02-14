@@ -72,7 +72,6 @@ const Category = ({ list }) => {
       </div>
       <div className={styles.category}>
         <Slider {...settings}>
-          {console.log(list)}
           {list.map(({ id, pic, name }) => {
             return (
               <div className={styles.category_item} key={id}>

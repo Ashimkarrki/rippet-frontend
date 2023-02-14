@@ -1,103 +1,57 @@
 import React, { useState } from "react";
-
+import Link from "next/link";
 import esewa from "../public/esewa.webp";
 import Image from "next/image";
-import useSWR from "swr";
+import useFetchUser from "../features/fetchUser";
 import { useContext } from "react";
 import styles from "../styles/Cart.module.css";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import axios from "axios";
-import { cartContext } from "../context/CartContext";
-import MdDelete from "react-icons/md";
-
+import { userContext } from "../context/userContext";
 const Cart = () => {
+  const { isLoading, isError, error } = useFetchUser();
+
   const shipping = 50;
   const tax = 13;
   const instance = axios.create({
     withCredentials: true,
     headers: { authorization: "Bearer" },
   });
-  const { addToCart, cartInfo } = useContext(cartContext);
-  const { dat, error, isLoading } = useSWR(
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/carts",
-    async (url) => {
-      return instance
-        .get(url)
-        .then((res) => {
-          addToCart(res.data.data.AllCart);
-          return res.data.data.AllCart;
-        })
-        .catch((err) => err);
-    }
-  );
-
-  const [data, setData] = useState([
-    {
-      id: 1,
-      pic: "https://imgs.search.brave.com/FeG4AY80eOpItgJx6fMGVKEBmdkuuA9P0mEATDDFhBU/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93ZWJz/dG9ja3Jldmlldy5u/ZXQvaW1hZ2VzL2Ns/aXBhcnQtYm9vay1w/ZGYtMTgucG5n",
-      title:
-        "Windproof/Water Repellent/ Fleece Lined Anti-Skid Touchscreen Winter Gloves For Bike",
-      price: 550,
-      discount: 70,
-      newPrice: 480,
-      inCart: 2,
-    },
-    {
-      id: 2,
-      pic: "https://imgs.search.brave.com/FeG4AY80eOpItgJx6fMGVKEBmdkuuA9P0mEATDDFhBU/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93ZWJz/dG9ja3Jldmlldy5u/ZXQvaW1hZ2VzL2Ns/aXBhcnQtYm9vay1w/ZGYtMTgucG5n",
-      title:
-        "Windproof/Water Repellent/ Fleece Lined Anti-Skid Touchscreen Winter Gloves For Bike",
-      price: 220,
-      discount: 10,
-      newPrice: 210,
-      inCart: 5,
-    },
-    {
-      id: 3,
-      pic: "https://imgs.search.brave.com/FeG4AY80eOpItgJx6fMGVKEBmdkuuA9P0mEATDDFhBU/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93ZWJz/dG9ja3Jldmlldy5u/ZXQvaW1hZ2VzL2Ns/aXBhcnQtYm9vay1w/ZGYtMTgucG5n",
-      title:
-        "Windproof/Water Repellent/ Fleece Lined Anti-Skid Touchscreen Winter Gloves For Bike",
-      price: 1000,
-      discount: 100,
-      newPrice: 990,
-      inCart: 2,
-    },
-  ]);
+  const { addToCart, cartInfo } = useContext(userContext);
   const total = () => {
+    let sum = 0;
     let array = cartInfo.items.map((s) => {
-      return s.quantity * s.ProductId?.newPrice
-        ? s.newPrice
-        : s.productId.Price;
+      return s.quantity * (s.newPrice ? s.newPrice : s.Price);
     });
-    let sum;
     if (array[0]) {
       sum = array.reduce((total, current) => total + current);
-    } else {
-      sum = 0;
     }
     return sum;
   };
+  console.log(isLoading);
   if (isLoading) return <h1>Loading.....</h1>;
-  console.log(error);
-  // if (error) return <h1>{error.message}</h1>;
-  // else return <h1>hello</h1>;
+  if (error) return <h1>{error.message}</h1>;
   return (
     <div>
       <div className={styles.cartContainer}>
         <div className={styles.cart}>
           <div className={styles.item_wrapper}>
             <h3 className={styles.cartprimaryheading}>
-              YOUR CART ({cartInfo.items.length})
+              YOUR CART ({cartInfo?.results})
             </h3>
-            {/* here _id is cart id and id is productId */}
             {cartInfo.items.map(
               ({
-                _id,
-                productId: { MainImage, Name, discount, Price, newPrice, id },
+                MainImage,
+                Name,
+                discount,
+                Price,
+                newPrice,
+                id,
+                cartId,
                 quantity,
               }) => {
                 return (
-                  <div key={_id} className={styles.item}>
+                  <div href={"/product/" + id} key={id} className={styles.item}>
                     <div className={styles.imagetextcart}>
                       <img
                         className={styles.image}
@@ -105,13 +59,16 @@ const Cart = () => {
                         alt="products"
                       />
                       <div className={styles.deletebuttonandtext}>
-                        <h4 className={styles.carttitle}>{Name}</h4>
+                        <Link href={"/product/" + id}>
+                          <h4 className={styles.carttitle}>{Name}</h4>
+                        </Link>
                         <button
                           className={styles.deletebutton}
                           onClick={async () => {
                             const res = await instance.delete(
-                              "carts/delete/" + _id
+                              "carts/delete/" + cartId
                             );
+                            console.log(res.data.data);
                             addToCart(res.data.data);
                           }}
                         >
@@ -141,7 +98,7 @@ const Cart = () => {
                                 const res = await instance.patch("/carts", {
                                   productId: id,
                                   quantity: quantity - 1,
-                                  _id: _id,
+                                  _id: cartId,
                                 });
                                 addToCart(res.data.data.UpdateCart);
                               }
@@ -156,7 +113,7 @@ const Cart = () => {
                               const res = await instance.patch("/carts", {
                                 productId: id,
                                 quantity: quantity + 1,
-                                _id: _id,
+                                _id: cartId,
                               });
                               addToCart(res.data.data.UpdateCart);
                             }}
