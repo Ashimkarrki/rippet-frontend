@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-export const SignUpComponent = () => { 
+export const SignUpComponent = () => {
   const router = useRouter();
-  const URL = "http://localhost:4000/"
+  const URL = "http://localhost:4000/";
 
   const [userData, setuserData] = useState({
     Username: "",
@@ -21,21 +21,21 @@ export const SignUpComponent = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const submitHandler = async (e) =>{
+  const submitHandler = async (e) => {
     e.preventDefault();
     const instance = await axios.create({
       withCredentials: true,
-      headers: {authorization: "Bearer"}
-    })
-    instance.post(`${URL}api/v1/users/signup`,userData ).then((data)=>{
-      router.push('/');
-    }).catch((err)=>{
-      console.log(err)
-    })
-  }
-  
-  
-  
+      headers: { authorization: "Bearer" },
+    });
+    instance
+      .post(`${URL}api/v1/users/signup`, userData)
+      .then((data) => {
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className={style.FormContainer}>
       <form className={style.FormSubContainer} onSubmit={submitHandler}>
