@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@uiball/loaders": "^1.2.6",
     "axios": "^1.2.2",
     "better-react-carousel": "^1.1.1",
     "next": "13.1.1",

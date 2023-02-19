@@ -41,6 +41,10 @@
   width: 75%;
   margin: 0 auto 0 auto;
   color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 .cart:hover {
   color: black;

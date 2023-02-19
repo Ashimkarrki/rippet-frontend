@@ -6,7 +6,6 @@ import Review from "../../components/Review";
 import { useContext } from "react";
 import { userContext } from "../../context/userContext";
 import useFetchUser from "../../features/fetchUser";
-import useSWR from "swr";
 import axios from "axios";
 const Product = ({ data }) => {
   const { isLoading, isError, error } = useFetchUser();
@@ -22,7 +21,7 @@ const Product = ({ data }) => {
   const [dataInfo, setDataInfo] = useState(data.data.product);
   const [cartId, setCartId] = useState();
   const ispresent = useMemo(() => {
-    console.log("run");
+    console.log("in memo");
     let x = false;
     cartInfo.items.map((s) => {
       if (s.id === dataInfo.id) {
@@ -32,7 +31,6 @@ const Product = ({ data }) => {
     });
     return x;
   }, [cartInfo, dataInfo.id]);
-  console.log(ispresent);
   return (
     <div>
       <div className={styles.productContainer}>
