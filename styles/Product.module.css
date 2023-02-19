@@ -67,6 +67,9 @@
   background-color: #ffd200;
   padding-left: 0.8rem;
   padding-right: 0.8rem;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
 }
 .not_so_button {
   border: none;

@@ -6,8 +6,10 @@ import Review from "../../components/Review";
 import { useContext } from "react";
 import { userContext } from "../../context/userContext";
 import useFetchUser from "../../features/fetchUser";
+import { DotSpinner } from "@uiball/loaders";
 import axios from "axios";
 const Product = ({ data }) => {
+  const [isCartLoading, setIsCartLoading] = useState(false);
   const { isLoading, isError, error } = useFetchUser();
   const instance = axios.create({
     withCredentials: true,
@@ -116,19 +118,25 @@ const Product = ({ data }) => {
                 </div>
                 <button
                   onClick={async () => {
+                    setIsCartLoading(true);
                     try {
                       const res = await instance.post("/carts", {
                         productId: dataInfo.id,
                         quantity: noOfItem,
                       });
                       addToCart(res.data.data);
+                      setIsCartLoading(false);
                     } catch (error) {
                       console.log(error.message);
                     }
                   }}
                   className={`${styles.buttons} ${styles.add_to_cart}`}
                 >
-                  <h4> ADD TO CART</h4>
+                  {isCartLoading ? (
+                    <DotSpinner color="#231F20" size={25} />
+                  ) : (
+                    <h4> ADD TO CART</h4>
+                  )}
                 </button>
                 <button className={styles.buttons}>
                   <AiOutlineHeart className={styles.heart} />
@@ -140,18 +148,24 @@ const Product = ({ data }) => {
                 <button
                   className={`${styles.add_to_cart} ${styles.added_to_cart}`}
                   onClick={async () => {
+                    setIsCartLoading(true);
                     try {
                       const res = await instance.delete(
                         "carts/delete/" + cartId
                       );
                       setCartId();
                       addToCart(res.data.data);
+                      setIsCartLoading(false);
                     } catch (error) {
                       console.log(error.message);
                     }
                   }}
                 >
-                  <h4>ADDED TO CART</h4>
+                  {isCartLoading ? (
+                    <DotSpinner color="#231F20" size={25} />
+                  ) : (
+                    <h4> ADDED TO CART</h4>
+                  )}
                 </button>
               </div>
             )}
