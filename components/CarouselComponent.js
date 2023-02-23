@@ -10,7 +10,7 @@ import NextButton from "./NextButton";
 const CarouselComponent = ({ list, title }) => {
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -69,8 +69,6 @@ const CarouselComponent = ({ list, title }) => {
     <div className={styles.carousel_wrapper}>
       <div className={styles.header}>
         <CgShapeCircle className={styles.yellow} />
-
-        {/* <div className={styles.yellow}></div> */}
         <h3 className={styles.title}>{title}</h3>
       </div>
       <Slider className={styles.slider} {...settings}>

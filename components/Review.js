@@ -7,8 +7,14 @@ import { useContext } from "react";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { userContext } from "../context/userContext";
 import useSWR from "swr";
+import { DotSpinner } from "@uiball/loaders";
 const Review = ({ id }) => {
-  const { userInfo, cartInfo } = useContext(userContext);
+  const [isSubmitLoading, setisSubmitLoading] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
+
+  const [deletedId, setDeletedId] = useState("");
+
+  const { userInfo } = useContext(userContext);
   const intialState = {
     total: 0,
     averageRating: 0,
@@ -44,7 +50,6 @@ const Review = ({ id }) => {
       });
       try {
         const res = await instance.get(url);
-        console.log(res.data.data);
         dispatch({
           type: "LOAD_REVIEW",
           payload: {
@@ -95,6 +100,7 @@ const Review = ({ id }) => {
         </div>
         <div className={styles.reviewInputContainer}>
           <input
+            required
             className={styles.reviewinput}
             type="text"
             value={createReviewData.review ? createReviewData.review : ""}
@@ -107,44 +113,54 @@ const Review = ({ id }) => {
           />
           <StarRatingComponent
             name="rating"
-            value={createReviewData.rating}
+            value={createReviewData.rating * 1}
             starColor={"#faca51"}
             className={styles.createreviewicon}
             onChange={reviewChangeHandler}
           />
-          <button
-            className={styles.reviewbutton}
-            onClick={async () => {
-              if (createReviewData.review) {
-                const instance = axios.create({
-                  withCredentials: true,
-                  headers: { authorization: "Bearer" },
-                });
-
-                try {
-                  const res = await instance.post(
-                    "products/" + id + "/reviews",
-                    {
-                      ...createReviewData,
-                    }
-                  );
-                  dispatch({
-                    type: "LOAD_REVIEW",
-                    payload: {
-                      raw: res.data.data.newReview,
-                      total: res.data.results,
-                      averageRating: res.data.AverageRating,
-                    },
+          {/* {console.log(typeof createReviewData.rating)} */}
+          {isSubmitLoading ? (
+            <button
+              className={`${styles.reviewbutton} ${styles.loading_spinner}`}
+            >
+              <DotSpinner size={25} color="white" />
+            </button>
+          ) : (
+            <button
+              className={styles.reviewbutton}
+              onClick={async () => {
+                if (createReviewData.review) {
+                  setisSubmitLoading(true);
+                  const instance = axios.create({
+                    withCredentials: true,
+                    headers: { authorization: "Bearer" },
                   });
-                  setCreateReviewData({ review: "", rating: 5 });
-                } catch (err) {
-                  console.log(err);
+                  try {
+                    const res = await instance.post(
+                      "products/" + id + "/reviews",
+                      {
+                        ...createReviewData,
+                      }
+                    );
+                    dispatch({
+                      type: "LOAD_REVIEW",
+                      payload: {
+                        raw: res.data.data.newReview,
+                        total: res.data.results,
+                        averageRating: res.data.AverageRating,
+                      },
+                    });
+                    setCreateReviewData({ review: "", rating: 5 });
+                    setisSubmitLoading(false);
+                  } catch (err) {
+                    console.log(err);
+                  }
                 }
-              }
-            }}
-          >
-            Submit
-          </button>
+              }}
+            >
+              Submit
+            </button>
+          )}
         </div>
         <div></div>
       </div>
@@ -153,37 +169,48 @@ const Review = ({ id }) => {
           <>
             {reviews?.data.map(({ _id, review, rating, user }) => {
               return (
-                <div className={styles.review_item} key={_id}>
+                <div
+                  className={`${styles.review_item} ${
+                    deletedId === _id && styles.is_deleting
+                  }`}
+                  key={_id}
+                >
                   <h5 className={styles.name}>{user?.Username}</h5>
                   <Star num={rating} />
                   <p>{review}</p>
-                  {user?.id === userInfo.id ? (
-                    <button
-                      className={styles.review_button_delete}
-                      onClick={async () => {
-                        const instance = axios.create({
-                          withCredentials: true,
-                          headers: { authorization: "Bearer" },
-                        });
-                        // api/v1/reviews/delete/63bb8f1312c3aaec21bc8a63/63baf05f75a40a49333f2a2f
-                        const res = await instance.delete(
-                          "/reviews/delete/" + _id + "/" + id
-                        );
-                        dispatch({
-                          type: "LOAD_REVIEW",
-                          payload: {
-                            raw: res.data.data.remainingReview,
-                            total: res.data.results,
-                            averageRating: res.data.AverageRating,
-                          },
-                        });
-                      }}
-                    >
-                      <RiDeleteBin6Fill className={styles.review_delete} />
-                    </button>
-                  ) : (
-                    ""
-                  )}
+                  {user?.id === userInfo.id &&
+                    (isDeleteLoading ? (
+                      <button className={styles.review_button_delete}>
+                        <RiDeleteBin6Fill className={styles.review_delete} />
+                      </button>
+                    ) : (
+                      <button
+                        className={styles.review_button_delete}
+                        onClick={async () => {
+                          setDeletedId(_id);
+                          setIsDeleteLoading(true);
+                          const instance = axios.create({
+                            withCredentials: true,
+                            headers: { authorization: "Bearer" },
+                          });
+                          const res = await instance.delete(
+                            "/reviews/delete/" + _id + "/" + id
+                          );
+                          dispatch({
+                            type: "LOAD_REVIEW",
+                            payload: {
+                              raw: res.data.data.remainingReview,
+                              total: res.data.results,
+                              averageRating: res.data.AverageRating,
+                            },
+                          });
+                          setIsDeleteLoading(false);
+                          setDeletedId("");
+                        }}
+                      >
+                        <RiDeleteBin6Fill className={styles.review_delete} />
+                      </button>
+                    ))}
                 </div>
               );
             })}

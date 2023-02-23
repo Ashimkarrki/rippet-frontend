@@ -8,7 +8,6 @@ import { userContext } from "../context/userContext";
 import axios from "axios";
 const ProductsCard = ({ id, pic, title, price, newPrice, discount }) => {
   const [isCartLoading, setIsCartLoading] = useState(false);
-
   const { addToCart, cartInfo } = useContext(userContext);
   const isInCart = useMemo(() => {
     console.log("in Memo");
@@ -44,7 +43,6 @@ const ProductsCard = ({ id, pic, title, price, newPrice, discount }) => {
   return (
     <Link className={styles.card} href={`/product/${id}`}>
       <div className={styles.image_wrapper}>
-        {/* <DotSpinner color="#231F20" size={25} /> */}
         <img src={pic} alt="product" className={styles.img} />
       </div>
       <h5 className={styles.title}>{title}</h5>
@@ -60,7 +58,7 @@ const ProductsCard = ({ id, pic, title, price, newPrice, discount }) => {
       </h5>
       {discount ? <h5 className={styles.discount}>- रु {discount}</h5> : ""}
       {isCartLoading ? (
-        <div className={styles.cart}>
+        <div className={`${styles.cart} ${styles.loading_spinner}`}>
           <DotSpinner color="#231F20" size={25} />
         </div>
       ) : (

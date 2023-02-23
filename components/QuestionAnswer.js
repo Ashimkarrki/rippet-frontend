@@ -50,7 +50,7 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo }) => {
         ></textarea>
         {isSubmitLoading ? (
           <button className={`${styles.button_ask} ${styles.loading_spinner}`}>
-            <DotSpinner color="#231F20" size={18} />
+            <DotSpinner color="white" size={18} />
           </button>
         ) : (
           <button className={styles.button_ask} type="submit">
