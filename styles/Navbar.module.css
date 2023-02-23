@@ -4,7 +4,6 @@
 .upper_nav {
   display: flex;
   width: 100%;
-  /* padding: 0 8rem; */
   padding: 0 9%;
   height: 8rem;
   justify-content: space-between;
@@ -48,6 +47,7 @@
 }
 .rippet_logo {
   width: 6.5rem;
+  height: 7rem;
   object-fit: contain;
 }
 .lower_nav {

@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useContext } from "react";
 import { userContext } from "../context/userContext";
-import style from "../styles/place-order.module.css";
+import styles from "../styles/place-order.module.css";
 import useFetchUser from "../features/fetchUser";
 const PlaceOrder = () => {
-  const { cartInfo } = useContext(userContext);
+  const ref = useRef();
+  const [detail, setDetail] = useState({
+    fname: "",
+    lname: "",
+    streetAddress: "",
+    city: "",
+    phone: "",
+    state: "",
+  });
+  const changeHandeler = (e) => {
+    setDetail({
+      ...detail,
+      [e.target.name]: e.target.value,
+    });
+  };
+  useEffect(() => {
+    ref.current.focus();
+    console.log(ref);
+  }, []);
   useFetchUser();
+  const { cartInfo, userInfo } = useContext(userContext);
   const total = () => {
     let sum = 0;
     let array = cartInfo.items.map((s) => {
@@ -17,27 +36,75 @@ const PlaceOrder = () => {
     return sum;
   };
   return (
-    <div className={style.order}>
-      <div className={style.bill_details}>
-        <div className={style.input_wrapper}>
-          <h5>First Name</h5>
-          <input type="text" />
+    <div className={styles.order}>
+      <form
+        className={styles.bill_details}
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <h4 className={styles.heading}>Your Detail</h4>
+        <div className={styles.input_wrapper}>
+          <h5 className={styles.input_heading}>First Name</h5>
+          <input
+            ref={ref}
+            type="text"
+            required
+            name="fname"
+            value={detail.fname}
+            onChange={changeHandeler}
+          />
         </div>
-        <div className={style.input_wrapper}>
-          <h5>Last Name</h5>
-          <input type="text" />
+        <div className={styles.input_wrapper}>
+          <h5 className={styles.input_heading}>Last Name</h5>
+          <input
+            type="text"
+            required
+            name="lname"
+            value={detail.lname}
+            onChange={changeHandeler}
+          />
         </div>
-        <div className={style.input_wrapper}>
-          Street Address
-          <input type="text" />
+        <div className={styles.input_wrapper}>
+          <h5 className={styles.input_heading}>Street Address</h5>
+          <input
+            type="text"
+            required
+            value={detail.streetAddress}
+            name="streetAddress"
+            onChange={changeHandeler}
+          />
         </div>
-        <div className={style.input_wrapper}>
-          Town / City
-          <input type="text" />
+        <div className={styles.input_wrapper}>
+          <h5 className={styles.input_heading}>Town / City</h5>
+          <input
+            type="text"
+            required
+            name="city"
+            value={detail.city}
+            onChange={changeHandeler}
+          />
         </div>
-        <div className={style.input_wrapper}>
-          State
-          <select name="state" id="state">
+        <div className={styles.input_wrapper} required>
+          <h5 className={styles.input_heading}>Phone</h5>
+          <input
+            type="number"
+            className={styles.number_field}
+            name="phone"
+            value={detail.phone}
+            maxLength="10"
+            onChange={changeHandeler}
+          />
+        </div>
+        <div className={styles.input_wrapper}>
+          <h5 className={styles.input_heading}>State</h5>
+
+          <select
+            value={detail.state}
+            name="state"
+            id="state"
+            onChange={changeHandeler}
+          >
             <option value="Province No.1">Province No.1</option>
             <option value="Madesh">Madesh </option>
             <option value="Gandaki">Gandaki </option>
@@ -47,50 +114,56 @@ const PlaceOrder = () => {
             <option value="Sudurpashchim">Sudurpashchim </option>
           </select>
         </div>
-        <div className={style.input_wrapper}>
-          Phone
-          <input type="number" />
+
+        <div className={styles.input_wrapper}>
+          <h5 className={styles.input_heading}>Email Address</h5>
+          <input
+            type="email"
+            value={userInfo?.email ? userInfo.email : "something@gmail.com"}
+            readOnly
+          />
         </div>
-        <div className={style.input_wrapper}>
-          Email Address
-          <input type="email" value="something@gmail.com" readOnly />
-        </div>
-      </div>
-      <div className={style.your_order}>
-        <h2>Your Order</h2>
-        <table>
+        <button type="submit" className={styles.submit}>
+          Place Order
+        </button>
+      </form>
+
+      <div className={styles.your_order}>
+        <h4 className={styles.heading}>Your Order</h4>
+        <table className={styles.table} border="1">
           <thead>
             <tr>
-              <th>Product</th>
-              <th>Sub Total</th>
+              <th className={styles.th}>Product</th>
+              <th className={styles.th}>Sub Total</th>
             </tr>
           </thead>
           <tbody>
             {cartInfo.items.map((s) => {
               return (
                 <tr key={s.id}>
-                  <td>
-                    {s.Name} * {s.quantity}
+                  <td className={styles.td}>
+                    {s.Name}
+                    <span className={styles.into}> ( x {s.quantity})</span>
                   </td>
-                  <td>Rs {s.Price * s.quantity}</td>
+                  <td className={styles.td}>Rs {s.Price * s.quantity}</td>
                 </tr>
               );
             })}
             <tr>
-              <td>Sub Total</td>
-              <td>Rs {total()} </td>
+              <td className={styles.td}>Sub Total</td>
+              <td className={styles.td}>Rs {total()} </td>
             </tr>
             <tr>
-              <td>Shipping</td>
-              <td>Rs 60</td>
+              <td className={styles.td}>Shipping</td>
+              <td className={styles.td}>Rs 60</td>
             </tr>
             <tr>
-              <td>Total</td>
-              <td>Rs {total() + 60}</td>
+              <td className={styles.td}>Total</td>
+              <td className={styles.td}>Rs {total() + 60}</td>
             </tr>
+            <tr></tr>
           </tbody>
         </table>
-        <button>Place Order</button>
       </div>
     </div>
   );
