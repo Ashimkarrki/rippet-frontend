@@ -116,32 +116,44 @@ const Product = ({ data }) => {
                     +
                   </button>
                 </div>
-                <button
-                  onClick={async () => {
-                    setIsCartLoading(true);
-                    try {
-                      const res = await instance.post("/carts", {
-                        productId: dataInfo.id,
-                        quantity: noOfItem,
-                      });
-                      addToCart(res.data.data);
-                      setIsCartLoading(false);
-                    } catch (error) {
-                      console.log(error.message);
-                    }
-                  }}
-                  className={`${styles.buttons} ${styles.add_to_cart}`}
-                >
-                  {isCartLoading ? (
-                    <DotSpinner color="#231F20" size={25} />
-                  ) : (
+                {isCartLoading ? (
+                  <button
+                    className={`${styles.buttons} ${styles.add_to_cart} ${styles.loading_spinner}`}
+                  >
+                    <DotSpinner color="#231F20" size={18} />
+                  </button>
+                ) : (
+                  <button
+                    onClick={async () => {
+                      setIsCartLoading(true);
+                      try {
+                        const res = await instance.post("/carts", {
+                          productId: dataInfo.id,
+                          quantity: noOfItem,
+                        });
+                        addToCart(res.data.data);
+                        setIsCartLoading(false);
+                      } catch (error) {
+                        console.log(error.message);
+                      }
+                    }}
+                    className={`${styles.buttons} ${styles.add_to_cart}`}
+                  >
                     <h4> ADD TO CART</h4>
-                  )}
-                </button>
+                  </button>
+                )}
+
                 <button className={styles.buttons}>
                   <AiOutlineHeart className={styles.heart} />
                 </button>
-                {/* <button className={styles.buttons}>?</button>  -->no idea */}
+              </div>
+            ) : isCartLoading ? (
+              <div className={styles.added_to_cart_container}>
+                <button
+                  className={`${styles.add_to_cart} ${styles.added_to_cart} ${styles.loading_spinner}`}
+                >
+                  <DotSpinner color="#231F20" size={18} />
+                </button>
               </div>
             ) : (
               <div className={styles.added_to_cart_container}>
@@ -156,16 +168,13 @@ const Product = ({ data }) => {
                       setCartId();
                       addToCart(res.data.data);
                       setIsCartLoading(false);
+                      setNoOfItem(1);
                     } catch (error) {
                       console.log(error.message);
                     }
                   }}
                 >
-                  {isCartLoading ? (
-                    <DotSpinner color="#231F20" size={25} />
-                  ) : (
-                    <h4> ADDED TO CART</h4>
-                  )}
+                  <h4> ADDED TO CART</h4>
                 </button>
               </div>
             )}

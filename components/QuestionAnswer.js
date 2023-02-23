@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import styles from "../styles/QuestionAnswer.module.css";
 import { RiQuestionnaireFill, RiQuestionAnswerFill } from "react-icons/ri";
 import axios from "axios";
+import { DotSpinner } from "@uiball/loaders";
+
 const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo }) => {
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [row, setRow] = useState(2);
   const [question, setQuestion] = useState("");
-
   const asksubmitHandler = async (e) => {
+    setIsSubmitLoading(true);
     e.preventDefault();
     const instance = axios.create({
       withCredentials: true,
@@ -21,6 +24,7 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo }) => {
         temp.asks = data.data.data.remainingAsk;
         setDataInfo(temp);
         setQuestion("");
+        setIsSubmitLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -41,11 +45,18 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo }) => {
           value={question ? question : ""}
           onChange={(e) => setQuestion(e.target.value)}
           cols="30"
+          required
           rows={row}
         ></textarea>
-        <button className={styles.button_ask} type="submit">
-          Ask Question
-        </button>
+        {isSubmitLoading ? (
+          <button className={`${styles.button_ask} ${styles.loading_spinner}`}>
+            <DotSpinner color="#231F20" size={18} />
+          </button>
+        ) : (
+          <button className={styles.button_ask} type="submit">
+            Ask Question
+          </button>
+        )}
       </form>
       <div className={styles.ask_wrapper}>
         {qa?.length ? (
@@ -57,7 +68,14 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo }) => {
                     <RiQuestionnaireFill
                       className={`${styles.icons} ${styles.question}`}
                     />
-                    <p>{Question}</p>
+                    <div className={styles.no_answer_container}>
+                      {Question}
+                      {Answer ? (
+                        ""
+                      ) : (
+                        <p className={styles.no_answer}> ( - No Answer Yet )</p>
+                      )}
+                    </div>
                   </div>
                   {Answer && (
                     <div className={styles.sentence}>
@@ -67,7 +85,6 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo }) => {
                       <p>{Answer}</p>
                     </div>
                   )}
-                  {/* <div className={styles.st_line}></div> */}
                 </div>
               );
             })}

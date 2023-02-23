@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { userContext } from "../context/userContext";
+import style from "../styles/place-order.module.css";
 import useFetchUser from "../features/fetchUser";
 const PlaceOrder = () => {
   const { cartInfo } = useContext(userContext);
@@ -16,25 +17,25 @@ const PlaceOrder = () => {
     return sum;
   };
   return (
-    <div>
-      <div className="bill_details">
-        <div className="input_wrapper">
+    <div className={style.order}>
+      <div className={style.bill_details}>
+        <div className={style.input_wrapper}>
           <h5>First Name</h5>
           <input type="text" />
         </div>
-        <div className="input_wrapper">
+        <div className={style.input_wrapper}>
           <h5>Last Name</h5>
           <input type="text" />
         </div>
-        <div className="input_wrapper">
+        <div className={style.input_wrapper}>
           Street Address
           <input type="text" />
         </div>
-        <div className="input_wrapper">
+        <div className={style.input_wrapper}>
           Town / City
           <input type="text" />
         </div>
-        <div className="input_wrapper">
+        <div className={style.input_wrapper}>
           State
           <select name="state" id="state">
             <option value="Province No.1">Province No.1</option>
@@ -46,16 +47,16 @@ const PlaceOrder = () => {
             <option value="Sudurpashchim">Sudurpashchim </option>
           </select>
         </div>
-        <div className="input_wrapper">
+        <div className={style.input_wrapper}>
           Phone
           <input type="number" />
         </div>
-        <div className="input_wrapper">
+        <div className={style.input_wrapper}>
           Email Address
           <input type="email" value="something@gmail.com" readOnly />
         </div>
       </div>
-      <div className="your_order">
+      <div className={style.your_order}>
         <h2>Your Order</h2>
         <table>
           <thead>
