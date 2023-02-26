@@ -37,7 +37,7 @@
   padding: 1rem;
   border: 2px solid hsla(0, 0%, 62%, 0.2);
   justify-content: space-between;
-
+  position: relative;
   /* align-items: stretch; */
 }
 .item:hover {
@@ -58,16 +58,13 @@
 }
 
 .deletebutton {
-  background-color: transparent;
-  margin-right: 2rem;
-  font-size: 0.6rem;
+  background-color: inherit;
   border: none;
-  outline: none;
   cursor: pointer;
-  margin-top: 1rem;
-  padding: 0.5rem 0.7rem;
-  padding: 0.4rem 1rem;
-  /* color: white; */
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  padding: 1rem;
 }
 
 .summary {
@@ -231,6 +228,9 @@
   cursor: pointer;
 }
 .delete_icon {
-  font-size: 1.2rem;
-  color: red;
+  font-size: 2rem;
+  color: grey;
+}
+.being_deleted {
+  opacity: 0.4;
 }

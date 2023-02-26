@@ -5,12 +5,12 @@ import Image from "next/image";
 import useFetchUser from "../features/fetchUser";
 import { useContext } from "react";
 import styles from "../styles/Cart.module.css";
-import { RiDeleteBin6Fill } from "react-icons/ri";
+import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
 import { userContext } from "../context/userContext";
 const Cart = () => {
   const { isLoading, isError, error } = useFetchUser();
-
+  const [deletingId, setDeletingId] = useState("");
   const shipping = 50;
   const tax = 13;
   const instance = axios.create({
@@ -51,7 +51,13 @@ const Cart = () => {
                 quantity,
               }) => {
                 return (
-                  <div href={"/product/" + id} key={id} className={styles.item}>
+                  <div
+                    href={"/product/" + id}
+                    key={id}
+                    className={`${styles.item} ${
+                      deletingId === id && styles.being_deleted
+                    }`}
+                  >
                     <div className={styles.imagetextcart}>
                       <img
                         className={styles.image}
@@ -62,18 +68,25 @@ const Cart = () => {
                         <Link href={"/product/" + id}>
                           <h4 className={styles.carttitle}>{Name}</h4>
                         </Link>
-                        <button
-                          className={styles.deletebutton}
-                          onClick={async () => {
-                            const res = await instance.delete(
-                              "carts/delete/" + cartId
-                            );
-                            console.log(res.data.data);
-                            addToCart(res.data.data);
-                          }}
-                        >
-                          <RiDeleteBin6Fill className={styles.delete_icon} />
-                        </button>
+                        {deletingId ? (
+                          <button className={styles.deletebutton}>
+                            <AiFillCloseCircle className={styles.delete_icon} />
+                          </button>
+                        ) : (
+                          <button
+                            className={styles.deletebutton}
+                            onClick={async () => {
+                              setDeletingId(id);
+                              const res = await instance.delete(
+                                "carts/delete/" + cartId
+                              );
+                              addToCart(res.data.data);
+                              setDeletingId("");
+                            }}
+                          >
+                            <AiFillCloseCircle className={styles.delete_icon} />
+                          </button>
+                        )}
                       </div>
                     </div>
                     <div className={styles.item_info}>
