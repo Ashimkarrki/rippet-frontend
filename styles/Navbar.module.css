@@ -1,5 +1,6 @@
 .nav {
   color: #ffffff;
+  position: relative;
 }
 .upper_nav {
   display: flex;
@@ -38,7 +39,6 @@
 
 .icons {
   color: #ffffff;
-
   font-size: 1rem;
   padding: 0.5rem;
   margin-left: 0.5rem;
@@ -56,14 +56,11 @@
   padding: 0.8rem 0;
   padding-left: 9%;
   background: #1f4c94;
-  justify-content: space-around;
   font-size: small;
 }
 .first_element {
   display: flex;
-  background: red;
-  gap: 1rem;
-  /* margin-right: 7rem; */
+  gap: 10px;
 }
 .icon {
   font-size: 1.2rem;
@@ -74,11 +71,17 @@
 
 .Linktext {
   display: flex;
-  gap: 2rem;
+  margin-left: auto;
+  gap: 1.5rem;
+  margin-right: 9%;
 }
 .textStlingLink {
   font-size: 1rem;
   font-weight: 500;
+}
+.textStlingLink:hover {
+  cursor: pointer;
+  color: yellow;
 }
 .cart_no {
   position: absolute;
@@ -91,4 +94,52 @@
 }
 .relative {
   position: relative;
+}
+.menu_button {
+  display: none;
+}
+.hidden_menu {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: grey;
+  color: white;
+}
+.hidden_flex {
+  display: flex;
+  flex-direction: column;
+  padding-top: 5rem;
+  gap: 1rem;
+  align-items: center;
+}
+.menu_button_close {
+  position: fixed;
+  font-size: 2rem;
+  background-color: inherit;
+  border: none;
+  top: 10px;
+  color: white;
+  right: 10px;
+}
+.menu_button_close:hover {
+  cursor: pointer;
+}
+@media (max-width: 796px) {
+  .Linktext {
+    display: none;
+  }
+  .menu_button {
+    display: block;
+    background-color: inherit;
+    border: none;
+    color: white;
+    margin-left: auto;
+    margin-right: 9%;
+  }
+  .menu_button:hover {
+    cursor: pointer;
+  }
 }
