@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsSearch, BsBag, BsCartDash } from "react-icons/bs";
 import { MdClose } from "react-icons/md";
+import { useRouter } from "next/router";
 import {
   AiOutlineHeart,
   AiFillHeart,
@@ -14,7 +15,10 @@ import { RiAccountCircleLine, RiAccountCircleFill } from "react-icons/ri";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
 const Navbar = () => {
+  const { pathname } = useRouter();
   const [isMenuOn, setIsMenuOn] = useState(false);
+  const [isSearchBarOn, setIsSearchBarOn] = useState(false);
+
   const { cartInfo } = useContext(userContext);
   return (
     <nav className={styles.nav}>
@@ -30,22 +34,39 @@ const Navbar = () => {
         </div>
 
         <div className={styles.navigate_icons}>
+          <button
+            className={styles.search_button_separate}
+            onClick={() => {
+              setIsSearchBarOn((prev) => !prev);
+            }}
+          >
+            <BsSearch className={styles.search_icon} />
+          </button>
           <button className={styles.icons}>
             <Link href="/signup">
               <RiAccountCircleLine className={styles.navbar_icons} />
             </Link>
           </button>
-          <button className={styles.icons}>
+          {/* <button className={styles.icons}>
             <AiOutlineHeart className={styles.navbar_icons} />
-          </button>
+          </button> */}
           <button className={`${styles.icons} ${styles.relative}`}>
             <Link href="/Cart">
               <h5 className={styles.cart_no}>{cartInfo.results}</h5>
               <BsCartDash className={styles.navbar_icons} />
             </Link>
           </button>
+          <button
+            className={`${styles.menu_button} ${styles.icons}`}
+            onClick={() => {
+              setIsMenuOn(true);
+            }}
+          >
+            <AiOutlineMenu className={styles.icon} />
+          </button>
         </div>
       </div>
+
       <div className={styles.lower_nav}>
         <div className={styles.first_element}>
           <h3>Category</h3>
@@ -58,14 +79,6 @@ const Navbar = () => {
           <h3 className={styles.textStlingLink}>Available Roooms</h3>
           <h3 className={styles.textStlingLink}>Sell Here</h3>
         </div>
-        <button
-          className={styles.menu_button}
-          onClick={() => {
-            setIsMenuOn(true);
-          }}
-        >
-          <AiOutlineMenu className={styles.icon} />
-        </button>
       </div>
       {isMenuOn && (
         <>
@@ -86,9 +99,22 @@ const Navbar = () => {
               <h3 className={styles.textStlingLink}>Available Roooms</h3>
               <h3 className={styles.textStlingLink}>Sell Here</h3>
             </div>
-            {/* </div> */}
           </div>
         </>
+      )}
+      {isSearchBarOn && (
+        <div className={styles.search_container}>
+          <div className={styles.search_container_child}>
+            <input
+              className={styles.input_hidden}
+              type="text"
+              placeholder="Search..."
+            />
+            <button className={styles.search_button_hidden}>
+              <BsSearch className={styles.search_icon} />
+            </button>
+          </div>
+        </div>
       )}
     </nav>
   );

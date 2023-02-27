@@ -15,7 +15,8 @@
   width: 40%;
   position: relative;
 }
-.input {
+.input,
+.input_hidden {
   width: 100%;
   padding: 0.5rem 1rem;
   border-radius: 3px;
@@ -24,7 +25,8 @@
 .input:focus {
   outline: none;
 }
-.search_button {
+.search_button,
+.search_button_hidden {
   color: #ffffff;
   padding: 0.3rem 1.2rem;
   margin-right: 3px;
@@ -36,13 +38,33 @@
   transform: translateY(-50%);
   background: #151515;
 }
+.navigate_icons {
+  display: flex;
+  gap: 1.2rem;
+}
+.input_hidden {
+  width: 100%;
+}
 
+.search_container_child {
+  width: 70%;
+  position: relative;
+}
+.search_container {
+  color: black;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: #eff0f5;
+}
 .icons {
   color: #ffffff;
   font-size: 1rem;
   padding: 0.5rem;
-  margin-left: 0.5rem;
-  background: #1f4c94;
+  background-color: inherit;
   border: none;
 }
 .rippet_logo {
@@ -105,8 +127,8 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: grey;
-  color: white;
+  background-color: #eff0f5;
+  color: black;
 }
 .hidden_flex {
   display: flex;
@@ -121,23 +143,35 @@
   background-color: inherit;
   border: none;
   top: 10px;
-  color: white;
+  color: black;
   right: 10px;
 }
 .menu_button_close:hover {
   cursor: pointer;
 }
+.search_button_separate {
+  background-color: inherit;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  display: none;
+}
+.search_container {
+  display: none;
+}
 @media (max-width: 796px) {
-  .Linktext {
+  .lower_nav,
+  .search_button,
+  .input,
+  .search_container {
     display: none;
   }
-  .menu_button {
+  .menu_button,
+  .search_button_separate {
     display: block;
-    background-color: inherit;
-    border: none;
-    color: white;
-    margin-left: auto;
-    margin-right: 9%;
+  }
+  .search_container {
+    display: flex;
   }
   .menu_button:hover {
     cursor: pointer;

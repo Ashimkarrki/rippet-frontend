@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "../styles/Banner.module.css";
 import "slick-carousel/slick/slick.css";
-import Slider from "react-slick";
 
 const Banner = () => {
   const settings = {
@@ -17,14 +16,11 @@ const Banner = () => {
   };
   return (
     <div className={styles.banner}>
-      {/* <Slider {...settings}> */}
       <img
         className={styles.image}
         alt="banner"
         src="https://static.vecteezy.com/system/resources/previews/001/637/223/non_2x/big-sale-discount-banner-template-vector.jpg"
       />
-
-      {/* </Slider> */}
     </div>
   );
 };
