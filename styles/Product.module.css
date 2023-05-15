@@ -1,8 +1,10 @@
 .product {
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   align-items: flex-start;
-  padding: 2rem;
+  justify-content: center;
+  padding: 2rem 0;
   width: 82%;
   margin: 0rem auto;
   background-color: white;
@@ -118,5 +120,15 @@
 .added_to_cart_container {
   display: flex;
   margin-top: 0.8rem;
-  /* margin: 0.8rem 0; */
+}
+@media (max-width: 600px) {
+  .product {
+    width: 100%;
+  }
+  .desc_section {
+    width: 90%;
+  }
+  .productContainer {
+    background-color: white;
+  }
 }

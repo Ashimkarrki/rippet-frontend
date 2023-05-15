@@ -25,8 +25,17 @@ const CarouselComponent = ({ list, title }) => {
           dots: false,
         },
       },
+      // {
+      //   breakpoint: 1320,
+      //   settings: {
+      //     slidesToShow: 4,
+      //     slidesToScroll: 4,
+      //     infinite: true,
+      //     dots: false,
+      //   },
+      // },
       {
-        breakpoint: 1320,
+        breakpoint: 1090,
         settings: {
           slidesToShow: 4,
           slidesToScroll: 4,
@@ -35,7 +44,7 @@ const CarouselComponent = ({ list, title }) => {
         },
       },
       {
-        breakpoint: 1090,
+        breakpoint: 812,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -44,19 +53,10 @@ const CarouselComponent = ({ list, title }) => {
         },
       },
       {
-        breakpoint: 812,
+        breakpoint: 616,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 542,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
           infinite: true,
           dots: false,
         },

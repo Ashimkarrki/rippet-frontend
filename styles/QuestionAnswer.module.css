@@ -25,12 +25,7 @@
 .answer {
   color: rgba(0, 128, 0, 0.685);
 }
-/* .st_line {
-  width: 100%;
-  height: 1px;
-  background: #d3d2d6;
-  margin-bottom: 0.7rem;
-} */
+
 .ask {
   display: flex;
   flex-direction: column;
@@ -88,4 +83,10 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+@media (max-width: 600px) {
+  .qa {
+    padding: 0;
+    width: 90%;
+  }
 }

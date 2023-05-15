@@ -3,20 +3,20 @@
   position: relative;
 }
 .upper_nav {
-  display: flex;
+  display: grid;
   width: 100%;
   padding: 0 9%;
-  height: 8rem;
-  justify-content: space-between;
-  align-items: center;
+  padding-bottom: 1rem;
+  grid-template-columns: 1fr 1.5fr 1fr;
   background: #2457aa;
+  justify-items: center;
+  align-items: center;
 }
 .icon_wrapper {
-  width: 40%;
+  width: 100%;
   position: relative;
 }
-.input,
-.input_hidden {
+.input {
   width: 100%;
   padding: 0.5rem 1rem;
   border-radius: 3px;
@@ -25,8 +25,8 @@
 .input:focus {
   outline: none;
 }
-.search_button,
-.search_button_hidden {
+.search_button
+/* .search_button_hidden */ {
   color: #ffffff;
   padding: 0.3rem 1.2rem;
   margin-right: 3px;
@@ -39,33 +39,21 @@
   background: #151515;
 }
 .navigate_icons {
+  /* margin-left: auto; */
+  justify-self: end;
   display: flex;
   gap: 1.2rem;
 }
-.input_hidden {
-  width: 100%;
-}
 
-.search_container_child {
-  width: 70%;
-  position: relative;
-}
-.search_container {
-  color: black;
-  width: 100%;
-  height: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background-color: #eff0f5;
-}
 .icons {
   color: #ffffff;
   font-size: 1rem;
   padding: 0.5rem;
   background-color: inherit;
   border: none;
+}
+.rippet_logo_parent {
+  justify-self: start;
 }
 .rippet_logo {
   width: 6.5rem;
@@ -156,23 +144,25 @@
   font-size: 1.1rem;
   display: none;
 }
-.search_container {
-  display: none;
-}
+
 @media (max-width: 796px) {
-  .lower_nav,
-  .search_button,
-  .input,
-  .search_container {
+  .lower_nav {
     display: none;
+  }
+  .upper_nav {
+    row-gap: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  .icon_wrapper {
+    grid-column: 1/4;
+    grid-row: 2/3;
   }
   .menu_button,
   .search_button_separate {
     display: block;
   }
-  .search_container {
-    display: flex;
-  }
+
   .menu_button:hover {
     cursor: pointer;
   }

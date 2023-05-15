@@ -23,7 +23,7 @@ const Navbar = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.upper_nav}>
-        <Link href={"/"}>
+        <Link href={"/"} className={styles.rippet_logo_parent}>
           <Image src={rippet_logo} alt="logo" className={styles.rippet_logo} />
         </Link>
         <div className={styles.icon_wrapper}>
@@ -34,22 +34,19 @@ const Navbar = () => {
         </div>
 
         <div className={styles.navigate_icons}>
-          <button
+          {/* <button
             className={styles.search_button_separate}
             onClick={() => {
               setIsSearchBarOn((prev) => !prev);
             }}
           >
             <BsSearch className={styles.search_icon} />
-          </button>
+          </button> */}
           <button className={styles.icons}>
             <Link href="/signup">
               <RiAccountCircleLine className={styles.navbar_icons} />
             </Link>
           </button>
-          {/* <button className={styles.icons}>
-            <AiOutlineHeart className={styles.navbar_icons} />
-          </button> */}
           <button className={`${styles.icons} ${styles.relative}`}>
             <Link href="/Cart">
               <h5 className={styles.cart_no}>{cartInfo.results}</h5>
@@ -83,7 +80,6 @@ const Navbar = () => {
       {isMenuOn && (
         <>
           <div className={styles.hidden_menu}>
-            {/* <div className={styles.Linktext}> */}
             <button
               className={styles.menu_button_close}
               onClick={() => {
@@ -101,20 +97,6 @@ const Navbar = () => {
             </div>
           </div>
         </>
-      )}
-      {isSearchBarOn && (
-        <div className={styles.search_container}>
-          <div className={styles.search_container_child}>
-            <input
-              className={styles.input_hidden}
-              type="text"
-              placeholder="Search..."
-            />
-            <button className={styles.search_button_hidden}>
-              <BsSearch className={styles.search_icon} />
-            </button>
-          </div>
-        </div>
       )}
     </nav>
   );

@@ -105,3 +105,9 @@
   font-size: 1.2rem;
   font-weight: 500;
 }
+@media (max-width: 600px) {
+  .review {
+    padding: 0;
+    width: 90%;
+  }
+}
