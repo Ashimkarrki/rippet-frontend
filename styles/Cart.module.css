@@ -32,10 +32,11 @@
 
 .item {
   display: flex;
-  gap: 1rem;
   padding: 1rem;
+  gap: 1rem;
+  width: 30vw;
+  min-width: 20rem;
   border: 2px solid hsla(0, 0%, 62%, 0.2);
-  justify-content: space-between;
   position: relative;
 }
 .item:hover {

@@ -1,63 +1,62 @@
-
-.FormContainer{
-    display: flex;
-    justify-content: center;
-    background-color: rgb(241, 241, 241);
-    height: 80vh;
-    align-items: center;
+.FormContainer {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(241, 241, 241);
+  height: 80vh;
+  align-items: center;
 }
-.FormSubContainer{
-    padding: 3rem;
-    background-color: white;
-    max-width: 60vw;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-gap: 2rem;
+.FormSubContainer {
+  padding: 3rem;
+  background-color: white;
+  max-width: 60vw;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 2rem;
 }
-.inputContainer{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: .7rem;
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.7rem;
 }
-.formlabel{
-    font-size: .9rem;
-    margin-bottom: .3rem;
-}
-
-.forminput{
-    padding: .7rem .6rem;
-    outline: none;
-    border: .02rem solid gray;
+.formlabel {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
 }
 
-.formbutton{
-    margin-top: 1.3rem;
-    margin-bottom: .3rem;
-    width: 100%;
-    padding: .7rem 2rem;
-    background-color: #2457aa;
-    color: white;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-.formparagraph{
-    font-size: .7rem;
-    margin-bottom: .6rem;
-}
-.googlebutton{
-    display: flex;
-    align-items: center;
-    gap: .4rem;
-    width: 100%;
-    padding: .7rem 2rem;
-    font-size: 1.1rem;
-    background-color: white;
-    border: .05rem solid gray;
-    cursor: pointer;
+.forminput {
+  padding: 0.7rem 0.6rem;
+  outline: none;
+  border: 0.02rem solid gray;
 }
 
-.orlogin{
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
+.formbutton {
+  margin-top: 1.3rem;
+  margin-bottom: 0.3rem;
+  width: 100%;
+  padding: 0.7rem 2rem;
+  background-color: #2457aa;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.formparagraph {
+  font-size: 0.7rem;
+  margin-bottom: 0.6rem;
+}
+.googlebutton {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.7rem 2rem;
+  font-size: 1.1rem;
+  background-color: white;
+  border: 0.05rem solid gray;
+  cursor: pointer;
+}
+
+.orlogin {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }

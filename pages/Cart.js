@@ -64,6 +64,8 @@ const Cart = () => {
                         src={MainImage}
                         alt="products"
                       />
+                    </div>
+                    <div className={styles.name_button_wrapper}>
                       <div className={styles.deletebuttonandtext}>
                         <Link href={"/product/" + id}>
                           <h4 className={styles.carttitle}>{Name}</h4>
@@ -88,51 +90,53 @@ const Cart = () => {
                           </button>
                         )}
                       </div>
-                    </div>
-                    <div className={styles.item_info}>
-                      <h5 className={styles.realprice}>
-                        {discount ? (
-                          <>
-                            <strike className={styles.discounttext}>
-                              Rs. {Price}{" "}
-                            </strike>
-                            Rs. {newPrice}
-                          </>
-                        ) : (
-                          ` Rs. ${Price}`
-                        )}
-                      </h5>
-                      <div className={styles.button_group}>
-                        <div>
-                          <button
-                            className={styles.button}
-                            onClick={async () => {
-                              if (!(quantity <= 1)) {
+                      <div className={styles.item_info}>
+                        <h5 className={styles.realprice}>
+                          {discount ? (
+                            <>
+                              <strike className={styles.discounttext}>
+                                Rs. {Price}{" "}
+                              </strike>
+                              Rs. {newPrice}
+                            </>
+                          ) : (
+                            ` Rs. ${Price}`
+                          )}
+                        </h5>
+                        <div className={styles.button_group}>
+                          <div>
+                            <button
+                              className={styles.button}
+                              onClick={async () => {
+                                if (!(quantity <= 1)) {
+                                  const res = await instance.patch("/carts", {
+                                    productId: id,
+                                    quantity: quantity - 1,
+                                    _id: cartId,
+                                  });
+                                  addToCart(res.data.data.UpdateCart);
+                                }
+                              }}
+                            >
+                              -
+                            </button>
+                            <button className={styles.button}>
+                              {quantity}
+                            </button>
+                            <button
+                              className={styles.button}
+                              onClick={async () => {
                                 const res = await instance.patch("/carts", {
                                   productId: id,
-                                  quantity: quantity - 1,
+                                  quantity: quantity + 1,
                                   _id: cartId,
                                 });
                                 addToCart(res.data.data.UpdateCart);
-                              }
-                            }}
-                          >
-                            -
-                          </button>
-                          <button className={styles.button}>{quantity}</button>
-                          <button
-                            className={styles.button}
-                            onClick={async () => {
-                              const res = await instance.patch("/carts", {
-                                productId: id,
-                                quantity: quantity + 1,
-                                _id: cartId,
-                              });
-                              addToCart(res.data.data.UpdateCart);
-                            }}
-                          >
-                            +
-                          </button>
+                              }}
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
