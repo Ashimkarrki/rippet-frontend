@@ -5,7 +5,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { DotSpinner } from "@uiball/loaders";
+
 const LoginComponent = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
 
@@ -23,19 +26,24 @@ const LoginComponent = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const instance = axios.create({
-      withCredentials: true,
-      headers: { authorization: "Bearer" },
-    });
-    instance
-      .post(`${URL}api/v1/users/login`, userData)
-      .then((data) => {
-        console.log(data);
-        router.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
+    if (!isLoading) {
+      console.log("submit");
+      setIsLoading(true);
+      const instance = axios.create({
+        withCredentials: true,
+        headers: { authorization: "Bearer" },
       });
+      instance
+        .post(`${URL}api/v1/users/login`, userData)
+        .then((data) => {
+          console.log(data);
+          router.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+        });
+    }
   };
 
   return (
@@ -65,7 +73,13 @@ const LoginComponent = () => {
           </div>
         </div>
         <div>
-          <button className={style.formbutton}>Login Up</button>
+          {isLoading ? (
+            <button className={style.formbutton}>
+              <DotSpinner color="#231F20" size={25} />
+            </button>
+          ) : (
+            <input className={style.formbutton} value="Login" type="submit" />
+          )}
           <p className={style.formparagraph}>or login with</p>
           <button className={style.googlebutton}>
             <Image src={Googlelogo} width={"20"} height={"20"} alt="google" />

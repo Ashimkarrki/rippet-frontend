@@ -38,7 +38,10 @@
   color: white;
   font-size: 1.1rem;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
+
 .formparagraph {
   font-size: 0.7rem;
   margin-bottom: 0.6rem;

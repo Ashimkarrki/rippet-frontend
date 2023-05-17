@@ -5,9 +5,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { DotSpinner } from "@uiball/loaders";
+
 export const SignUpComponent = () => {
   const router = useRouter();
   const URL = "http://localhost:4000/";
+  const [isLoading, setIsLoading] = useState(false);
 
   const [userData, setuserData] = useState({
     Username: "",
@@ -23,18 +26,22 @@ export const SignUpComponent = () => {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
-    const instance = await axios.create({
-      withCredentials: true,
-      headers: { authorization: "Bearer" },
-    });
-    instance
-      .post(`${URL}api/v1/users/signup`, userData)
-      .then((data) => {
-        router.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
+    if (!isLoading) {
+      setIsLoading(true);
+      const instance = axios.create({
+        withCredentials: true,
+        headers: { authorization: "Bearer" },
       });
+      instance
+        .post(`${URL}api/v1/users/signup`, userData)
+        .then((data) => {
+          router.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsLoading(false);
+        });
+    }
   };
   return (
     <div className={style.FormContainer}>
@@ -55,7 +62,7 @@ export const SignUpComponent = () => {
             <label className={style.formlabel}>Email*</label>
             <input
               className={style.forminput}
-              type="text"
+              type="email"
               name="Email"
               onChange={change}
               required
@@ -86,9 +93,15 @@ export const SignUpComponent = () => {
           </div>
         </div>
         <div>
-          <button className={style.formbutton} type="submit">
-            Sign Up
-          </button>
+          {isLoading ? (
+            <button className={style.formbutton}>
+              <DotSpinner color="#231F20" size={25} />
+            </button>
+          ) : (
+            <button className={style.formbutton} type="submit">
+              Sign Up
+            </button>
+          )}
           <p className={style.formparagraph}>
             By clicking “SIGN UP”, I agree to Rappits Terms of{" "}
             <a href="#">Privacy Policy</a>

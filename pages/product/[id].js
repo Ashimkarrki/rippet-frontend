@@ -24,7 +24,6 @@ const Product = ({ data }) => {
   console.log(dataInfo);
   const [cartId, setCartId] = useState();
   const ispresent = useMemo(() => {
-    console.log("in memo");
     let x = false;
     cartInfo.items.map((s) => {
       if (s.id === dataInfo.id) {

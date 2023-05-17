@@ -10,7 +10,6 @@ const ProductsCard = ({ id, pic, title, price, newPrice, discount }) => {
   const [isCartLoading, setIsCartLoading] = useState(false);
   const { addToCart, cartInfo } = useContext(userContext);
   const isInCart = useMemo(() => {
-    console.log("in Memo");
     let result = false;
     cartInfo?.items.map((s) => {
       if (s.id === id) {
