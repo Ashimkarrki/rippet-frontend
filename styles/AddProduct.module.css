@@ -1,0 +1,12 @@
+.add_product {
+  margin-left: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 20rem;
+}
+.add_product_wrapper {
+  display: grid;
+  margin-top: 2rem;
+  place-items: center;
+}

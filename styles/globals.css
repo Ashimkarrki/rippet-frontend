@@ -21,13 +21,3 @@ a {
 .slick-initialized {
   overflow: hidden;
 } */
-
-table,
-th,
-td {
-  border: 1px solid white;
-  border-collapse: collapse;
-}
-td {
-  padding: 0.5rem;
-}

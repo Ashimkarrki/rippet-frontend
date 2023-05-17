@@ -40,11 +40,11 @@ export default function Home({ data }) {
       pic: "https://static-01.daraz.com.np/p/af9329c672b648e203195279ab20e0e0.jpg",
     },
   ];
-  const lists = data.data.products;
-  const list1 = lists.filter((s, i) => {
+  const lists = data.data?.products;
+  const list1 = lists?.filter((s, i) => {
     return i < data.results / 2;
   });
-  const list2 = lists.filter((s, i) => {
+  const list2 = lists?.filter((s, i) => {
     return i >= data.results / 2;
   });
   axios.defaults.baseURL =

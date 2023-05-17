@@ -21,6 +21,7 @@ const Product = ({ data }) => {
   const [reviewsInfo, setReviewsInfo] = useState({});
   const { addToCart, cartInfo } = useContext(userContext);
   const [dataInfo, setDataInfo] = useState(data.data.product);
+  console.log(dataInfo);
   const [cartId, setCartId] = useState();
   const ispresent = useMemo(() => {
     console.log("in memo");
