@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
+import {  toast } from 'react-toastify';
 
 export const SignUpComponent = () => {
   const router = useRouter();
@@ -38,8 +39,17 @@ export const SignUpComponent = () => {
           router.push("/");
         })
         .catch((err) => {
-          console.log(err);
-          setIsLoading(false);
+          console.log(err?.response?.data?.message);
+          let error_string = err?.response?.data?.message;
+          toast.error(error_string, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            progress: undefined,
+            theme: "colored",
+            });          setIsLoading(false);
         });
     }
   };
