@@ -1,0 +1,8 @@
+.review {
+  margin-left: 10rem;
+}
+@media (max-width: 520px) {
+  .review {
+    margin-left: 0;
+  }
+}

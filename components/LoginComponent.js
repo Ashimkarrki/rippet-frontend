@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
-import {  toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const LoginComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +41,7 @@ const LoginComponent = () => {
           router.push("/");
         })
         .catch((err) => {
-
+          console.log(err);
           console.log(err?.response?.data?.message);
           let error_string = err?.response?.data?.message;
           toast.error(error_string, {
@@ -52,12 +52,14 @@ const LoginComponent = () => {
             pauseOnHover: true,
             progress: undefined,
             theme: "colored",
-            });
+          });
           setIsLoading(false);
         });
     }
   };
-
+  {
+    console.log("kk");
+  }
   return (
     <div className={style.FormContainer}>
       <form className={style.FormSubContainer} onSubmit={submitHandler}>
@@ -83,7 +85,9 @@ const LoginComponent = () => {
               onChange={change}
             />
           </div>
-          <Link href={'/forgot-password'}><h1>forgot password?</h1></Link>
+          <Link href={"/forgot-password"}>
+            <h1>forgot password?</h1>
+          </Link>
         </div>
         <div>
           {isLoading ? (

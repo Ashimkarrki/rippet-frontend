@@ -1,0 +1,57 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+}
+.reviews {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+.quote {
+  font-size: 1.5rem;
+  align-self: flex-start;
+}
+.review {
+  background-color: #d3e4ea;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.actual_review {
+  width: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+.name {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.name,
+.heading {
+  font-weight: 500;
+}
+.read_more {
+  background-color: inherit;
+  border: none;
+  font-size: 1rem;
+  color: grey;
+  margin-top: 1rem;
+  align-self: start;
+}
+.read_more:hover {
+  cursor: pointer;
+}
+.grey {
+  color: grey;
+  align-self: flex-end;
+  margin-top: auto;
+}

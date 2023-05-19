@@ -5,30 +5,32 @@
   top: 0;
   left: 0;
   background-color: #00000063;
-  color: white;
-  display: grid;
-  place-content: center;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pop_up_child {
   display: flex;
   flex-direction: column;
-  width: 30rem;
-  background-color: #5f6769;
+  width: clamp(20rem, 60%, 30rem);
+  background-color: white;
   padding: 1rem;
   align-items: center;
   gap: 10px;
+  border-radius: 10px;
 }
 .image {
   width: 13rem;
   aspect-ratio: 3/4;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 .button_group {
   display: flex;
   width: 100%;
-  /* gap: 10px; */
 }
 .buttons {
-  flex-grow: 1;
+  width: 50%;
   padding: 0 0.7rem;
   height: 2.5rem;
   display: flex;
@@ -54,4 +56,10 @@
   -webkit-line-clamp: 4; /* number of lines to show */
   line-clamp: 4;
   -webkit-box-orient: vertical;
+}
+.heading {
+  font-weight: 500;
+}
+.delete_loader {
+  justify-content: center;
 }

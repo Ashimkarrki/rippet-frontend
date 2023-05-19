@@ -5,7 +5,6 @@ import SellerNavbar from "./SellerNavbar";
 import { useRouter } from "next/router";
 const NavbarFooterWrapper = ({ children }) => {
   const route = useRouter();
-  console.log(route.pathname);
   if (route.pathname.slice(0, 16) === "/sellerDashboard") {
     return (
       <>

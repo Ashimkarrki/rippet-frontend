@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
-import styles from "../../../styles/AddProduct.module.css";
-const AddProduct = () => {
+import styles from "../styles/EditProductPopUp.module.css";
+const EditProductPopUp = ({ product, setEditItem }) => {
   const instance = axios.create({
     withCredentials: true,
     headers: { authorization: "Bearer" },
   });
+  console.log(product);
   const [data, setData] = useState({
-    Name: "",
-    Price: "",
-    Stock: "",
-    Discount: "",
+    Name: product.Name,
+    Price: product.Price,
+    Stock: product?.Stock || product?.Quantity,
+    Discount: product.Discount,
     SearchItem: "",
-    Category: "",
-    Description: "",
+    Category: product.Category,
+    Description: product.Description,
   });
   const [files, setFiles] = useState({
     MainImage: "",
@@ -36,9 +37,17 @@ const AddProduct = () => {
     });
   };
   return (
-    <div className={styles.add_product_wrapper}>
+    <div
+      className={styles.edit_product_wrapper}
+      onClick={() => {
+        setEditItem();
+      }}
+    >
       <form
-        className={styles.add_product}
+        className={styles.edit_product}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
         onSubmit={(e) => {
           e.preventDefault();
           let formData = new FormData();
@@ -65,81 +74,88 @@ const AddProduct = () => {
           });
         }}
       >
-        <div>
-          <h4 className={styles.heading}>Name </h4>
-          <input
-            className={styles.input}
-            type="text"
-            name="Name"
-            value={data.Name}
-            required
-            onChange={onChangeState}
-          />
+        <div className={styles.half}>
+          <div>
+            <h4 className={styles.heading}>Name </h4>
+            <input
+              className={styles.input}
+              type="text"
+              name="Name"
+              value={data.Name}
+              required
+              onChange={onChangeState}
+            />
+          </div>
+          <div>
+            <h4 className={styles.heading}>Price </h4>
+            <input
+              className={styles.input}
+              type="number"
+              name="Price"
+              value={data.Price}
+              required
+              onChange={onChangeState}
+            />
+          </div>
         </div>
-        <div>
-          <h4 className={styles.heading}>Price </h4>
-          <input
-            className={styles.input}
-            type="number"
-            name="Price"
-            value={data.Price}
-            required
-            onChange={onChangeState}
-          />
+
+        <div className={styles.half}>
+          <div>
+            <h4 className={styles.heading}>Stock </h4>
+            <input
+              className={styles.input}
+              type="number"
+              name="Stock"
+              value={data.Stock}
+              required
+              onChange={onChangeState}
+            />
+          </div>
+          <div>
+            <h4 className={styles.heading}>Discount </h4>
+            <input
+              className={styles.input}
+              type="number"
+              name="Discount"
+              value={data.Discount}
+              required
+              onChange={onChangeState}
+            />
+          </div>
         </div>
-        <div>
-          <h4 className={styles.heading}>Stock </h4>
-          <input
-            className={styles.input}
-            type="number"
-            name="Stock"
-            value={data.Stock}
-            required
-            onChange={onChangeState}
-          />
-        </div>
-        <div>
-          <h4 className={styles.heading}>Discount </h4>
-          <input
-            className={styles.input}
-            type="number"
-            name="Discount"
-            value={data.Discount}
-            required
-            onChange={onChangeState}
-          />
-        </div>
-        <div>
-          <h4 className={styles.heading}>Tags </h4>
-          <input
-            className={styles.input}
-            type="text"
-            name="SearchItem"
-            onChange={onChangeState}
-            required
-            value={data.SearchItem}
-          />
-        </div>
-        <div>
-          <h4 className={styles.heading}>Category</h4>
-          <select
-            className={styles.input}
-            name="Category"
-            required
-            onChange={onChangeState}
-            value={data.Category}
-            // className={styles.select}
-          >
-            <option value={""}>-Select An Option- </option>
-            <option value={"New Books"}>New Books</option>
-            <option value={"Notebooks"}>Notebooks</option>
-            <option value={"Drawing Instruments"}>Drawing Instruments</option>
-            <option value={"Books For Rent"}>Books For Rent</option>
-            <option value={"Question Banks"}>Question Banks</option>
-            <option value={"Extra Prdoucts / Gifts"}>
-              Extra Prdoucts / Gifts
-            </option>
-          </select>
+        <div className={styles.half}>
+          <div>
+            <h4 className={styles.heading}>Tags </h4>
+            <input
+              className={styles.input}
+              type="text"
+              name="SearchItem"
+              onChange={onChangeState}
+              required
+              value={data.SearchItem}
+            />
+          </div>
+          <div>
+            <h4 className={styles.heading}>Category</h4>
+            <select
+              className={styles.input}
+              name="Category"
+              required
+              onChange={onChangeState}
+              value={data.Category}
+              // className={styles.select}
+            >
+              <option value={""}>-Select An Option- </option>
+              <option value={"New Books"}>New Books</option>
+              <option value={"Notebooks"}>Notebooks</option>
+              <option value={"Drawing Instruments"}>Drawing Instruments</option>
+              <option value={"Books For Rent"}>Books For Rent</option>
+              <option value={"Question Banks"}>Question Banks</option>
+              <option value={"Extra Prdoucts / Gifts"}>
+                Extra Prdoucts / Gifts
+              </option>
+            </select>
+          </div>
         </div>
         <div>
           <h4 className={styles.heading}>Main Image</h4>
@@ -207,4 +223,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProductPopUp;

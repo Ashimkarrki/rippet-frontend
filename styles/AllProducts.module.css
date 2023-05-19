@@ -1,7 +1,6 @@
 .allProduct {
   margin-left: 10rem;
   padding: 1rem;
-  /* background-color: lime; */
 }
 .image_grid {
   display: grid;
@@ -13,4 +12,9 @@
   font-weight: 500;
   text-align: center;
   margin: 1rem 0 1rem 0;
+}
+@media (max-width: 520px) {
+  .allProduct {
+    margin-left: 0;
+  }
 }
