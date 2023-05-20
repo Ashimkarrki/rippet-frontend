@@ -1,8 +1,18 @@
-
-.categoriesProducts{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 2rem;
-   padding: 3rem 9rem;
+.categoriesProducts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 3rem 9rem;
+}
+.button_grp {
+  text-align: center;
+}
+.button {
+  padding: 5px;
+  border: 1px solid grey;
+}
+.button:hover {
+  cursor: pointer;
+  background-color: grey;
 }

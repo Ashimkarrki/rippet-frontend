@@ -2,32 +2,50 @@ import React from "react";
 import { useRouter } from "next/router";
 import ProductsCard from "../../components/ProductCard";
 import styles from "../../styles/CategoriesProduct.module.css";
+import Link from "next/link";
 const CategoriesProducts = ({ data }) => {
-  const router = useRouter();
-  console.log(data);
+  const { asPath } = useRouter();
+  console.log(asPath.split("/"));
   const List = data.data;
+  const repeat = (time) => {
+    let array = [];
+    for (let i = 1; i <= time; i++) {
+      array.push(<button className={styles.button}>{i}</button>);
+    }
+    return array;
+  };
   return (
-    <div className={styles.categoriesProducts}>
-      {List.length && (
-        <>
-          {List.map((data) => {
-            const { id, Name, MainImage, Price, discount, newPrice } = data;
-            return (
-              <ProductsCard
-                key={id}
-                id={id}
-                title={Name}
-                pic={MainImage}
-                price={Price}
-                discount={discount}
-                newPrice={newPrice}
-              />
-            );
-          })}
-        </>
-      )}
+    <div className={styles.categoriesProducts_wrapper}>
+      <div className={styles.categoriesProducts}>
+        {List.length && (
+          <>
+            {List.map((data) => {
+              const { id, Name, MainImage, Price, discount, newPrice } = data;
+              return (
+                <ProductsCard
+                  key={id}
+                  id={id}
+                  title={Name}
+                  pic={MainImage}
+                  price={Price}
+                  discount={discount}
+                  newPrice={newPrice}
+                />
+              );
+            })}
+          </>
+        )}
+      </div>
+
       <div className={styles.button_grp}>
-        {/* {for (let i = 0; index < data.totalPages; i++) } */}
+        {repeat(data.totalPages).map((s, index) => (
+          <Link
+            key={index}
+            href={`/categories/${asPath.split("/")[2]}/${index + 1}`}
+          >
+            {s}
+          </Link>
+        ))}
       </div>
     </div>
   );
