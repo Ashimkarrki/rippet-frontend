@@ -3,6 +3,7 @@
 }
 @media (max-width: 520px) {
   .review {
+    margin-top: 4rem;
     margin-left: 0;
   }
 }
