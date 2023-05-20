@@ -1,23 +1,42 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { userContext } from "../context/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import { BsSearch, BsBag, BsCartDash } from "react-icons/bs";
 import { MdClose } from "react-icons/md";
-import { useRouter } from "next/router";
 import {
-  AiOutlineHeart,
-  AiFillHeart,
   AiOutlineMenu,
+  AiOutlineUp,
   AiOutlineDown,
 } from "react-icons/ai";
-import { RiAccountCircleLine, RiAccountCircleFill } from "react-icons/ri";
+import { RiAccountCircleLine } from "react-icons/ri";
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
+
+
 const Navbar = () => {
   const { pathname } = useRouter();
+  const router = useRouter();
   const [isMenuOn, setIsMenuOn] = useState(false);
   const [isSearchBarOn, setIsSearchBarOn] = useState(false);
+  const [categories, setCategories] = useState([])
+  const fetchingCategories = async() =>{
+          const res = await fetch('https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/categories/category');
+          const result = await res.json();
+          const data = result.data;
+          setCategories(data)
+  }
+    useEffect(()=>{
+        fetchingCategories();
+    }, [])
+    const categorieshandler =(e) =>{
+      console.log(e.value);
+      router.push(`/categories/${e.value}`)
+    }
+
 
   const { cartInfo } = useContext(userContext);
   return (
@@ -66,9 +85,14 @@ const Navbar = () => {
 
       <div className={styles.lower_nav}>
         <div className={styles.first_element}>
-          <h3>Category</h3>
-          <AiOutlineDown className={styles.icon} />
+            { !!categories.length &&
+          <Dropdown className={styles.myClassName} controlClassName={styles.myControlClassName} menuClassName={styles.myMenuClassName} arrowClassName={styles.myArrowClassName}
+            arrowClosed={<span className={styles.arrow} ><AiOutlineDown/></span>}
+            arrowOpen={<span className={styles.arrow} ><AiOutlineUp /></span>}
+           options={categories} onChange={(e)=> categorieshandler(e)} placeholder="Categories" />
+            }
         </div>
+            
         <div className={styles.Linktext}>
           <h3 className={styles.textStlingLink}>Home</h3>
           <h3 className={styles.textStlingLink}>Shop</h3>
