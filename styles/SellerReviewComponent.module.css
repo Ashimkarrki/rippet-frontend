@@ -66,7 +66,7 @@
   color: black;
   right: 0;
 }
-@media (max-width: 520px) {
+@media (max-width: 660px) {
   .img {
     width: 9rem;
     aspect-ratio: 3/4;
