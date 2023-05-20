@@ -27,10 +27,13 @@ const SellerReviews = () => {
                 id: s.id,
                 rating: s.rating,
                 review: s.review,
+                reply: s.Answer,
                 reviewer: s.user.Username,
                 userId: s.user.id,
                 date: s.createdAt,
                 MainImage: s.product.MainImage,
+                sellerId: s.sellerId,
+                productId: s.id,
                 productName: s.product.Name,
                 productPrice: s.product.Price,
                 productAvgRating: s.product.AverageRating,
@@ -49,7 +52,13 @@ const SellerReviews = () => {
   return (
     <div className={styles.review}>
       {productReviewInfo?.map((s) => {
-        return <SellerReviewComponent key={s.id} data={s} />;
+        return (
+          <SellerReviewComponent
+            key={s.id}
+            data={s}
+            setProductReviewInfo={setProductReviewInfo}
+          />
+        );
       })}
     </div>
   );
