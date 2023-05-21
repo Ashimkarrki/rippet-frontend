@@ -5,7 +5,6 @@ import styles from "../../styles/CategoriesProduct.module.css";
 import Link from "next/link";
 const CategoriesProducts = ({ data }) => {
   const { asPath } = useRouter();
-  console.log(asPath.split("/"));
   const List = data.data;
   const repeat = (time) => {
     let array = [];
@@ -52,7 +51,6 @@ const CategoriesProducts = ({ data }) => {
 };
 
 export async function getServerSideProps(context) {
-  console.log(context.params);
   const res = await fetch(
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/search/categories/" +
       context.params.id[0] +
@@ -60,6 +58,12 @@ export async function getServerSideProps(context) {
       context.params.id[1]
   );
   const data = await res.json();
+  console.log(data);
+  if (!data.data) {
+    return {
+      notFound: true,
+    };
+  }
   return {
     props: { data },
   };

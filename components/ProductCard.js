@@ -6,7 +6,7 @@ import { BsCartDash } from "react-icons/bs";
 import styles from "../styles/ProductCard.module.css";
 import { userContext } from "../context/userContext";
 import axios from "axios";
-const ProductsCard = ({ id, pic, title, price, newPrice, discount }) => {
+const ProductsCard = ({ id, pic, title, price, discount }) => {
   const [isCartLoading, setIsCartLoading] = useState(false);
   const { addToCart, cartInfo } = useContext(userContext);
   const isInCart = useMemo(() => {
@@ -49,7 +49,7 @@ const ProductsCard = ({ id, pic, title, price, newPrice, discount }) => {
         {discount ? (
           <>
             <strike className={styles.strike}>रु {price} </strike>
-            रु {newPrice}
+            रु {price - discount}
           </>
         ) : (
           `रु  ${price}`

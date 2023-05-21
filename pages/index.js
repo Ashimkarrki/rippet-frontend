@@ -6,6 +6,7 @@ import Services from "../components/Services";
 import Category from "../components/Category";
 import useFetchUser from "../features/fetchUser";
 export default function Home({ data }) {
+  console.log(data);
   useFetchUser();
   const category = [
     {

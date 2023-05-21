@@ -11,12 +11,13 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
-
+// {{URL}}api/v1/products/search/ashim/1
 const Navbar = () => {
-  const { pathname } = useRouter();
   const router = useRouter();
   const [isMenuOn, setIsMenuOn] = useState(false);
   const [isSearchBarOn, setIsSearchBarOn] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
   const [categories, setCategories] = useState([]);
   const fetchingCategories = async () => {
     const res = await fetch(
@@ -35,18 +36,31 @@ const Navbar = () => {
   };
 
   const { cartInfo } = useContext(userContext);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    router.push(`/search/${searchValue}`);
+  };
   return (
     <nav className={styles.nav}>
       <div className={styles.upper_nav}>
         <Link href={"/"} className={styles.rippet_logo_parent}>
           <Image src={rippet_logo} alt="logo" className={styles.rippet_logo} />
         </Link>
-        <div className={styles.icon_wrapper}>
-          <input className={styles.input} type="text" placeholder="Search..." />
-          <button className={styles.search_button}>
-            <BsSearch className={styles.search_icon} />
+        <form className={styles.icon_wrapper} onSubmit={submitHandler}>
+          <input
+            value={searchValue}
+            className={styles.input}
+            type="text"
+            required
+            placeholder="Search..."
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <button className={styles.search_button} type="submit">
+            <Link href={`/search/${searchValue}`}>
+              <BsSearch className={styles.search_icon} />
+            </Link>
           </button>
-        </div>
+        </form>
 
         <div className={styles.navigate_icons}>
           {/* <button
