@@ -1,0 +1,23 @@
+.search_wrapper {
+  width: 82%;
+  margin: 2rem auto;
+}
+.search {
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  gap: 1rem;
+}
+.button_grp {
+  text-align: center;
+  margin: 1rem 0;
+}
+.button {
+  padding: 5px;
+  border: 1px solid grey;
+}
+.button:hover {
+  cursor: pointer;
+  background-color: grey;
+}

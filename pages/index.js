@@ -6,7 +6,6 @@ import Services from "../components/Services";
 import Category from "../components/Category";
 import useFetchUser from "../features/fetchUser";
 export default function Home({ data }) {
-  console.log(data);
   useFetchUser();
   const category = [
     {
@@ -48,6 +47,9 @@ export default function Home({ data }) {
   const list2 = lists?.filter((s, i) => {
     return i >= data.results / 2;
   });
+  console.log("///");
+  console.log(list1);
+  console.log(list2);
   axios.defaults.baseURL =
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/";
 

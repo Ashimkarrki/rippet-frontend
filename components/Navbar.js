@@ -4,37 +4,42 @@ import { userContext } from "../context/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import { BsSearch, BsBag, BsCartDash } from "react-icons/bs";
+import { RxCross1 } from "react-icons/rx";
 import { MdClose } from "react-icons/md";
 import { AiOutlineMenu, AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 import { RiAccountCircleLine } from "react-icons/ri";
 import Dropdown from "react-dropdown";
+import { GiHamburgerMenu } from "react-icons/gi";
 import "react-dropdown/style.css";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
-// {{URL}}api/v1/products/search/ashim/1
 const Navbar = () => {
+  const [isDropDown, setIsDropDown] = useState(false);
   const router = useRouter();
   const [isMenuOn, setIsMenuOn] = useState(false);
-  const [isSearchBarOn, setIsSearchBarOn] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-
   const [categories, setCategories] = useState([]);
-  const fetchingCategories = async () => {
-    const res = await fetch(
-      "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/categories/category"
-    );
-    const result = await res.json();
-    const data = result.data;
-    setCategories(data);
-  };
-  useEffect(() => {
-    fetchingCategories();
-  }, []);
+  // const fetchingCategories = async () => {
+  //   const res = await fetch(
+  //     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/categories/category"
+  //   );
+  //   const result = await res.json();
+  //   const data = result.data;
+  //   setCategories(data);
+  // };
+  // useEffect(() => {
+  //   fetchingCategories();
+  // }, []);
   const categorieshandler = (e) => {
     console.log(e.value);
     router.push(`/categories/${e.value}/1`);
   };
-
+  const searchTerm = () => {
+    let term = router.asPath.split("/");
+    if (term[1] === "search" && !searchValue) {
+      setSearchValue(term[2].replace("%20", " "));
+    }
+  };
   const { cartInfo } = useContext(userContext);
   const submitHandler = (e) => {
     e.preventDefault();
@@ -95,7 +100,7 @@ const Navbar = () => {
 
       <div className={styles.lower_nav}>
         <div className={styles.first_element}>
-          {!!categories.length && (
+          {/* {!!categories.length && (
             <Dropdown
               className={styles.myClassName}
               controlClassName={styles.myControlClassName}
@@ -115,11 +120,41 @@ const Navbar = () => {
               onChange={(e) => categorieshandler(e)}
               placeholder="Categories"
             />
-          )}
+          )} */}
+          <div className={styles.drop_menu}>
+            <h3 onClick={() => setIsDropDown(!isDropDown)}>
+              {isDropDown ? (
+                <RxCross1 className={styles.ham_icon} />
+              ) : (
+                <GiHamburgerMenu className={styles.ham_icon} />
+              )}
+              Categories
+            </h3>
+            {/* <div
+              className={`${
+                isDropDown ? styles.dropdown_enable : styles.dropdown_disable
+              } ${styles.dropdown_same}`}
+            >
+              {categories.map((s, index) => {
+                return (
+                  <Link
+                    key={index}
+                    href={"/categories/" + s + "/1"}
+                    onClick={() => {
+                      setIsDropDown(false);
+                    }}
+                  >
+                    <h4 className={styles.dropdown_item}>{s}</h4>
+                  </Link>
+                );
+              })}
+            </div> */}
+          </div>
         </div>
 
         <div className={styles.Linktext}>
           <h3 className={styles.textStlingLink}>Home</h3>
+
           <h3 className={styles.textStlingLink}>Shop</h3>
           <h3 className={styles.textStlingLink}>Digital Study Material</h3>
           <h3 className={styles.textStlingLink}>Available Roooms</h3>

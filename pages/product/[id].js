@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import styles from "../../styles/Product.module.css";
 import QuestionAnswer from "../../components/QuestionAnswer";
+import PopUpMessgenger from "../../components/PopUpMessgenger";
 import { AiOutlineHeart } from "react-icons/ai";
 import Review from "../../components/Review";
 import { useContext } from "react";
@@ -10,11 +11,12 @@ import { DotSpinner } from "@uiball/loaders";
 import axios from "axios";
 const Product = ({ data }) => {
   const [isCartLoading, setIsCartLoading] = useState(false);
-  const { isLoading, isError, error } = useFetchUser();
+  useFetchUser();
   const instance = axios.create({
     withCredentials: true,
     headers: { authorization: "Bearer" },
   });
+  const [isPopUpMessenger, setIsPopUpMessenger] = useState(false);
   const [noOfItem, setNoOfItem] = useState(1);
   const [which, setWhich] = useState(1);
   const [headPic, setHeadPic] = useState(0);
@@ -36,7 +38,16 @@ const Product = ({ data }) => {
   return (
     <div>
       <div className={styles.productContainer}>
+        {isPopUpMessenger && <PopUpMessgenger />}
         <div className={styles.product}>
+          <button
+            className={styles.message}
+            onClick={() => {
+              setIsPopUpMessenger(!isPopUpMessenger);
+            }}
+          >
+            Message Seller
+          </button>
           <div className={styles.image_section}>
             <img
               className={styles.header_image}

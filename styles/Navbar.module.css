@@ -145,30 +145,29 @@
   display: none;
 }
 
-
-.myControlClassName{
-  background-color: #1f4c94 ;
+.myControlClassName {
+  background-color: #1f4c94;
   color: white;
   display: flex;
   gap: 1rem;
   cursor: pointer;
   transition: 1s;
 }
-.myClassName{
+.myClassName {
   font-size: 1.1rem;
 }
-.myArrowClassName{
+.myArrowClassName {
   color: white;
 }
-.arrow{
+.arrow {
   color: white;
   font-size: 1rem;
 }
 
 .myMenuClassName::-webkit-scrollbar {
   width: 1px;
-  padding: .1rem;
-  font-size: .1rem;
+  padding: 0.1rem;
+  font-size: 0.1rem;
 }
 
 /* Track */
@@ -185,7 +184,45 @@
 .myMenuClassName::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
+.drop_menu {
+  position: relative;
+}
+.dropdown_same {
+  position: absolute;
+  width: 15rem;
+  background-color: white;
+  left: 0;
+  top: 31px;
+  color: black;
+  border: 1px solid #1f4c94;
+  border-top: none;
+  /* padding: 1rem; */
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-25%);
+  z-index: 2;
+  overflow: hidden;
+  transition: max-height 1s ease;
+}
+.dropdown_item {
+  margin: 10px;
+  font-weight: 500;
+}
+.dropdown_item:hover {
+  cursor: pointer;
+  color: blue;
+}
+.dropdown_disable {
+  max-height: 0;
+  /* border: none; */
+}
+.dropdown_enable {
+  max-height: 25rem;
+}
+.ham_icon {
+  margin-right: 1rem;
+  transform: translateY(20%);
+}
 @media (max-width: 796px) {
   .lower_nav {
     display: none;

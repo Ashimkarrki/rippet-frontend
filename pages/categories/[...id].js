@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import ProductsCard from "../../components/ProductCard";
 import styles from "../../styles/CategoriesProduct.module.css";
+import { BiChevronsUp, BiChevronsDown } from "react-icons/bi";
 import Link from "next/link";
 const CategoriesProducts = ({ data }) => {
   const { asPath } = useRouter();
@@ -15,6 +16,31 @@ const CategoriesProducts = ({ data }) => {
   };
   return (
     <div className={styles.categoriesProducts_wrapper}>
+      <div className={styles.category_info}>
+        <div>
+          <h4 className={styles.heading}>Category : {asPath.split("/")[2]}</h4>
+          <h5 className={styles.heading}>{List.length} items</h5>
+        </div>
+        <div className={styles.sort}>
+          <select>
+            <option>Sort By</option>
+            <option>By Price (High &gt; Low)</option>
+            <option>By Price (Low &gt; High)</option>
+            <option>By Rating (High &gt; Low) </option>
+            <option>By Rating (Low &lt; High) </option>
+          </select>{" "}
+        </div>
+      </div>
+      <div className={styles.button_grp}>
+        {repeat(data.totalPages).map((s, index) => (
+          <Link
+            key={index}
+            href={`/categories/${asPath.split("/")[2]}/${index + 1}`}
+          >
+            {s}
+          </Link>
+        ))}
+      </div>
       <div className={styles.categoriesProducts}>
         {List.length && (
           <>
@@ -58,7 +84,6 @@ export async function getServerSideProps(context) {
       context.params.id[1]
   );
   const data = await res.json();
-  console.log(data);
   if (!data.data) {
     return {
       notFound: true,

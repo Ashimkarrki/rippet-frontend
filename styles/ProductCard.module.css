@@ -4,11 +4,9 @@
 }
 .img {
   width: 13rem;
-  /* height: 15rem; */
   aspect-ratio: 3/4;
   object-fit: cover;
   transition: transform 400ms ease-in;
-  /* border: 1px solid grey; */
 }
 .card:hover img {
   transform: scale(1.1);
