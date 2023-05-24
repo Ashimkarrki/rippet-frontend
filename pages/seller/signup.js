@@ -1,4 +1,4 @@
-import style from "../styles/FormComponent.module.css";
+import style from "../../styles/FormComponent.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -6,7 +6,7 @@ import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
 import {  toast } from 'react-toastify';
 
-export const SignUpComponent = () => {
+ const SignUpComponent = () => {
   const router = useRouter();
   const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
   const [isLoading, setIsLoading] = useState(false);
@@ -16,8 +16,12 @@ export const SignUpComponent = () => {
     Password: "",
     Email: "",
     ConfirmPassword: "",
+    PhoneNumber: 0,
+    Shopname:""
+
+
   });
-  const change = (e) => { 
+  const change = (e) => {
     setuserData({
       ...userData,
       [e.target.name]: e.target.value,
@@ -31,17 +35,17 @@ export const SignUpComponent = () => {
         withCredentials: true,
         headers: { authorization: "Bearer" },
       });
-      const sendingData = {...userData, Role: "user"}
+      const sendingData = {...userData, Role: "seller"}
       instance
         .post(`${URL}api/v1/users/signup`, sendingData)
         .then((data) => {
-          router.push("/");
+          router.push("/seller/login");
         })
         .catch((err) => {
           console.log(err?.response?.data?.message);
           let error_string = err?.response?.data?.message;
           toast.error(error_string, {
-            position: "top-right", 
+            position: "top-right",
             autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -76,6 +80,28 @@ export const SignUpComponent = () => {
               onChange={change}
               required
               placeholder="Please Enter Your Email"
+            />
+          </div>
+          <div className={style.inputContainer}>
+            <label className={style.formlabel}>Phone Number*</label>
+            <input
+              className={style.forminput}
+              type="number"
+              name="PhoneNumber"
+              onChange={change}
+              required
+              placeholder="Please Enter Your Phone Number"
+            />
+          </div>
+          <div className={style.inputContainer}>
+            <label className={style.formlabel}>Shop Name*</label>
+            <input
+              className={style.forminput}
+              type="text"
+              name="Shopname"
+              onChange={change}
+              required
+              placeholder="Please Enter Your shop name"
             />
           </div>
           <div className={style.inputContainer}>
@@ -117,7 +143,7 @@ export const SignUpComponent = () => {
           </p>
           <div className={style.orlogin}>
             <p>
-              or <Link href="login">Login</Link>
+              or <Link href="/seller/login">Login</Link>
             </p>
           </div>
         </div>
@@ -125,3 +151,5 @@ export const SignUpComponent = () => {
     </div>
   );
 };
+
+export default SignUpComponent

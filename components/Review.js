@@ -8,7 +8,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { userContext } from "../context/userContext";
 import useSWR from "swr";
 import { DotSpinner } from "@uiball/loaders";
-const Review = ({ id }) => {
+const Review = ({ id , sellerId}) => {
   const [isSubmitLoading, setisSubmitLoading] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
@@ -139,7 +139,7 @@ const Review = ({ id }) => {
                     const res = await instance.post(
                       "products/" + id + "/reviews",
                       {
-                        ...createReviewData,
+                        ...createReviewData , sellerId:sellerId
                       }
                     );
                     dispatch({
@@ -194,7 +194,7 @@ const Review = ({ id }) => {
                             headers: { authorization: "Bearer" },
                           });
                           const res = await instance.delete(
-                            "/reviews/delete/" + _id + "/" + id
+                            "/reviews/delete/" + _id + "/" + id, {sellerId:sellerId}
                           );
                           dispatch({
                             type: "LOAD_REVIEW",

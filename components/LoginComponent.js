@@ -1,6 +1,4 @@
 import style from "../styles/FormComponent.module.css";
-import Image from "next/image";
-import Googlelogo from "../public/google.png";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -8,7 +6,7 @@ import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
 import { toast } from "react-toastify";
 
-const LoginComponent = () => {
+const LoginComponent = ({role}) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
@@ -34,11 +32,19 @@ const LoginComponent = () => {
         withCredentials: true,
         headers: { authorization: "Bearer" },
       });
+      const sendingData ={
+        ...userData, Role: role
+      }
       instance
-        .post(`${URL}api/v1/users/login`, userData)
+        .post(`${URL}api/v1/users/login`, sendingData)
         .then((data) => {
           console.log(data);
+          if(role == "user"){
           router.push("/");
+          }else imageConfigDefault(role == "seller")
+          {
+            router.push("/sellerDashboard"); 
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -57,9 +63,6 @@ const LoginComponent = () => {
         });
     }
   };
-  {
-    console.log("kk");
-  }
   return (
     <div className={style.FormContainer}>
       <form className={style.FormSubContainer} onSubmit={submitHandler}>
@@ -97,14 +100,10 @@ const LoginComponent = () => {
           ) : (
             <input className={style.formbutton} value="Login" type="submit" />
           )}
-          <p className={style.formparagraph}>or login with</p>
-          <button className={style.googlebutton}>
-            <Image src={Googlelogo} width={"20"} height={"20"} alt="google" />
-            Login in with Google
-          </button>
+
           <div className={style.orlogin}>
             <p>
-              or <Link href="/signup">Sign Up</Link>
+              or <Link href={ (role == "user")?"/signup": "/seller/signup"}>Sign Up</Link>
             </p>
           </div>
         </div>

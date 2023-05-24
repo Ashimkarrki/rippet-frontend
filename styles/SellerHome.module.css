@@ -1,0 +1,32 @@
+.sellerhomecontainer{
+    display: flex;
+    padding: 3rem 6rem;
+    justify-content: center;
+    align-items: center;
+    background-color: #7f7f7f;
+}
+
+.sellerhomecontainer div{
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+    flex-direction: column;
+}
+.sellerhomecontainer div h1{
+    font-size: 1.4rem;
+    color: aliceblue;
+    margin-bottom: .4rem;
+
+}
+
+.sellerhomecontainer div button{
+    padding: 1rem 1rem;
+    background-color: #ffd200;
+    border: none;
+    font-size: .7rem;
+    font-weight: 700;
+    color: white;
+    border-radius: .3rem;
+    cursor: pointer;
+}

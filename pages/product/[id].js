@@ -38,7 +38,7 @@ const Product = ({ data }) => {
   return (
     <div>
       <div className={styles.productContainer}>
-        {isPopUpMessenger && <PopUpMessgenger />}
+        {isPopUpMessenger && <PopUpMessgenger  sellerId={dataInfo.sellerId}   />}
         <div className={styles.product}>
           <button
             className={styles.message}
@@ -228,6 +228,7 @@ const Product = ({ data }) => {
           averagerating={dataInfo?.AverageRating}
           noofrating={dataInfo?.NumberRating}
           id={dataInfo.id}
+          sellerId={dataInfo.sellerId}
           dataInfo={dataInfo}
           setDataInfo={setDataInfo}
           reviewsInfo={reviewsInfo}
@@ -237,6 +238,7 @@ const Product = ({ data }) => {
         <QuestionAnswer
           qa={dataInfo.asks}
           id={dataInfo.id}
+          sellerId ={dataInfo.sellerId}
           dataInfo={dataInfo}
           setDataInfo={setDataInfo}
         />

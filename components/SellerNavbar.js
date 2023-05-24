@@ -67,12 +67,12 @@ const SellerNavbar = () => {
           </li>
           <li
             className={
-              pathname.slice(17, pathname.length) === "reports"
+              pathname.slice(17, pathname.length) === "message"
                 ? styles.white
                 : ""
             }
           >
-            Reports
+        <Link href={"/sellerDashboard/message"}>Message</Link>
           </li>
         </ul>
       </nav>

@@ -5,6 +5,7 @@ import CarouselComponent from "../components/CarouselComponent";
 import Services from "../components/Services";
 import Category from "../components/Category";
 import useFetchUser from "../features/fetchUser";
+import { SellerHomecomponenet } from "../components/SellerHomecomponenet";
 export default function Home({ data }) {
   useFetchUser();
   const category = [
@@ -55,6 +56,7 @@ export default function Home({ data }) {
 
   axios.defaults.withCredentials = true;
   return (
+    <>
     <div className={styles.home}>
       <Banner />
       <CarouselComponent list={list1} title={"Latest Products"} />
@@ -63,6 +65,8 @@ export default function Home({ data }) {
       <CarouselComponent list={list1} title={"Most Rated Products"} />
       <Services />
     </div>
+      <SellerHomecomponenet />
+    </>
   );
 }
 export async function getServerSideProps() {

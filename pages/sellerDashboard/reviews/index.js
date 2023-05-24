@@ -8,7 +8,7 @@ import SellerReviewComponent from "../../../components/SellerReviewComponent";
 const SellerReviews = () => {
   const [productReviewInfo, setProductReviewInfo] = useState();
 
-  useFetchUser();
+  // useFetchUser();
   const instance = axios.create({
     withCredentials: true,
     headers: { authorization: "Bearer" },

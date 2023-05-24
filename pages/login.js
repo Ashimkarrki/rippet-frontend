@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import LoginComponent from "../components/LoginComponent";
 
 const login = () => {
-  return <LoginComponent />;
+  return <LoginComponent role={"user"} />;
 };
 
 export default login;

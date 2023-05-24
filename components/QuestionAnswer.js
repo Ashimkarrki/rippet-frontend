@@ -4,7 +4,7 @@ import { RiQuestionnaireFill, RiQuestionAnswerFill } from "react-icons/ri";
 import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
 
-const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo }) => {
+const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo, sellerId }) => {
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [row, setRow] = useState(2);
   const [question, setQuestion] = useState("");
@@ -17,7 +17,7 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo }) => {
     });
     instance
       .post(`/ask/` + id, {
-        Question: question,
+        Question: question, sellerId: sellerId
       })
       .then((data) => {
         let temp = { ...dataInfo };

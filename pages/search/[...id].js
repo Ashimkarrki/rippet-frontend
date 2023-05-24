@@ -4,6 +4,7 @@ import styles from "../../styles/SearchPage.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 const SearchPage = ({ data }) => {
+
   const { asPath } = useRouter();
   console.log(data);
   const repeat = (time) => {
@@ -26,7 +27,7 @@ const SearchPage = ({ data }) => {
         ))}
       </div>
       <div className={styles.search}>
-        {data.data.products.map((s) => {
+        {data?.data?.product?.map((s) => {
           return (
             <ProductCard
               key={s.id}
@@ -55,11 +56,12 @@ const SearchPage = ({ data }) => {
 
 export const getServerSideProps = async (context) => {
   console.log(context.params.id);
+  const number =    (context.params.id[1] == 1 )?context.params.id[1]: 1
   const res = await fetch(
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/search/" +
       context.params.id[0] +
-      "/" +
-      context.params.id?.at(1) || 1
+      "/" + "no/" + "no/" + `${number}`
+   
   );
   console.log(res);
   const data = await res.json();
