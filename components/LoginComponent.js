@@ -6,7 +6,7 @@ import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
 import { toast } from "react-toastify";
 
-const LoginComponent = ({role}) => {
+const LoginComponent = ({ role }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
@@ -32,18 +32,18 @@ const LoginComponent = ({role}) => {
         withCredentials: true,
         headers: { authorization: "Bearer" },
       });
-      const sendingData ={
-        ...userData, Role: role
-      }
+      const sendingData = {
+        ...userData,
+        Role: role,
+      };
       instance
         .post(`${URL}api/v1/users/login`, sendingData)
         .then((data) => {
           console.log(data);
-          if(role == "user"){
-          router.push("/");
-          }else imageConfigDefault(role == "seller")
-          {
-            router.push("/sellerDashboard"); 
+          if (role == "user") {
+            router.push("/");
+          } else if (role === "seller") {
+            router.push("/sellerDashboard");
           }
         })
         .catch((err) => {
@@ -103,7 +103,10 @@ const LoginComponent = ({role}) => {
 
           <div className={style.orlogin}>
             <p>
-              or <Link href={ (role == "user")?"/signup": "/seller/signup"}>Sign Up</Link>
+              or{" "}
+              <Link href={role == "user" ? "/signup" : "/seller/signup"}>
+                Sign Up
+              </Link>
             </p>
           </div>
         </div>
