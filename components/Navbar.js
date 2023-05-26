@@ -13,11 +13,18 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import "react-dropdown/style.css";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
+import useFetchUser from "../features/fetchUser";
 const Navbar = () => {
+  useFetchUser();
+  const { userInfo } = useContext(userContext);
   const [isDropDown, setIsDropDown] = useState(false);
   const router = useRouter();
   const [isMenuOn, setIsMenuOn] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState(
+    router.asPath.split("/")[1] === "search"
+      ? router.asPath.split("/")[2].replace("%20", " ")
+      : ""
+  );
   const [categories, setCategories] = useState([]);
   // const fetchingCategories = async () => {
   //   const res = await fetch(
@@ -34,16 +41,10 @@ const Navbar = () => {
     console.log(e.value);
     router.push(`/categories/${e.value}/1`);
   };
-  const searchTerm = () => {
-    let term = router.asPath.split("/");
-    if (term[1] === "search" && !searchValue) {
-      setSearchValue(term[2].replace("%20", " "));
-    }
-  };
   const { cartInfo } = useContext(userContext);
   const submitHandler = (e) => {
     e.preventDefault();
-    router.push(`/search/${searchValue}`);
+    router.push(`/search/${searchValue}/no/no/1`);
   };
   return (
     <nav className={styles.nav}>
@@ -61,32 +62,33 @@ const Navbar = () => {
             onChange={(e) => setSearchValue(e.target.value)}
           />
           <button className={styles.search_button} type="submit">
-            <Link href={`/search/${searchValue}`}>
+            <Link href={`/search/${searchValue}/no/no/1`}>
               <BsSearch className={styles.search_icon} />
             </Link>
           </button>
         </form>
 
         <div className={styles.navigate_icons}>
-          {/* <button
-            className={styles.search_button_separate}
-            onClick={() => {
-              setIsSearchBarOn((prev) => !prev);
-            }}
-          >
-            <BsSearch className={styles.search_icon} />
-          </button> */}
-          <button className={styles.icons}>
-            <Link href="/signup">
-              <RiAccountCircleLine className={styles.navbar_icons} />
-            </Link>
-          </button>
-          <button className={`${styles.icons} ${styles.relative}`}>
-            <Link href="/Cart">
-              <h5 className={styles.cart_no}>{cartInfo.results}</h5>
-              <BsCartDash className={styles.navbar_icons} />
-            </Link>
-          </button>
+          {userInfo.id ? (
+            <>
+              <h5>{userInfo.userName}</h5>
+              <h5>Log Out</h5>
+            </>
+          ) : (
+            <button className={styles.icons}>
+              <Link href="/signup">
+                <RiAccountCircleLine className={styles.navbar_icons} />
+              </Link>
+            </button>
+          )}
+          {userInfo.id && (
+            <button className={`${styles.icons} ${styles.relative}`}>
+              <Link href="/Cart">
+                <h5 className={styles.cart_no}>{cartInfo.results}</h5>
+                <BsCartDash className={styles.navbar_icons} />
+              </Link>
+            </button>
+          )}
           <button
             className={`${styles.menu_button} ${styles.icons}`}
             onClick={() => {

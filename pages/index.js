@@ -69,7 +69,8 @@ export default function Home({ data }) {
     </>
   );
 }
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  console.log(context.req.headers.cookie);
   const res = await fetch(
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products"
   );
