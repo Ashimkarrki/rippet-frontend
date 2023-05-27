@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { userContext } from "../context/userContext";
 const useFetchUser = () => {
   const { addDetails, userInfo, cartInfo } = useContext(userContext);
-
   const { isLoading, data, isError, error } = useSWR(
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/users/isme",
     async (url) => {
@@ -16,7 +15,6 @@ const useFetchUser = () => {
           headers: { authorization: "Bearer" },
         });
         const res = await instance.get(url);
-        // console.log(res.data.user);
         addDetails(res.data.user);
         return res;
       }

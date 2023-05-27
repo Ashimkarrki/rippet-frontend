@@ -10,6 +10,14 @@ export const initialState = {
     role: "",
     userName: "",
   },
+  seller: {
+    email: "",
+    sellerName: "",
+    shopName: "",
+    phoneNumber: "",
+    role: "",
+    id: "",
+  },
 };
 const formatCart = (payload) => {
   let temp = payload?.map(({ productId, quantity, _id }) => {
@@ -58,6 +66,15 @@ const userReducer = (state, action) => {
           userName: action?.payload.Username,
           id: action?.payload.id,
         },
+      };
+    case "ADD_SELLER":
+      return {
+        email: action.payload.Email,
+        sellerName: action.payload.UserName,
+        shopName: action.payload.Shopname,
+        phoneNumber: action.payload.PhoneNumber,
+        role: action.payload.Role,
+        id: action.payload.id,
       };
     default:
       return { ...state };

@@ -10,6 +10,9 @@ const UserProvider = ({ children }) => {
   const addDetails = (payload) => {
     dispatch({ type: "ADD_CART_AND_USER", payload: payload });
   };
+  const addSeller = (payload) => {
+    dispatch({ type: "ADD_SELLER", payload: payload });
+  };
   const loadSession = (payload) => {
     dispatch({ type: "LOAD_SESSION", payload: payload });
   };
@@ -19,6 +22,8 @@ const UserProvider = ({ children }) => {
         addToCart,
         addDetails,
         loadSession,
+        addSeller,
+        sellerInfo: state.seller,
         userInfo: state.user,
         cartInfo: state.cart,
       }}
