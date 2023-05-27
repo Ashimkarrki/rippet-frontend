@@ -31,6 +31,13 @@
     overflow-y: scroll;
 }
 
+
+
+.getmessage::-webkit-scrollbar {
+    width: 1px;
+    
+  }
+  
 .sendmessage{
     height: 15%;
     padding: 2rem;
@@ -54,4 +61,68 @@
         background-color:#2457aa;
         color: white;
         font-size: 1rem;
+}
+
+.singlechat{
+        padding: .3rem;
+        background-color: #dedede;
+        margin: 1rem;
+        cursor: pointer;
+        height: 5rem;
+        border-radius: .5rem;
+        display: flex;
+        justify-content: space-between;
+}
+.img{
+    height: 100%;
+
+}
+.productdetailcontainer{
+    display: flex;
+    height: 100%;
+}
+
+.userdetail{
+    display: flex;
+    align-items: flex-end;
+}
+.activeImage{
+    padding: .3rem;
+    background-color: #b1d0ff;
+    margin: 1rem;
+    cursor: pointer;
+    height: 5rem;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.notactiveImage{
+    background-color: #dedede;
+    padding: .3rem;
+    margin: 1rem;
+    cursor: pointer;
+    height: 5rem;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.getmessage{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sellerstyle{
+    align-self: flex-end;
+
+}
+.userstyle{
+    align-self: flex-start;
+}
+.text{
+    background-color: #2457aa;
+    color: white;
+    padding: .5rem;
+    border-radius: .3rem;
 }
