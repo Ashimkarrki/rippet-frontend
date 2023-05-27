@@ -11,7 +11,15 @@ const SearchPage = ({ data }) => {
   const repeat = (time) => {
     let array = [];
     for (let i = 1; i <= time; i++) {
-      array.push(<button className={styles.button}>{i}</button>);
+      array.push(
+        <button
+          className={`${styles.button} ${
+            Number(data.currentPage) === i && styles.active
+          }`}
+        >
+          {i}
+        </button>
+      );
     }
     return array;
   };
@@ -54,7 +62,7 @@ const SearchPage = ({ data }) => {
               "/" +
               data.priceSort +
               "/" +
-              Number(Number(data.currentPage) + 1)
+              Number(index + 1)
             }
           >
             {s}
@@ -79,7 +87,16 @@ const SearchPage = ({ data }) => {
         {repeat(data.totalpages).map((s, index) => (
           <Link
             key={index}
-            href={`/search/${router.asPath.split("/")[2]}/${index + 1}`}
+            href={
+              "/search/" +
+              data.searchTerm +
+              "/" +
+              data.reviewSort +
+              "/" +
+              data.priceSort +
+              "/" +
+              Number(index + 1)
+            }
           >
             {s}
           </Link>
@@ -101,6 +118,11 @@ export const getServerSideProps = async (context) => {
       context.params.id[3]
   );
   const data = await res.json();
+  if (!data.totalpages) {
+    return {
+      notFound: true,
+    };
+  }
   return {
     props: { data },
   };

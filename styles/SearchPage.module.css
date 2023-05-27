@@ -15,9 +15,12 @@
 }
 .button {
   padding: 5px;
-  border: 1px solid grey;
+  border: 1px solid black;
 }
 .button:hover {
   cursor: pointer;
+  background-color: grey;
+}
+.active {
   background-color: grey;
 }

@@ -62,7 +62,13 @@ const Navbar = () => {
             onChange={(e) => setSearchValue(e.target.value)}
           />
           <button className={styles.search_button} type="submit">
-            <Link href={`/search/${searchValue}/no/no/1`}>
+            <Link
+              href={
+                searchValue
+                  ? `/search/${searchValue}/no/no/1`
+                  : `/search/no/no/1`
+              }
+            >
               <BsSearch className={styles.search_icon} />
             </Link>
           </button>
