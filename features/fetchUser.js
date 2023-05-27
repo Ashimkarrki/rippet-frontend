@@ -16,7 +16,7 @@ const useFetchUser = () => {
           headers: { authorization: "Bearer" },
         });
         const res = await instance.get(url);
-        console.log(res.data.user);
+        // console.log(res.data.user);
         addDetails(res.data.user);
         return res;
       }

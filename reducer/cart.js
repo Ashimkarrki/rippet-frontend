@@ -29,15 +29,15 @@ const userReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
       cartArray = formatCart(action?.payload);
-      if(cartArray?.length){
-      return {
-        ...state,
-        cart: {
-          results: cartArray?.length,
-          items: [...cartArray],
-        },
-      };
-    }
+      if (cartArray?.length) {
+        return {
+          ...state,
+          cart: {
+            results: cartArray?.length,
+            items: [...cartArray],
+          },
+        };
+      }
     case "LOAD_SESSION":
       return {
         cart: action?.payload?.cartInfo,
@@ -45,7 +45,6 @@ const userReducer = (state, action) => {
       };
     case "ADD_CART_AND_USER":
       cartArray = formatCart(action?.payload?.Cart);
-      if(cartArray?.length){
 
       return {
         cart: {
@@ -53,14 +52,13 @@ const userReducer = (state, action) => {
           items: [...cartArray],
         },
         user: {
-          email: action?.payload?.Email,
-          isVerified: action?.payload?.IsVerified,
-          role: action?.payload?.Role,
-          userName: action?.payload?.Username,
-          id: action?.payload?.id,
+          email: action?.payload.Email,
+          isVerified: action?.payload.IsVerified,
+          role: action?.payload.Role,
+          userName: action?.payload.Username,
+          id: action?.payload.id,
         },
       };
-    }
     default:
       return { ...state };
   }

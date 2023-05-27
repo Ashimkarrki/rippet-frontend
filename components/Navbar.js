@@ -17,6 +17,7 @@ import useFetchUser from "../features/fetchUser";
 const Navbar = () => {
   useFetchUser();
   const { userInfo } = useContext(userContext);
+  console.log(userInfo);
   const [isDropDown, setIsDropDown] = useState(false);
   const router = useRouter();
   const [isMenuOn, setIsMenuOn] = useState(false);
@@ -38,7 +39,6 @@ const Navbar = () => {
   //   fetchingCategories();
   // }, []);
   const categorieshandler = (e) => {
-    console.log(e.value);
     router.push(`/categories/${e.value}/1`);
   };
   const { cartInfo } = useContext(userContext);

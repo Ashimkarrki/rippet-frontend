@@ -17,7 +17,8 @@ const Cart = () => {
     withCredentials: true,
     headers: { authorization: "Bearer" },
   });
-  const { addToCart, cartInfo } = useContext(userContext);
+  const { userInfo, addToCart, cartInfo } = useContext(userContext);
+  console.log(userInfo);
   const total = () => {
     let sum = 0;
     let array = cartInfo.items.map((s) => {
@@ -28,7 +29,6 @@ const Cart = () => {
     }
     return sum;
   };
-  console.log(isLoading);
   if (isLoading) return <h1>Loading.....</h1>;
   if (error) return <h1>{error.message}</h1>;
   return (
