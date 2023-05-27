@@ -28,10 +28,11 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
             console.log(err);
             setIsloading(true);
           });
-      }
+        }
     };
     fetchingMessage();
-  }, [chatId]);
+  }, [chatId]  
+  );
 
   return (
     <div className={styles.messagessendget}>

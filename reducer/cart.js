@@ -37,15 +37,13 @@ const userReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
       cartArray = formatCart(action?.payload);
-      if (cartArray?.length) {
-        return {
-          ...state,
-          cart: {
-            results: cartArray?.length,
-            items: [...cartArray],
-          },
-        };
-      }
+      return {
+        ...state,
+        cart: {
+          results: cartArray?.length,
+          items: [...cartArray],
+        },
+      };  
     case "LOAD_SESSION":
       return {
         cart: action?.payload?.cartInfo,
@@ -67,15 +65,15 @@ const userReducer = (state, action) => {
           id: action?.payload.id,
         },
       };
-    case "ADD_SELLER":
-      return {
-        email: action.payload.Email,
-        sellerName: action.payload.UserName,
-        shopName: action.payload.Shopname,
-        phoneNumber: action.payload.PhoneNumber,
-        role: action.payload.Role,
-        id: action.payload.id,
-      };
+      case "ADD_SELLER":
+        return {
+          email: action.payload.Email,
+          sellerName: action.payload.UserName,
+          shopName: action.payload.Shopname,
+          phoneNumber: action.payload.PhoneNumber,
+          role: action.payload.Role,
+          id: action.payload.id,
+        };
     default:
       return { ...state };
   }

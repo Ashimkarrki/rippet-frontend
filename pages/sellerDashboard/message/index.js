@@ -8,31 +8,6 @@ const Message = () => {
   const [currentchat, setcurrentchat] = useState(allchat[0]);
   const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
 
-  // const fetchingallchat = async()=>{
-  //   const instance = axios.create({
-  //     withCredentials: true,
-  //     headers: { authorization: "Bearer" },
-  //   });
-  //   instance
-  //     .get(`${URL}api/v1/chats`)
-  //     .then((data) => {
-  //       console.log(data.data.message);
-  //       if(data?.data?.message?.length){
-  //         let AllChat = data.data.message
-  //         setcurrentchat(AllChat[0])
-  //         setallchat((prev)=>{
-  //           return[...prev , ...AllChat]
-  //         })
-  //       }
-
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
-  //   useEffect(()=>{
-  //       fetchingallchat();
-  //   },[])
   const { data, error, isLoading } = useSWR(
     `${URL}api/v1/chats`,
     async (url) => {
@@ -97,17 +72,9 @@ const Message = () => {
           </>
         )}
       </div>
-      {currentchat?._id && (
-        <SendGetcomponentMessage
-          chatId={currentchat?._id || allchat[0]._id}
-          userId={
-            currentchat?.people?.user?._id || allchat[0].people?.user?._id
-          }
-          sellerId={
-            currentchat?.people?.seller?._id || allchat[0].people?.seller?._id
-          }
-        />
-      )}
+      { (currentchat?._id) &&
+        <SendGetcomponentMessage chatId ={currentchat?._id} userId={currentchat?.people?.user?._id} sellerId={currentchat?.people?.seller?._id} />
+      }
     </div>
   );
 };
