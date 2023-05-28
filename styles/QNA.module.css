@@ -1,0 +1,9 @@
+.QNA {
+  margin-left: 10rem;
+}
+@media (max-width: 520px) {
+  .QNA {
+    margin-top: 4rem;
+    margin-left: 0;
+  }
+}

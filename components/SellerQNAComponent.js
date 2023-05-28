@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { DotSpinner } from "@uiball/loaders";
 import { FaPencilAlt } from "react-icons/fa";
-
+import styles from "../styles/SellerQNAComponent.module.css";
 import axios from "axios";
 const SellerQNAComponent = ({ data, setQNAInfo }) => {
   const [replyLoading, setReplyLoading] = useState(false);
@@ -18,28 +18,26 @@ const SellerQNAComponent = ({ data, setQNAInfo }) => {
     });
     try {
       const res = await instance.patch(
-        `https://adorable-leather-jacket-foal.cyclic.app/api/v1/reviews/update/${data.id}/${data.productId}/${data.sellerId}`,
+        `https://adorable-leather-jacket-foal.cyclic.app/api/v1/ask/update/${data.productId}/${data.id}`,
         {
           Answer: replyValue,
         }
       );
-      // console.log(res.data.data.remainingReview);
-      setProductReviewInfo(
-        res.data.data.remainingReview.map((s) => {
+      console.log(res);
+      setQNAInfo(
+        res.data.data.remainingAsk.map((s) => {
           return {
             id: s.id,
-            rating: s.rating,
-            review: s.review,
-            reply: s.Answer,
-            reviewer: s.user.Username,
-            userId: s.user.id,
+            Question: s.Question,
+            Answer: s.Answer,
+            questioner: s?.user?.Username,
+            userId: s?.user?.id,
             date: s.createdAt,
             MainImage: s.product.MainImage,
             sellerId: s.sellerId,
-            productId: s.id,
+            productId: s.product.id,
             productName: s.product.Name,
             productPrice: s.product.Price,
-            productAvgRating: s.product.AverageRating,
           };
         })
       );
@@ -50,7 +48,7 @@ const SellerQNAComponent = ({ data, setQNAInfo }) => {
   };
   const editHandler = () => {
     console.log("onedit");
-    setReplyValue(data.reply);
+    setReplyValue(data.Answer);
     setReply(true);
   };
   return (
@@ -59,18 +57,17 @@ const SellerQNAComponent = ({ data, setQNAInfo }) => {
       <div className={styles.user_review}>
         <div className={styles.wrapper}>
           <h4 className={styles.heading}>- By {data.reviewer}</h4>
-          <p className={styles.grey}>({data.date.slice(0, 10)})</p>
         </div>
 
-        <p>{data.review}</p>
-        {data.reply && !reply && (
+        <p>{data.Question}</p>
+        {data.Answer && !reply && (
           <div className={styles.seller_reply}>
-            - {data.reply}{" "}
+            - {data.Answer}{" "}
             <FaPencilAlt className={styles.pencil_icon} onClick={editHandler} />
           </div>
         )}
         {!reply ? (
-          !data.reply && <button onClick={() => setReply(true)}> Reply</button>
+          !data.Answer && <button onClick={() => setReply(true)}> Reply</button>
         ) : (
           <form onSubmit={submitHandeler}>
             <textarea

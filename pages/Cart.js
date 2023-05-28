@@ -168,7 +168,9 @@ const Cart = () => {
               </p>
             </div>
             <div className={styles.submitProducts}>
-              <button className={styles.checkoutbutton}>CHECKOUT</button>
+              <Link href={"/Order"}>
+                <button className={styles.checkoutbutton}>CHECKOUT</button>
+              </Link>
               <p>OR</p>
               <button className={styles.checkoutesewa}>
                 Checkout with <Image src={esewa} width={"30"} height={"30"} />

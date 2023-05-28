@@ -13,54 +13,48 @@ import useFetchSeller from "../../../features/fetchSeller";
 
 const QNA = () => {
   const [QNAInfo, setQNAInfo] = useState();
-  useFetchSeller();
-  const { sellerInfo } = useContext(userContext);
-  // const { data, isLoading, error } = useSWR(
-  //   `https://adorable-leather-jacket-foal.cyclic.app/api/v1/ask/${sellerInfo.id}/seller`,
-  //   async (url) => {
-  //     if (userInfo.id) {
-  //       const instance = axios.create({
-  //         withCredentials: true,
-  //         headers: { authorization: "Bearer" },
-  //       });
-  //       try {
-  //         const res = await instance.get(url);
-  //         console.log(res.data.data);
-  //         setQNAInfo(
-  //           res.data.data.map((s) => {
-  //             return {
-  //               id: s.id,
-  //               rating: s.rating,
-  //               review: s.review,
-  //               reply: s.Answer,
-  //               reviewer: s.user.Username,
-  //               userId: s.user.id,
-  //               date: s.createdAt,
-  //               MainImage: s.product.MainImage,
-  //               sellerId: s.sellerId,
-  //               productId: s.id,
-  //               productName: s.product.Name,
-  //               productPrice: s.product.Price,
-  //               productAvgRating: s.product.AverageRating,
-  //             };
-  //           })
-  //         );
-  //         return res.data.data;
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     } else {
-  //       return;
-  //     }
-  //   }
-  // );
+  // useFetchSeller();
+  // const { sellerInfo } = useContext(userContext);
+  const { data, isLoading, error } = useSWR(
+    `https://adorable-leather-jacket-foal.cyclic.app/api/v1/ask/seller/allasks`,
+    async (url) => {
+      const instance = axios.create({
+        withCredentials: true,
+        headers: { authorization: "Bearer" },
+      });
+      try {
+        const res = await instance.get(url);
+        console.log(res.data.data);
+        setQNAInfo(
+          res.data.data.map((s) => {
+            return {
+              id: s.id,
+              Question: s.Question,
+              Answer: s.Answer,
+              questioner: s?.user?.Username,
+              userId: s?.user?.id,
+              date: s.createdAt,
+              MainImage: s.product.MainImage,
+              sellerId: s.sellerId,
+              productId: s.product.id,
+              productName: s.product.Name,
+              productPrice: s.product.Price,
+            };
+          })
+        );
+        return res.data.data;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  );
   return (
-    <div className={styles.review}>
-      {/* {QNAInfo?.map((s) => {
+    <div className={styles.QNA}>
+      {QNAInfo?.map((s) => {
         return (
           <SellerQNAComponent key={s.id} data={s} setQNAInfo={setQNAInfo} />
         );
-      })} */}
+      })}
     </div>
   );
 };

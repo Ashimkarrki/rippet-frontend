@@ -37,13 +37,22 @@ const userReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
       cartArray = formatCart(action?.payload);
+      if (!cartArray) {
+        return {
+          ...state,
+          cart: {
+            results: 0,
+            items: [],
+          },
+        };
+      }
       return {
         ...state,
         cart: {
           results: cartArray?.length,
           items: [...cartArray],
         },
-      };  
+      };
     case "LOAD_SESSION":
       return {
         cart: action?.payload?.cartInfo,
@@ -51,7 +60,15 @@ const userReducer = (state, action) => {
       };
     case "ADD_CART_AND_USER":
       cartArray = formatCart(action?.payload?.Cart);
-
+      if (!cartArray) {
+        return {
+          ...state,
+          cart: {
+            results: 0,
+            items: [],
+          },
+        };
+      }
       return {
         cart: {
           results: cartArray?.length,
@@ -65,15 +82,15 @@ const userReducer = (state, action) => {
           id: action?.payload.id,
         },
       };
-      case "ADD_SELLER":
-        return {
-          email: action.payload.Email,
-          sellerName: action.payload.UserName,
-          shopName: action.payload.Shopname,
-          phoneNumber: action.payload.PhoneNumber,
-          role: action.payload.Role,
-          id: action.payload.id,
-        };
+    case "ADD_SELLER":
+      return {
+        email: action.payload.Email,
+        sellerName: action.payload.UserName,
+        shopName: action.payload.Shopname,
+        phoneNumber: action.payload.PhoneNumber,
+        role: action.payload.Role,
+        id: action.payload.id,
+      };
     default:
       return { ...state };
   }
