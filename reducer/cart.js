@@ -8,7 +8,6 @@ export const initialState = {
     userName: "",
     id: "",
     role: "",
-    userName: "",
   },
   seller: {
     email: "",

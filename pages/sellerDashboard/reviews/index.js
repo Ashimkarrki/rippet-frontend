@@ -12,7 +12,7 @@ const SellerReviews = () => {
     headers: { authorization: "Bearer" },
   });
   const { data, isLoading, error } = useSWR(
-    `https://adorable-leather-jacket-foal.cyclic.app/api/v1/reviews/seller/allreviews`,
+    `reviews/seller/allreviews`,
     async (url) => {
       try {
         const res = await instance.get(url);

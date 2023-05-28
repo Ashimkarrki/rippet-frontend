@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
-import {  toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export const SignUpComponent = () => {
   const router = useRouter();
@@ -17,7 +17,7 @@ export const SignUpComponent = () => {
     Email: "",
     ConfirmPassword: "",
   });
-  const change = (e) => { 
+  const change = (e) => {
     setuserData({
       ...userData,
       [e.target.name]: e.target.value,
@@ -31,9 +31,9 @@ export const SignUpComponent = () => {
         withCredentials: true,
         headers: { authorization: "Bearer" },
       });
-      const sendingData = {...userData, Role: "user"}
+      const sendingData = { ...userData, Role: "user" };
       instance
-        .post(`${URL}api/v1/users/signup`, sendingData)
+        .post(`users/signup`, sendingData)
         .then((data) => {
           router.push("/");
         })
@@ -41,14 +41,15 @@ export const SignUpComponent = () => {
           console.log(err?.response?.data?.message);
           let error_string = err?.response?.data?.message;
           toast.error(error_string, {
-            position: "top-right", 
+            position: "top-right",
             autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             progress: undefined,
             theme: "colored",
-            });          setIsLoading(false);
+          });
+          setIsLoading(false);
         });
     }
   };

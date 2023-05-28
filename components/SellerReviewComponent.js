@@ -22,7 +22,7 @@ const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
     });
     try {
       const res = await instance.patch(
-        `https://adorable-leather-jacket-foal.cyclic.app/api/v1/reviews/update/${data.id}/${data.productId}/${data.sellerId}`,
+        `reviews/update/${data.id}/${data.productId}/${data.sellerId}`,
         {
           Answer: replyValue,
         }

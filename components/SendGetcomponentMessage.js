@@ -15,7 +15,7 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
       });
       if (chatId) {
         await instance
-          .get(`${URL}api/v1/messages/${chatId}`)
+          .get(`messages/${chatId}`)
           .then((data) => {
             let Allmessages = data.data.message;
             console.log("messages", data.data.message);
@@ -28,11 +28,10 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
             console.log(err);
             setIsloading(true);
           });
-        }
+      }
     };
     fetchingMessage();
-  }, [chatId]  
-  );
+  }, [chatId]);
 
   return (
     <div className={styles.messagessendget}>

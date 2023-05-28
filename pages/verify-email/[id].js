@@ -13,7 +13,7 @@ const id = () => {
       headers: { authorization: "Bearer" },
     });
     instance
-      .post(`${URL}api/v1/users/verify-email/${id}`)
+      .post(`users/verify-email/${id}`)
       .then((data) => {
         console.log(data);
         router.push("/");

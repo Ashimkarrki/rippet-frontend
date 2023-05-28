@@ -5,7 +5,7 @@ import { userContext } from "../context/userContext";
 const useFetchUser = () => {
   const { addDetails, userInfo, cartInfo } = useContext(userContext);
   const { isLoading, data, isError, error } = useSWR(
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/users/isme",
+    "users/isme",
     async (url) => {
       if (userInfo.id) {
         return { ...userInfo, ...cartInfo };

@@ -13,9 +13,7 @@ const ProductDeletePopup = ({ deleteItem, setDeleteItem, setProducts }) => {
       headers: { authorization: "Bearer" },
     });
     try {
-      const res = await instance.delete(
-        `https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/${deleteItem.id}`
-      );
+      const res = await instance.delete(`products/${deleteItem.id}`);
       console.log(res);
       setProducts((prev) => {
         return prev.filter((s) => s.id !== deleteItem.id);

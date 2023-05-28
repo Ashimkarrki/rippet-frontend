@@ -37,7 +37,7 @@ const LoginComponent = ({ role }) => {
         Role: role,
       };
       instance
-        .post(`${URL}api/v1/users/login`, sendingData)
+        .post(`/users/login`, sendingData)
         .then((data) => {
           console.log(data);
           if (role == "user") {

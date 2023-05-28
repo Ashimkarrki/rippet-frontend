@@ -79,10 +79,7 @@ const PopUpMessgenger = ({ sellerId }) => {
       content: message,
     };
     instance
-      .post(
-        `https://adorable-leather-jacket-foal.cyclic.app/api/v1/messages`,
-        passingdata
-      )
+      .post(`messages`, passingdata)
       .then((data) => {
         console.log(data);
       })

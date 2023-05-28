@@ -8,7 +8,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { userContext } from "../context/userContext";
 import useSWR from "swr";
 import { DotSpinner } from "@uiball/loaders";
-const Review = ({ id , sellerId}) => {
+const Review = ({ id, sellerId }) => {
   const [isSubmitLoading, setisSubmitLoading] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
@@ -41,31 +41,28 @@ const Review = ({ id , sellerId}) => {
     }
   };
   const [reviews, dispatch] = useReducer(reviewReducer, intialState);
-  const { dat, error, isLoading } = useSWR(
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/reviews/" + id,
-    async (url) => {
-      const instance = axios.create({
-        withCredentials: true,
-        headers: { authorization: "Bearer" },
+  const { dat, error, isLoading } = useSWR("reviews/" + id, async (url) => {
+    const instance = axios.create({
+      withCredentials: true,
+      headers: { authorization: "Bearer" },
+    });
+    try {
+      const res = await instance.get(url);
+      dispatch({
+        type: "LOAD_REVIEW",
+        payload: {
+          raw: res.data.data.ReviewAll,
+          total: res.data.results,
+          averageRating: res.data.AverageRating,
+        },
       });
-      try {
-        const res = await instance.get(url);
-        dispatch({
-          type: "LOAD_REVIEW",
-          payload: {
-            raw: res.data.data.ReviewAll,
-            total: res.data.results,
-            averageRating: res.data.AverageRating,
-          },
-        });
 
-        return res;
-      } catch (err) {
-        console.log(err.message);
-        return err;
-      }
+      return res;
+    } catch (err) {
+      console.log(err.message);
+      return err;
     }
-  );
+  });
 
   const [createReviewData, setCreateReviewData] = useState({
     review: "",
@@ -139,7 +136,8 @@ const Review = ({ id , sellerId}) => {
                     const res = await instance.post(
                       "products/" + id + "/reviews",
                       {
-                        ...createReviewData , sellerId:sellerId
+                        ...createReviewData,
+                        sellerId: sellerId,
                       }
                     );
                     dispatch({
@@ -194,7 +192,8 @@ const Review = ({ id , sellerId}) => {
                             headers: { authorization: "Bearer" },
                           });
                           const res = await instance.delete(
-                            "/reviews/delete/" + _id + "/" + id, {sellerId:sellerId}
+                            "/reviews/delete/" + _id + "/" + id,
+                            { sellerId: sellerId }
                           );
                           dispatch({
                             type: "LOAD_REVIEW",

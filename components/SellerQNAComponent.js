@@ -18,7 +18,7 @@ const SellerQNAComponent = ({ data, setQNAInfo }) => {
     });
     try {
       const res = await instance.patch(
-        `https://adorable-leather-jacket-foal.cyclic.app/api/v1/ask/update/${data.productId}/${data.id}`,
+        `ask/update/${data.productId}/${data.id}`,
         {
           Answer: replyValue,
         }

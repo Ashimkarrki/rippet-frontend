@@ -16,7 +16,7 @@ const QNA = () => {
   // useFetchSeller();
   // const { sellerInfo } = useContext(userContext);
   const { data, isLoading, error } = useSWR(
-    `https://adorable-leather-jacket-foal.cyclic.app/api/v1/ask/seller/allasks`,
+    `ask/seller/allasks`,
     async (url) => {
       const instance = axios.create({
         withCredentials: true,

@@ -16,7 +16,7 @@ const Message = () => {
         headers: { authorization: "Bearer" },
       });
       try {
-        const res = await instance.get(`${URL}api/v1/chats`);
+        const res = await instance.get(`chats`);
         console.log("Hello Before");
         console.log(res.data.message);
         let AllChat = res.data.message;
@@ -72,9 +72,13 @@ const Message = () => {
           </>
         )}
       </div>
-      { (currentchat?._id) &&
-        <SendGetcomponentMessage chatId ={currentchat?._id} userId={currentchat?.people?.user?._id} sellerId={currentchat?.people?.seller?._id} />
-      }
+      {currentchat?._id && (
+        <SendGetcomponentMessage
+          chatId={currentchat?._id}
+          userId={currentchat?.people?.user?._id}
+          sellerId={currentchat?.people?.seller?._id}
+        />
+      )}
     </div>
   );
 };

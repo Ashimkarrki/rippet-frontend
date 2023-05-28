@@ -15,7 +15,7 @@ const AllProducts = () => {
     headers: { authorization: "Bearer" },
   });
   const { data, error, isLoading } = useSWR(
-    `https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/seller/allproducts`,
+    `products/seller/allproducts`,
     async (url) => {
       try {
         const res = await instance.get(url);
