@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/sellerMessage.module.css";
 import axios from "axios";
+import io from "socket.io-client"
+var socket;
 const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
   console.log(chatId);
-  const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
+  const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
   const [isLoading, setIsloading] = useState(false);
   const [allMessages, setAllMessages] = useState([]);
-
+  const [sendingmessage, setSendingmessage] = useState("");
+  const [socketConnected, setSocketConnected] = useState(false)
+  useEffect(()=>{
+      socket = io(URLlocal);
+      socket.emit("setup", sellerId);
+      socket.on("connected", (data)=>{
+        console.log(data)
+        setSocketConnected(true)
+      })
+  },[])
   useEffect(() => {
     const fetchingMessage = async () => {
       const instance = axios.create({
@@ -23,15 +34,64 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
               return [...Allmessages];
             });
             setIsloading(true);
+            socket.emit('join chat', chatId)
           })
           .catch((err) => {
             console.log(err);
             setIsloading(true);
           });
-      }
+        }
     };
     fetchingMessage();
-  }, [chatId]);
+  }, [chatId]  
+  );
+  const changeHandler =(e)=>{
+    setSendingmessage(e.target.value)
+  }
+
+  const submithandler = (e)=>{
+    e.preventDefault();
+          const instance = axios.create({
+            withCredentials: true,
+            headers: { authorization: "Bearer" },
+          })
+          const sendingDatatodB = {
+            chatId: chatId,
+            content: sendingmessage
+        }
+        console.log(sendingDatatodB, "hello world")
+        let gettingData ;
+           instance.post(`/messages`,sendingDatatodB).then((data)=>{
+            const objectdata = data.data.message
+            const tempdata ={
+              _id:objectdata._id,
+              chat: objectdata.chat._id,
+              content:objectdata.content,
+              sender:objectdata.sender,
+              createdAt:objectdata.createdAt,
+              updatedAt:objectdata.updatedAt
+            }
+            socket.emit("new message", data.data.message, chatId )
+            setAllMessages((prev)=>{
+              return[...prev, tempdata ]
+            })
+          }).catch((err)=>{
+            console.log(err)
+          })  
+  }
+  useEffect(()=>{
+    console.log("message received")
+          socket.on("message recieved", (data)=>{
+            console.log("Message Received!" , data)
+            setAllMessages((prev)=>{
+              return[...prev, data ]
+            })
+          })
+          // socket.on("testing", (data)=>{
+          //   console.log(data)
+          // })
+  });
+
 
   return (
     <div className={styles.messagessendget}>
@@ -55,8 +115,8 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
       )}
 
       <div className={styles.sendmessage}>
-        <input type="text" placeholder="message..." />
-        <button>submit</button>
+        <input onChange={(e)=> changeHandler(e)} type="text" placeholder="message..." />
+        <button onClick={submithandler}>submit</button>
       </div>
     </div>
   );
