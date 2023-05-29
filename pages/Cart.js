@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import Link from "next/link";
 import esewa from "../public/esewa.webp";
 import Image from "next/image";
-import useFetchUser from "../features/fetchUser";
 import { useContext } from "react";
 import styles from "../styles/Cart.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
 import { userContext } from "../context/userContext";
+import IsAuth from "../utils/IsAuth";
 const Cart = () => {
-  const { isLoading, isError, error } = useFetchUser();
   const [deletingId, setDeletingId] = useState("");
   const shipping = 50;
   const tax = 13;
@@ -18,7 +17,7 @@ const Cart = () => {
     headers: { authorization: "Bearer" },
   });
   const { userInfo, addToCart, cartInfo } = useContext(userContext);
-  console.log(userInfo);
+  console.log("elo");
   const total = () => {
     let sum = 0;
     let array = cartInfo.items.map((s) => {
@@ -29,8 +28,8 @@ const Cart = () => {
     }
     return sum;
   };
-  if (isLoading) return <h1>Loading.....</h1>;
-  if (error) return <h1>{error.message}</h1>;
+  // if (isLoading) return <h1>Loading.....</h1>;
+  // if (error) return <h1>{error.message}</h1>;
   return (
     <div>
       <div className={styles.cartContainer}>
@@ -183,4 +182,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default IsAuth(Cart);

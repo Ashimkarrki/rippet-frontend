@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
-import {  toast } from 'react-toastify';
-
- const SignUpComponent = () => {
+import { toast } from "react-toastify";
+import IsAuth from "../../utils/IsAuth";
+const SignUpComponent = () => {
   const router = useRouter();
   const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
   const [isLoading, setIsLoading] = useState(false);
@@ -17,9 +17,7 @@ import {  toast } from 'react-toastify';
     Email: "",
     ConfirmPassword: "",
     PhoneNumber: 0,
-    Shopname:""
-
-
+    Shopname: "",
   });
   const change = (e) => {
     setuserData({
@@ -35,7 +33,7 @@ import {  toast } from 'react-toastify';
         withCredentials: true,
         headers: { authorization: "Bearer" },
       });
-      const sendingData = {...userData, Role: "seller"}
+      const sendingData = { ...userData, Role: "seller" };
       instance
         .post(`${URL}api/v1/users/signup`, sendingData)
         .then((data) => {
@@ -52,7 +50,8 @@ import {  toast } from 'react-toastify';
             pauseOnHover: true,
             progress: undefined,
             theme: "colored",
-            });          setIsLoading(false);
+          });
+          setIsLoading(false);
         });
     }
   };
@@ -152,4 +151,4 @@ import {  toast } from 'react-toastify';
   );
 };
 
-export default SignUpComponent
+export default IsAuth(SignUpComponent);

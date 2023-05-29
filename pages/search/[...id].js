@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ProductCard from "../../components/ProductCard";
 import styles from "../../styles/SearchPage.module.css";
 import Link from "next/link";
+import IsAuth from "../../utils/IsAuth";
 import { useRouter } from "next/router";
 const SearchPage = ({ data }) => {
   const [filter, setFilter] = useState("");
@@ -127,4 +128,4 @@ export const getServerSideProps = async (context) => {
     props: { data },
   };
 };
-export default SearchPage;
+export default IsAuth(SearchPage);

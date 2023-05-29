@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useContext } from "react";
 import { userContext } from "../context/userContext";
 import styles from "../styles/place-order.module.css";
-import useFetchUser from "../features/fetchUser";
+import IsAuth from "../utils/IsAuth";
 const PlaceOrder = () => {
   const ref = useRef();
   const [detail, setDetail] = useState({
@@ -23,7 +23,6 @@ const PlaceOrder = () => {
     ref.current.focus();
     console.log(ref);
   }, []);
-  useFetchUser();
   const { cartInfo, userInfo } = useContext(userContext);
   const total = () => {
     let sum = 0;
@@ -169,4 +168,4 @@ const PlaceOrder = () => {
   );
 };
 
-export default PlaceOrder;
+export default IsAuth(PlaceOrder);

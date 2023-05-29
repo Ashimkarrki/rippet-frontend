@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
 import styles from "../styles/Order.module.css";
 import { userContext } from "../context/userContext";
-import useFetchUser from "../features/fetchUser";
+import IsAuth from "../utils/IsAuth";
 const Order = () => {
   const charge = 20;
-  useFetchUser();
   const { userInfo, cartInfo } = useContext(userContext);
   const [data, setData] = useState({
     PhoneNumber: "",
@@ -32,7 +31,7 @@ const Order = () => {
   };
   return (
     <div className={styles.order}>
-      <form className={styles.userInfo}>
+      <form className={styles.userInform}>
         <div className={styles.userInfo_child}>
           <label for="Name">Name</label>
           <input
@@ -119,7 +118,7 @@ const Order = () => {
           />
         </div>
       </form>
-      <div className={styles.cartInfo}>
+      <div className={styles.cartInform}>
         Products:
         <div className={styles.products}>
           {cartInfo.items.map((s) => {
@@ -145,4 +144,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default IsAuth(Order);

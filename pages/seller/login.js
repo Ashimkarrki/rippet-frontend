@@ -1,9 +1,8 @@
-import React from 'react'
-import LoginComponent from "../../components/LoginComponent"
+import React from "react";
+import LoginComponent from "../../components/LoginComponent";
+import IsAuth from "../../utils/IsAuth";
 const login = () => {
-  return (
-        <LoginComponent role ={"seller"} />
-    )
-}
+  return <LoginComponent role={"seller"} />;
+};
 
-export default login
+export default IsAuth(login);

@@ -4,6 +4,7 @@ import useSWR from "swr";
 
 import axios from "axios";
 import SellerReviewComponent from "../../../components/SellerReviewComponent";
+import IsAuth from "../../../utils/IsAuth";
 const SellerReviews = () => {
   const [productReviewInfo, setProductReviewInfo] = useState();
 
@@ -57,4 +58,4 @@ const SellerReviews = () => {
   );
 };
 
-export default SellerReviews;
+export default IsAuth(SellerReviews);

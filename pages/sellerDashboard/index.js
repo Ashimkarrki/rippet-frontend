@@ -6,6 +6,7 @@ import SellerProductCard from "../../components/SellerProductCard";
 import styles from "../../styles/AllProducts.module.css";
 import ProductDeletePopup from "../../components/ProductDeletePopup";
 import EditProductPopUp from "../../components/EditProductPopUp";
+import IsAuth from "../../utils/IsAuth";
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [deleteItem, setDeleteItem] = useState();
@@ -81,4 +82,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default IsAuth(AllProducts);

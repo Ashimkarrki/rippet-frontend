@@ -3,6 +3,7 @@ import styles from "../../../styles/sellerMessage.module.css";
 import axios from "axios";
 import SendGetcomponentMessage from "../../../components/SendGetcomponentMessage";
 import useSWR from "swr";
+import IsAuth from "../../../utils/IsAuth";
 const Message = () => {
   const [allchat, setallchat] = useState([]);
   const [currentchat, setcurrentchat] = useState(allchat[0]);
@@ -83,4 +84,4 @@ const Message = () => {
   );
 };
 
-export default Message;
+export default IsAuth(Message);

@@ -13,9 +13,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import "react-dropdown/style.css";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
-import useFetchUser from "../features/fetchUser";
 const Navbar = () => {
-  useFetchUser();
   const { userInfo } = useContext(userContext);
   console.log(userInfo);
   const [isDropDown, setIsDropDown] = useState(false);

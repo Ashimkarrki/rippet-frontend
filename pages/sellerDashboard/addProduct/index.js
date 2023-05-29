@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from "../../../styles/AddProduct.module.css";
+import IsAuth from "../../../utils/IsAuth";
 const AddProduct = () => {
   const instance = axios.create({
     withCredentials: true,
@@ -207,4 +208,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default IsAuth(AddProduct);

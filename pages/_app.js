@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 function MyApp({ Component, pageProps }) {
   axios.defaults.baseURL =
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/";
+  axios.defaults.withCredentials = true;
+
   return (
     <UserProvider>
       <ToastContainer />

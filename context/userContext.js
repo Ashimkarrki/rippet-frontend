@@ -1,6 +1,14 @@
 import userReducer, { initialState } from "../reducer/cart";
 import { createContext, useReducer } from "react";
-export const userContext = createContext();
+export const userContext = createContext({
+  addToCart: () => {},
+  addDetails: () => {},
+  loadSession: () => {},
+  addSeller: () => {},
+  sellerInfo: {},
+  userInfo: {},
+  cartInfo: {},
+});
 
 const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialState);

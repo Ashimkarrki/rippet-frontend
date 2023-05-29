@@ -4,10 +4,9 @@ import styles from "../styles/Home.module.css";
 import CarouselComponent from "../components/CarouselComponent";
 import Services from "../components/Services";
 import Category from "../components/Category";
-import useFetchUser from "../features/fetchUser";
 import SellerHomecomponenet from "../components/SellerHomeComponenet";
-export default function Home({ data }) {
-  useFetchUser();
+import IsAuth from "../utils/IsAuth";
+function Home({ data }) {
   const category = [
     {
       id: 0,
@@ -48,9 +47,7 @@ export default function Home({ data }) {
   const list2 = lists?.filter((s, i) => {
     return i >= data.results / 2;
   });
-  console.log("///");
-  console.log(list1);
-  console.log(list2);
+
   axios.defaults.baseURL =
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/";
 
@@ -69,8 +66,9 @@ export default function Home({ data }) {
     </>
   );
 }
+export default IsAuth(Home);
 export async function getServerSideProps(context) {
-  console.log(context.req.headers.cookie);
+  console.log(context.req.headers);
   const res = await fetch(
     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products"
   );

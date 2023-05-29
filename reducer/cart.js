@@ -69,6 +69,15 @@ const userReducer = (state, action) => {
         };
       }
       return {
+        ...state,
+        seller: {
+          email: "",
+          sellerName: "",
+          shopName: "",
+          phoneNumber: "",
+          role: "",
+          id: "",
+        },
         cart: {
           results: cartArray?.length,
           items: [...cartArray],
@@ -83,12 +92,25 @@ const userReducer = (state, action) => {
       };
     case "ADD_SELLER":
       return {
-        email: action.payload.Email,
-        sellerName: action.payload.UserName,
-        shopName: action.payload.Shopname,
-        phoneNumber: action.payload.PhoneNumber,
-        role: action.payload.Role,
-        id: action.payload.id,
+        ...state,
+        cart: {
+          results: 0,
+          items: [],
+        },
+        user: {
+          email: "",
+          userName: "",
+          id: "",
+          role: "",
+        },
+        seller: {
+          email: action.payload.Email,
+          sellerName: action.payload.UserName,
+          shopName: action.payload.Shopname,
+          phoneNumber: action.payload.PhoneNumber,
+          role: action.payload.Role,
+          id: action.payload.id,
+        },
       };
     default:
       return { ...state };
