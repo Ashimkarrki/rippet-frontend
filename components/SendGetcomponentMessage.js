@@ -5,16 +5,20 @@ import io from "socket.io-client"
 var socket;
 const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
   console.log(chatId);
-  const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
+  // const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
+  const URLlocal = "http://localhost:4000"
   const [isLoading, setIsloading] = useState(false);
   const [allMessages, setAllMessages] = useState([]);
   const [sendingmessage, setSendingmessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false)
   useEffect(()=>{
-      socket = io(URLlocal);
+      socket = io(URLlocal, {
+        withCredentials: true
+      });
+      console.log("socket",socket)
       socket.emit("setup", sellerId);
       socket.on("connected", (data)=>{
-        console.log(data)
+
         setSocketConnected(true)
       })
   },[])
@@ -34,7 +38,7 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
               return [...Allmessages];
             });
             setIsloading(true);
-            socket.emit('join chat', chatId)
+            socket.emit('join chat', chatId, "I am seller")
           })
           .catch((err) => {
             console.log(err);
@@ -61,7 +65,7 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
         }
         console.log(sendingDatatodB, "hello world")
         let gettingData ;
-           instance.post(`/messages`,sendingDatatodB).then((data)=>{
+           instance.post(`messages`,sendingDatatodB).then((data)=>{
             const objectdata = data.data.message
             const tempdata ={
               _id:objectdata._id,
@@ -83,13 +87,19 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
     console.log("message received")
           socket.on("message recieved", (data)=>{
             console.log("Message Received!" , data)
-            setAllMessages((prev)=>{
-              return[...prev, data ]
-            })
-          })
-          // socket.on("testing", (data)=>{
-          //   console.log(data)
-          // })
+            // setAllMessages((prev)=>{
+            //   return[...prev, data ]
+            // })
+            if(!data.length)
+            console.log("I am data from socket io", data)
+            console.log("comming data" ,data._id, "arry data", allMessages[allMessages.length-1]?._id )
+            if(data?._id != allMessages[allMessages.length-1]?._id){
+              setAllMessages((prev)=>{
+                return[...prev,data];
+              })
+              }
+          }
+          )
   });
 
 

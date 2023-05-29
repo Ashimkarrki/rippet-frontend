@@ -37,7 +37,7 @@ const Product = ({ data }) => {
   return (
     <div>
       <div className={styles.productContainer}>
-        {isPopUpMessenger && <PopUpMessgenger sellerId={dataInfo.sellerId} />}
+        {isPopUpMessenger && <PopUpMessgenger sellerId={dataInfo.sellerId} productId={dataInfo.id} />}
         <div className={styles.product}>
           <button
             className={styles.message}

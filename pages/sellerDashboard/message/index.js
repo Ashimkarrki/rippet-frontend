@@ -7,10 +7,10 @@ import IsAuth from "../../../utils/IsAuth";
 const Message = () => {
   const [allchat, setallchat] = useState([]);
   const [currentchat, setcurrentchat] = useState(allchat[0]);
-  const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
+  // const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
 
   const { data, error, isLoading } = useSWR(
-    `${URL}api/v1/chats`,
+    `chats`,
     async (url) => {
       const instance = axios.create({
         withCredentials: true,
