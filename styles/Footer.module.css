@@ -2,9 +2,7 @@
   padding: 3rem 9%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  /* justify-items: center; */
-  background: #ffffff;
-  /* margin-top: 1rem; */
+  background: #e2e8f0;
 
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   gap: 1rem;

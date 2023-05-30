@@ -1,12 +1,14 @@
 import style from "../styles/FormComponent.module.css";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
 import { toast } from "react-toastify";
+import { userContext } from "../context/userContext";
 
 const LoginComponent = ({ role }) => {
+  const { dataFetched } = useContext(userContext);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
@@ -41,9 +43,11 @@ const LoginComponent = ({ role }) => {
         .then((data) => {
           console.log(data);
           if (role == "user") {
-            router.push("/");
+            dataFetched(false);
+            router.replace("/");
           } else if (role === "seller") {
-            router.push("/sellerDashboard");
+            dataFetched(false);
+            router.replace("/sellerDashboard");
           }
         })
         .catch((err) => {

@@ -15,7 +15,6 @@ import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
 const Navbar = () => {
   const { userInfo } = useContext(userContext);
-  console.log(userInfo);
   const [isDropDown, setIsDropDown] = useState(false);
   const router = useRouter();
   const [isMenuOn, setIsMenuOn] = useState(false);

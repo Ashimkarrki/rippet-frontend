@@ -16,7 +16,7 @@ const Cart = () => {
     withCredentials: true,
     headers: { authorization: "Bearer" },
   });
-  const { userInfo, addToCart, cartInfo } = useContext(userContext);
+  const { isDataFetched, addToCart, cartInfo } = useContext(userContext);
   console.log("elo");
   const total = () => {
     let sum = 0;
@@ -181,5 +181,4 @@ const Cart = () => {
     </div>
   );
 };
-
 export default IsAuth(Cart);
