@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "../styles/SellerNavbar.module.css";
 import { RiMenu2Fill } from "react-icons/ri";
-import { IoMdClose } from "react-icons/io";
+import {BsFillHouseDashFill} from "react-icons/bs"
+import { IoMdClose,IoIosCreate } from "react-icons/io";
+import {BiBorderAll} from "react-icons/bi";
+import {BsQuestionSquareFill} from "react-icons/bs"
+import {MdReviews, MdMessage} from "react-icons/md";
+import {RiMessage2Line} from "react-icons/ri"
 import { useRouter } from "next/router";
 const SellerNavbar = () => {
   const [nav, setNav] = useState(false);
@@ -29,7 +34,7 @@ const SellerNavbar = () => {
               pathname.slice(17, pathname.length) === "" ? styles.white : ""
             }
           >
-            <Link href={"/sellerDashboard"}>All Product</Link>
+            <Link href={"/sellerDashboard"}><BsFillHouseDashFill className={styles.icons_nav}/> Product</Link>
           </li>
           <li
             className={
@@ -38,7 +43,9 @@ const SellerNavbar = () => {
                 : ""
             }
           >
-            <Link href={"/sellerDashboard/addProduct"}> Add Product</Link>
+            <Link href={"/sellerDashboard/addProduct"}>
+            <IoIosCreate className={styles.icons_nav}/>
+             Add Product</Link>
           </li>
           <li
             className={
@@ -47,6 +54,7 @@ const SellerNavbar = () => {
                 : ""
             }
           >
+          <BiBorderAll className={styles.icons_nav}/>
             Order
           </li>
           <li
@@ -56,14 +64,18 @@ const SellerNavbar = () => {
                 : ""
             }
           >
-            <Link href={"/sellerDashboard/reviews"}>Reviews</Link>
+            <Link href={"/sellerDashboard/reviews"}>
+            <MdReviews className={styles.icons_nav}/>
+            Reviews</Link>
           </li>
           <li
             className={
               pathname.slice(17, pathname.length) === "qna" ? styles.white : ""
             }
           >
-            <Link href={"/sellerDashboard/qna"}>QNA</Link>
+            <Link href={"/sellerDashboard/qna"}>
+            <BsQuestionSquareFill className={styles.icons_nav}/>
+            QNA</Link>
           </li>
           <li
             className={
@@ -72,7 +84,9 @@ const SellerNavbar = () => {
                 : ""
             }
           >
-        <Link href={"/sellerDashboard/message"}>Message</Link>
+        <Link href={"/sellerDashboard/message"}>
+        <MdMessage className={styles.icons_nav} />
+        Message</Link>
           </li>
         </ul>
       </nav>

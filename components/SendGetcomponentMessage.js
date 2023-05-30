@@ -5,12 +5,14 @@ import io from "socket.io-client"
 var socket;
 const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
   console.log(chatId);
-  // const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
-  const URLlocal = "http://localhost:4000"
+  const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
+  // const URLlocal = "http://localhost:4000"
   const [isLoading, setIsloading] = useState(false);
   const [allMessages, setAllMessages] = useState([]);
   const [sendingmessage, setSendingmessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false)
+
+
   useEffect(()=>{
       socket = io(URLlocal, {
         withCredentials: true
@@ -22,6 +24,9 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
         setSocketConnected(true)
       })
   },[])
+
+
+
   useEffect(() => {
     const fetchingMessage = async () => {
       const instance = axios.create({
@@ -86,18 +91,15 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
   useEffect(()=>{
     console.log("message received")
           socket.on("message recieved", (data)=>{
-            console.log("Message Received!" , data)
-            // setAllMessages((prev)=>{
-            //   return[...prev, data ]
-            // })
-            if(!data.length)
-            console.log("I am data from socket io", data)
-            console.log("comming data" ,data._id, "arry data", allMessages[allMessages.length-1]?._id )
-            if(data?._id != allMessages[allMessages.length-1]?._id){
-              setAllMessages((prev)=>{
-                return[...prev,data];
-              })
+            setAllMessages((prev) => {
+              const messageIds = new Set(prev.map((msg) => msg._id));
+              if (!messageIds.has(data._id)) {
+                return [...prev, data];
+              } else {
+                return prev;
               }
+          })
+              
           }
           )
   });

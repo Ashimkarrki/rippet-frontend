@@ -39,7 +39,9 @@ const AllProducts = () => {
       {editItem && (
         <EditProductPopUp product={editItem} setEditItem={setEditItem} />
       )}
+      <div className={styles.headingContainer}>
       <h3 className={styles.heading}>Top Products </h3>
+      </div>
       <div className={styles.image_grid}>
         {products.map((s) => {
           return (
@@ -53,7 +55,10 @@ const AllProducts = () => {
           );
         })}
       </div>
+      <div className={styles.headingContainer}>
+
       <h3 className={styles.heading}>Other Products ({products.length})</h3>
+      </div>
       <div className={styles.image_grid}>
         {products.map((s) => {
           return (

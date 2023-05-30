@@ -33,17 +33,20 @@ const ProductDeletePopup = ({ deleteItem, setDeleteItem, setProducts }) => {
           className={styles.image}
           alt={deleteItem.Name}
         />
-        <h4 className={styles.heading}>Name : {deleteItem.Name}</h4>
-        <h4 className={styles.heading}>Category : {deleteItem.Category}</h4>
-        <h4 className={styles.heading}>Discount : {deleteItem.Discount}</h4>
-        <h4 className={styles.heading}>
-          AverageRating : {deleteItem.AverageRating}
+        
+        <h4 className={styles.heading}><span>Name :</span> {deleteItem.Name}</h4>
+        <div className={styles.subdetail}>
+        <h4 className={styles.heading}><span>AverageRating : </span>{deleteItem.AverageRating}
         </h4>
-        <h4 className={styles.heading}>Price : {deleteItem.Price}</h4>
-        <div>
+        
+        <h4 className={styles.heading}><span>Price : </span>{deleteItem.Price}</h4>
+        <h4 className={styles.heading}><span>Discount :</span> {deleteItem.Discount}</h4>
+        </div>
+   
+        {/* <div>
           <h4 className={styles.heading}>Description : </h4>
           <p className={styles.desc}>{deleteItem.Description} </p>
-        </div>
+        </div> */}
         <div className={styles.button_group}>
           <button
             className={`${styles.buttons} ${styles.cancel}`}

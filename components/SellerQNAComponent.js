@@ -59,15 +59,15 @@ const SellerQNAComponent = ({ data, setQNAInfo }) => {
           <h4 className={styles.heading}>- By {data.reviewer}</h4>
         </div>
 
-        <p>{data.Question}</p>
+        <p className={styles.user_send_review}>From user - {data.Question}</p>
         {data.Answer && !reply && (
-          <div className={styles.seller_reply}>
+          <div className={styles.seller_reply}>From you
             - {data.Answer}{" "}
             <FaPencilAlt className={styles.pencil_icon} onClick={editHandler} />
           </div>
         )}
         {!reply ? (
-          !data.Answer && <button onClick={() => setReply(true)}> Reply</button>
+          !data.Answer && <button className={styles.replyButton} onClick={() => setReply(true)}> Reply</button>
         ) : (
           <form onSubmit={submitHandeler}>
             <textarea
@@ -77,6 +77,7 @@ const SellerQNAComponent = ({ data, setQNAInfo }) => {
               required
             />
             <button
+            className={styles.cancelButton}
               onClick={() => {
                 setReply(false);
                 setReplyValue("");
@@ -84,7 +85,7 @@ const SellerQNAComponent = ({ data, setQNAInfo }) => {
             >
               Cancel
             </button>
-            <input type="submit" value={"submit"} />
+            <input className={styles.submitButton} type="submit" value={"submit"} />
           </form>
         )}
         {replyLoading ? (

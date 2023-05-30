@@ -1,14 +1,16 @@
 .navbar {
+  margin: 1rem;
   position: fixed;
   top: 0;
-  height: 100vh;
+  height: 95vh;
   width: 10rem;
   display: flex;
   flex-direction: column;
   padding-top: 3rem;
+  border-radius: .4rem;
   padding-left: 1rem;
   background-color: #7cb9e8;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5); 
 }
 .white {
   color: white;
@@ -26,8 +28,19 @@
 .ul {
   list-style: none;
 }
+
+.ul li{
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: .8rem;
+}
 .icons {
   font-size: 1rem;
+}
+.icons_nav{
+  font-size: 1rem;
+  margin-right:.8rem ;
 }
 @media (max-width: 520px) {
   .menu {

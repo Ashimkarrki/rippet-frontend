@@ -157,18 +157,23 @@ const EditProductPopUp = ({ product, setEditItem }) => {
             </select>
           </div>
         </div>
+        <div className={styles.half}>
         <div>
           <h4 className={styles.heading}>Main Image</h4>
           <input
             // value={files.MainImage}
             // className={styles.input}
+          
             type="file"
             name="MainImage"
             required
             accept="image/png, image/jpeg"
             onChange={onFileChange}
+            className={styles.filebutton}
           />
         </div>
+        </div>
+        <div className={styles.half}>
         <div>
           <h4 className={styles.heading}>SideImage1</h4>
           <input
@@ -179,6 +184,7 @@ const EditProductPopUp = ({ product, setEditItem }) => {
             required
             accept="image/png, image/jpeg"
             onChange={onFileChange}
+            className={styles.filebutton}
           />
         </div>
         <div>
@@ -191,8 +197,11 @@ const EditProductPopUp = ({ product, setEditItem }) => {
             required
             accept="image/png, image/jpeg"
             onChange={onFileChange}
+            className={styles.filebutton}
           />
         </div>
+        </div>
+        <div className={styles.half}>
         <div>
           <h4 className={styles.heading}>SideImage3</h4>
           <input
@@ -203,7 +212,9 @@ const EditProductPopUp = ({ product, setEditItem }) => {
             required
             accept="image/png, image/jpeg"
             onChange={onFileChange}
+            className={styles.filebutton}
           />
+        </div>
         </div>
         <div>
           <h4 className={styles.heading}>Description</h4>
@@ -215,9 +226,11 @@ const EditProductPopUp = ({ product, setEditItem }) => {
             rows={6}
           />
         </div>
+        <div className={styles.buttonwrapper}>
         <button type="submit" className={styles.submit}>
           Submit
         </button>
+        </div>
       </form>
     </div>
   );

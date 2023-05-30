@@ -60,6 +60,9 @@
 .heading {
   font-weight: 500;
 }
+.heading span{
+  color: #2457aa;
+}
 .delete_loader {
   justify-content: center;
 }

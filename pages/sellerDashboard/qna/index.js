@@ -50,7 +50,7 @@ const QNA = () => {
     }
   );
   return (
-    <div className={styles.QNA}>
+    <div className={styles.qna}>
       {QNAInfo?.map((s) => {
         return (
           <SellerQNAComponent key={s.id} data={s} setQNAInfo={setQNAInfo} />

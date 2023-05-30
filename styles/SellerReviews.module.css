@@ -1,5 +1,24 @@
 .review {
   margin-left: 10rem;
+  margin-top: 1rem;
+  margin-bottom:  1rem;
+  margin-right:1rem ;
+  margin-left: 12rem;
+  border-radius: .4rem;
+  padding: 1rem;
+  background-color: #f1f3f6a0;
+  background-color: #e9f9ff;
+  max-height: 95vh;
+  overflow-y: scroll;
+
+}
+
+.review::-webkit-scrollbar {
+  width: 5px;
+}
+
+.review::-webkit-scrollbar-thumb {
+  background: #2457aa;
 }
 @media (max-width: 520px) {
   .review {
