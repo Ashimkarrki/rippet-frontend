@@ -6,9 +6,11 @@ import { BsCartDash } from "react-icons/bs";
 import styles from "../styles/ProductCard.module.css";
 import { userContext } from "../context/userContext";
 import axios from "axios";
+import { Router, useRouter } from "next/router";
 const ProductsCard = ({ id, pic, title, price, discount }) => {
+  const router = useRouter();
   const [isCartLoading, setIsCartLoading] = useState(false);
-  const { addToCart, cartInfo } = useContext(userContext);
+  const { addToCart, cartInfo, userInfo } = useContext(userContext);
   const isInCart = useMemo(() => {
     let result = false;
     cartInfo?.items.map((s) => {
@@ -25,6 +27,10 @@ const ProductsCard = ({ id, pic, title, price, discount }) => {
   const add_cart = async (e) => {
     e.preventDefault();
     if (isInCart) {
+      return;
+    }
+    if (!userInfo.id) {
+      router.push("/login");
       return;
     }
     setIsCartLoading(true);

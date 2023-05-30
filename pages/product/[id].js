@@ -9,7 +9,9 @@ import { userContext } from "../../context/userContext";
 import { DotSpinner } from "@uiball/loaders";
 import axios from "axios";
 import IsAuth from "../../utils/IsAuth";
+import { Router, useRouter } from "next/router";
 const Product = ({ data }) => {
+  const router = useRouter();
   const [isCartLoading, setIsCartLoading] = useState(false);
   const instance = axios.create({
     withCredentials: true,
@@ -20,7 +22,7 @@ const Product = ({ data }) => {
   const [which, setWhich] = useState(1);
   const [headPic, setHeadPic] = useState(0);
   const [reviewsInfo, setReviewsInfo] = useState({});
-  const { addToCart, cartInfo } = useContext(userContext);
+  const { addToCart, cartInfo, userInfo } = useContext(userContext);
   const [dataInfo, setDataInfo] = useState(data.data.product);
   console.log(dataInfo);
   const [cartId, setCartId] = useState();
@@ -37,7 +39,12 @@ const Product = ({ data }) => {
   return (
     <div>
       <div className={styles.productContainer}>
-        {isPopUpMessenger && <PopUpMessgenger sellerId={dataInfo.sellerId} productId={dataInfo.id} />}
+        {isPopUpMessenger && (
+          <PopUpMessgenger
+            sellerId={dataInfo.sellerId}
+            productId={dataInfo.id}
+          />
+        )}
         <div className={styles.product}>
           <button
             className={styles.message}
@@ -135,6 +142,10 @@ const Product = ({ data }) => {
                 ) : (
                   <button
                     onClick={async () => {
+                      if (!userInfo.id) {
+                        router.push("/login");
+                        return;
+                      }
                       setIsCartLoading(true);
                       try {
                         const res = await instance.post("/carts", {

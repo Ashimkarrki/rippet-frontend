@@ -24,6 +24,9 @@ const UserProvider = ({ children }) => {
   const loadSession = (payload) => {
     dispatch({ type: "LOAD_SESSION", payload: payload });
   };
+  const dataFetched = (payload) => {
+    dispatch({ type: "DATA_FETCHED", payload: payload });
+  };
   return (
     <userContext.Provider
       value={{
@@ -31,6 +34,8 @@ const UserProvider = ({ children }) => {
         addDetails,
         loadSession,
         addSeller,
+        dataFetched,
+        isDataFetched: state.isDataFetched,
         sellerInfo: state.seller,
         userInfo: state.user,
         cartInfo: state.cart,

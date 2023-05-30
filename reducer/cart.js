@@ -17,6 +17,7 @@ export const initialState = {
     role: "",
     id: "",
   },
+  isDataFetched: false,
 };
 const formatCart = (payload) => {
   let temp = payload?.map(({ productId, quantity, _id }) => {
@@ -112,6 +113,12 @@ const userReducer = (state, action) => {
           id: action.payload.id,
         },
       };
+    case "DATA_FETCHED":
+      return {
+        ...state,
+        isDataFetched: action.payload,
+      };
+
     default:
       return { ...state };
   }
