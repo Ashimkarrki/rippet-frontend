@@ -48,10 +48,6 @@ function Home({ data }) {
     return i >= data.results / 2;
   });
 
-  axios.defaults.baseURL =
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/";
-
-  axios.defaults.withCredentials = true;
   return (
     <>
       <div className={styles.home}>
@@ -70,7 +66,7 @@ export default IsAuth(Home);
 export async function getServerSideProps(context) {
   console.log(context.req.headers);
   const res = await fetch(
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products"
+    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products"
   );
   const data = await res.json();
   return {

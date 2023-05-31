@@ -16,6 +16,7 @@ const Order = () => {
     State: "",
     Zip: "",
   });
+  console.log(cartInfo);
   const submitHandeler = async (e) => {
     e.preventDefault();
     const instance = axios.create({
@@ -44,7 +45,7 @@ const Order = () => {
           };
         }),
       });
-      Router.replace("/");
+      router.replace("/");
     } catch (err) {
       console.log(err);
     }

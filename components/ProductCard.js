@@ -6,6 +6,7 @@ import { BsCartDash } from "react-icons/bs";
 import styles from "../styles/ProductCard.module.css";
 import { userContext } from "../context/userContext";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { Router, useRouter } from "next/router";
 const ProductsCard = ({ id, pic, title, price, discount }) => {
   const router = useRouter();
@@ -30,7 +31,9 @@ const ProductsCard = ({ id, pic, title, price, discount }) => {
       return;
     }
     if (!userInfo.id) {
-      router.push("/login");
+      toast.error("Not Logged In", {
+        position: "bottom-left",
+      });
       return;
     }
     setIsCartLoading(true);
@@ -48,7 +51,7 @@ const ProductsCard = ({ id, pic, title, price, discount }) => {
   return (
     <Link className={styles.card} href={`/product/${id}`}>
       <div className={styles.image_wrapper}>
-        <img src={pic} alt="product" className={styles.img} />
+        <Image src={pic} alt="product" className={styles.img} fill />
       </div>
       <h5 className={styles.title}>{title}</h5>
       <h5 className={styles.price}>

@@ -21,7 +21,7 @@ const CarouselComponent = ({ list, title }) => {
         settings: {
           slidesToShow: 5,
           slidesToScroll: 5,
-          infinite: true,
+          infinite: false,
           dots: false,
         },
       },
@@ -39,7 +39,7 @@ const CarouselComponent = ({ list, title }) => {
         settings: {
           slidesToShow: 4,
           slidesToScroll: 4,
-          infinite: true,
+          infinite: false,
           dots: false,
         },
       },
@@ -48,16 +48,16 @@ const CarouselComponent = ({ list, title }) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
+          infinite: false,
           dots: false,
         },
       },
       {
-        breakpoint: 616,
+        breakpoint: 594,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          infinite: true,
+          infinite: false,
           dots: false,
         },
       },

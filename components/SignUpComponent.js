@@ -4,11 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
-import { toast } from "react-toastify";
-
+import { toast } from "react-hot-toast";
 export const SignUpComponent = () => {
   const router = useRouter();
-  const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [userData, setuserData] = useState({
@@ -35,22 +34,32 @@ export const SignUpComponent = () => {
       instance
         .post(`users/signup`, sendingData)
         .then((data) => {
+          console.log(data);
           router.push("/");
         })
         .catch((err) => {
           console.log(err?.response?.data?.message);
-          let error_string = err?.response?.data?.message;
-          toast.error(error_string, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            progress: undefined,
-            theme: "colored",
-          });
+
           setIsLoading(false);
         });
+      const myPromise = instance.post(`users/signup`, sendingData);
+      toast.promise(
+        myPromise,
+        {
+          loading: "Loading",
+          success: (data) => "Welcome " + data.data.Login.Username,
+          error: (err) =>
+            err?.response?.data?.message || "Internal Error Occurred",
+        },
+        {
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 3000,
+          },
+        }
+      );
     }
   };
   return (

@@ -16,6 +16,8 @@ const SearchPage = ({ data }) => {
         <button
           className={`${styles.button} ${
             Number(data.currentPage) === i && styles.active
+          } ${i === 1 && styles.button_start} ${
+            i === time && styles.button_end
           }`}
         >
           {i}
@@ -43,12 +45,22 @@ const SearchPage = ({ data }) => {
   return (
     <div className={styles.search_wrapper}>
       <div value={filter} className={styles.sort}>
-        <select onChange={onSortChange}>
-          <option value="">Sort By</option>
-          <option value="p_Dsc">By Price (High &gt; Low)</option>
-          <option value="p_Asc">By Price (Low &gt; High)</option>
-          <option value="r_Dsc">By Rating (High &gt; Low) </option>
-          <option value="r_Asc">By Rating (Low &lt; High) </option>
+        <select onChange={onSortChange} className={styles.select}>
+          <option className={styles.option} value="">
+            Sort By
+          </option>
+          <option className={styles.option} value="p_Dsc">
+            By Price (High &gt; Low)
+          </option>
+          <option className={styles.option} value="p_Asc">
+            By Price (Low &gt; High)
+          </option>
+          <option className={styles.option} value="r_Dsc">
+            By Rating (High &gt; Low){" "}
+          </option>
+          <option className={styles.option} value="r_Asc">
+            By Rating (Low &lt; High){" "}
+          </option>
         </select>{" "}
       </div>
       <div className={styles.button_grp}>
@@ -73,14 +85,41 @@ const SearchPage = ({ data }) => {
       <div className={styles.search}>
         {data?.data?.product?.map((s) => {
           return (
-            <ProductCard
-              key={s.id}
-              id={s.id}
-              pic={s.MainImage}
-              title={s.Name}
-              price={s.Price}
-              discount={s.Discount}
-            />
+            <div className={styles.wrapper} key={s.id}>
+              <ProductCard
+                id={s.id}
+                pic={s.MainImage}
+                title={s.Name}
+                price={s.Price}
+                discount={s.Discount}
+              />
+            </div>
+          );
+        })}{" "}
+        {data?.data?.product?.map((s) => {
+          return (
+            <div className={styles.wrapper} key={s.id + "1"}>
+              <ProductCard
+                id={s.id}
+                pic={s.MainImage}
+                title={s.Name}
+                price={s.Price}
+                discount={s.Discount}
+              />
+            </div>
+          );
+        })}{" "}
+        {data?.data?.product?.map((s) => {
+          return (
+            <div className={styles.wrapper} key={s.id + "2"}>
+              <ProductCard
+                id={s.id}
+                pic={s.MainImage}
+                title={s.Name}
+                price={s.Price}
+                discount={s.Discount}
+              />
+            </div>
           );
         })}
       </div>
@@ -109,7 +148,7 @@ const SearchPage = ({ data }) => {
 
 export const getServerSideProps = async (context) => {
   const res = await fetch(
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/search/" +
+    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/search/" +
       context.params.id[0] +
       "/" +
       context.params.id[1] +
