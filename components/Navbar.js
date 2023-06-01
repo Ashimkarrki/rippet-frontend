@@ -4,11 +4,13 @@ import { userContext } from "../context/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import { BsSearch, BsBag, BsCartDash } from "react-icons/bs";
+import { FiShoppingCart } from "react-icons/fi";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import axios from "axios";
 import { RxCross1 } from "react-icons/rx";
 import { MdClose } from "react-icons/md";
 import { AiOutlineMenu, AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 import { RiAccountCircleLine } from "react-icons/ri";
-import Dropdown from "react-dropdown";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "react-dropdown/style.css";
 import styles from "../styles/Navbar.module.css";
@@ -43,6 +45,18 @@ const Navbar = () => {
     e.preventDefault();
     router.push(`/search/${searchValue}/no/no/1`);
   };
+  const logout = async () => {
+    const instance = axios.create({
+      withCredentials: true,
+      headers: { authorization: "Bearer" },
+    });
+    try {
+      const res = await instance.get("users/logout");
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <nav className={styles.nav}>
       <div className={styles.upper_nav}>
@@ -73,10 +87,47 @@ const Navbar = () => {
 
         <div className={styles.navigate_icons}>
           {userInfo.id ? (
-            <>
-              <h5>{userInfo.userName}</h5>
-              <h5>Log Out</h5>
-            </>
+            <div className={styles.user_info}>
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger asChild>
+                  <h5 className={styles.user_info_heading}>
+                    {userInfo.userName}
+                  </h5>
+                </DropdownMenu.Trigger>
+
+                <DropdownMenu.Portal>
+                  <DropdownMenu.Content
+                    className={styles.drop_down}
+                    sideOffset={5}
+                  >
+                    <DropdownMenu.Item className={styles.DropdownMenuItem}>
+                      <h6 className={styles.drop_down_user_info_heading}>
+                        My Orders
+                      </h6>
+                    </DropdownMenu.Item>
+                    <DropdownMenu.Item className={styles.DropdownMenuItem}>
+                      <h6 className={styles.drop_down_user_info_heading}>
+                        My Questions
+                      </h6>
+                    </DropdownMenu.Item>
+                    <DropdownMenu.Item className={styles.DropdownMenuItem}>
+                      <h6 className={styles.drop_down_user_info_heading}>
+                        My Reviews
+                      </h6>
+                    </DropdownMenu.Item>
+                    <DropdownMenu.Item className={styles.DropdownMenuItem}>
+                      <h6
+                        className={styles.drop_down_user_info_heading}
+                        onClick={logout}
+                      >
+                        Log Out
+                      </h6>
+                    </DropdownMenu.Item>
+                    <DropdownMenu.Arrow className={styles.DropdownMenuArrow} />
+                  </DropdownMenu.Content>
+                </DropdownMenu.Portal>
+              </DropdownMenu.Root>
+            </div>
           ) : (
             <button className={styles.icons}>
               <Link href="/signup">
@@ -88,7 +139,7 @@ const Navbar = () => {
             <button className={`${styles.icons} ${styles.relative}`}>
               <Link href="/Cart">
                 <h5 className={styles.cart_no}>{cartInfo.results}</h5>
-                <BsCartDash className={styles.navbar_icons} />
+                <FiShoppingCart className={styles.navbar_icons} />
               </Link>
             </button>
           )}
