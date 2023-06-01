@@ -51,76 +51,70 @@ const SignUpComponent = () => {
       <form className={style.FormSubContainer} onSubmit={submitHandler}>
         <div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Full name*</label>
+            <label className={style.formlabel}>Full Name</label>
             <input
               className={style.forminput}
               type="text"
               name="Username"
-              placeholder="Please Enter Your Full Name"
               onChange={change}
               required
             />
           </div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Email*</label>
+            <label className={style.formlabel}>Email</label>
             <input
               className={style.forminput}
               type="email"
               name="Email"
               onChange={change}
               required
-              placeholder="Please Enter Your Email"
             />
           </div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Phone Number*</label>
+            <label className={style.formlabel}>Phone Number</label>
             <input
               className={style.forminput}
               type="number"
               name="PhoneNumber"
               onChange={change}
               required
-              placeholder="Please Enter Your Phone Number"
             />
           </div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Shop Name*</label>
+            <label className={style.formlabel}>Shop Name</label>
             <input
               className={style.forminput}
               type="text"
               name="Shopname"
               onChange={change}
               required
-              placeholder="Please Enter Your shop name"
             />
           </div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Password*</label>
+            <label className={style.formlabel}>Password</label>
             <input
               className={style.forminput}
               type="password"
               name="Password"
               onChange={change}
               required
-              placeholder="Please Enter Your Password"
             />
           </div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Confirm Password*</label>
+            <label className={style.formlabel}>Confirm Password</label>
             <input
               className={style.forminput}
               type="password"
               name="ConfirmPassword"
               onChange={change}
               required
-              placeholder="Please Confirm Your Password"
             />
           </div>
         </div>
         <div>
           {isLoading ? (
             <button className={style.formbutton}>
-              <DotSpinner color="#231F20" size={25} />
+              <DotSpinner color="white" size={20} />
             </button>
           ) : (
             <button className={style.formbutton} type="submit">

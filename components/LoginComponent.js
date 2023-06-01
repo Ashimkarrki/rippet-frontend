@@ -80,34 +80,35 @@ const LoginComponent = ({ role }) => {
       <form className={style.FormSubContainer} onSubmit={submitHandler}>
         <div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Email*</label>
+            <h5 className={style.formlabel}>Email</h5>
             <input
               className={style.forminput}
-              type="text"
+              type="email"
               name="Email"
-              placeholder="Please Enter Your Email"
               onChange={change}
               required
             />
           </div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Password*</label>
+            <h5 className={style.formlabel}>Password</h5>
             <input
               className={style.forminput}
               type="password"
               name="Password"
-              placeholder="Please Enter Your Password"
+              required
               onChange={change}
             />
           </div>
           <Link href={"/forgot-password"}>
-            <h1>forgot password?</h1>
+            <h5 className={`${style.formlabel} ${style.forgot}`}>
+              Forgot Password?{" "}
+            </h5>
           </Link>
         </div>
         <div>
           {isLoading ? (
             <button className={style.formbutton}>
-              <DotSpinner color="#231F20" size={25} />
+              <DotSpinner color="white" size={20} />
             </button>
           ) : (
             <input className={style.formbutton} value="Login" type="submit" />
