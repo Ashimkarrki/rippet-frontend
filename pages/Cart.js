@@ -178,7 +178,8 @@ const Cart = () => {
             </Link>
             <p>OR</p>
             <button className={styles.checkoutesewa}>
-              Checkout with <Image src={esewa} width={"30"} height={"30"} />
+              Checkout with{" "}
+              <Image alt="esewa" src={esewa} width={"30"} height={"30"} />
             </button>
           </div>
         </div>
