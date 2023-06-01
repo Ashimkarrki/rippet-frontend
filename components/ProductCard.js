@@ -2,7 +2,8 @@ import React, { useContext, useState, useMemo } from "react";
 import Image from "next/image";
 import { DotSpinner } from "@uiball/loaders";
 import Link from "next/link";
-import { BsCartDash } from "react-icons/bs";
+import { FiShoppingCart } from "react-icons/fi";
+
 import styles from "../styles/ProductCard.module.css";
 import { userContext } from "../context/userContext";
 import axios from "axios";
@@ -67,11 +68,15 @@ const ProductsCard = ({ id, pic, title, price, discount }) => {
       {discount ? <h5 className={styles.discount}>- रु {discount}</h5> : ""}
       {isCartLoading ? (
         <div className={`${styles.cart} ${styles.loading_spinner}`}>
-          <DotSpinner color="#231F20" size={25} />
+          <DotSpinner color="white" size={25} />
+        </div>
+      ) : isInCart ? (
+        <div className={`${styles.cart} ${styles.added}`} onClick={add_cart}>
+          <FiShoppingCart /> Added
         </div>
       ) : (
         <div className={styles.cart} onClick={add_cart}>
-          <BsCartDash /> {isInCart ? "Added" : "Add To Cart"}
+          <FiShoppingCart /> Add To Cart
         </div>
       )}
     </Link>

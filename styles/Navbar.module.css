@@ -92,7 +92,7 @@
 }
 .textStlingLink:hover {
   cursor: pointer;
-  color: yellow;
+  color: #ffb327;
 }
 .cart_no {
   position: absolute;
