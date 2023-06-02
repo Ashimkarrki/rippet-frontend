@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/sellerMessage.module.css";
 import axios from "axios";
-import io from "socket.io-client"
-var socket;
+// import io from "socket.io-client";
+// var socket;
 const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
-  console.log(chatId);
-  const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
-  // const URLlocal = "http://localhost:4000"
+  // const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
+  const URLlocal = "http://localhost:4000"
   const [isLoading, setIsloading] = useState(false);
   const [allMessages, setAllMessages] = useState([]);
   const [sendingmessage, setSendingmessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false)
-
-
   useEffect(()=>{
       socket = io(URLlocal, {
         withCredentials: true
@@ -99,7 +96,6 @@ const SendGetcomponentMessage = ({ chatId, userId, sellerId }) => {
                 return prev;
               }
           })
-              
           }
           )
   });

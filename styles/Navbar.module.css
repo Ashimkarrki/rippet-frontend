@@ -42,7 +42,8 @@
   /* margin-left: auto; */
   justify-self: end;
   display: flex;
-  gap: 1.2rem;
+  align-items: center;
+  gap: 1rem;
 }
 
 .icons {
@@ -76,7 +77,7 @@
   font-size: 1.2rem;
 }
 .navbar_icons {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .Linktext {
@@ -91,16 +92,15 @@
 }
 .textStlingLink:hover {
   cursor: pointer;
-  color: yellow;
+  color: #ffb327;
 }
 .cart_no {
   position: absolute;
-  top: -1rem;
-  right: -1.3rem;
+  top: -0.5rem;
+  right: -15px;
+  border-radius: 3rem;
+  padding: 0.3rem 0.5rem;
   background-color: #ffb327;
-  padding: 7px;
-  border-radius: 1rem;
-  width: 2rem;
 }
 .relative {
   position: relative;
@@ -223,6 +223,44 @@
   margin-right: 1rem;
   transform: translateY(20%);
 }
+
+.user_info_heading {
+  font-weight: 400;
+  font-size: medium;
+}
+.drop_down_user_info_heading {
+  font-weight: 300;
+  font-size: medium;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.drop_down_user_info_heading:hover {
+  background-color: #ffb327;
+  cursor: pointer;
+  color: white;
+  outline: none;
+  border: none;
+}
+.DropdownMenuItem {
+  outline: none;
+}
+.user_info:hover {
+  cursor: pointer;
+}
+.user_info_heading:hover {
+  color: #ffb327;
+}
+.drop_down {
+  padding: 5px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+}
+.DropdownMenuArrow {
+  fill: white;
+}
+
 @media (max-width: 796px) {
   .lower_nav {
     display: none;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/PopupMessenger.module.css";
 import axios from "axios";
 import io from "socket.io-client"
-const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
+// const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
 // const URLlocal = "http://localhost:4000"
 var socket = io(URLlocal, {
   withCredentials: true
@@ -66,6 +66,13 @@ const PopUpMessgenger = ({ sellerId, productId }) => {
     console.log("hello fetching");
   }, []);
 
+  useEffect(()=>{
+          socket.on("message recieved", (data)=>{
+            setAllmessages((prev)=>{
+              return[...prev, data ]
+            })
+          })
+  });
   const changeHandler = (e) => {
     setMessage(e.target.value);
   };
@@ -108,18 +115,15 @@ const PopUpMessgenger = ({ sellerId, productId }) => {
   };
 
   useEffect(()=>{
-    socket.on("message recieved", (data)=>{
-      setAllmessages((prev) => {
-        const messageIds = new Set(prev.map((msg) => msg._id));
-        if (!messageIds.has(data._id)) {
-          return [...prev, data];
-        } else {
-          return prev;
-        }
-    })
-    })
-});
+    console.log("message received")
+          socket.on("message recieved", (data)=>{
+            console.log("Message Received!" , data)
+            setAllmessages((prev)=>{
+              return[...prev, data ]
+            })
+          })
 
+  });
   return (
     <form className={styles.PopUpMessgenger}>
       <h4 className={styles.heading}>Message with seller</h4>

@@ -4,11 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { DotSpinner } from "@uiball/loaders";
-import { toast } from "react-toastify";
-
+import { toast } from "react-hot-toast";
 export const SignUpComponent = () => {
   const router = useRouter();
-  const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [userData, setuserData] = useState({
@@ -35,22 +34,32 @@ export const SignUpComponent = () => {
       instance
         .post(`users/signup`, sendingData)
         .then((data) => {
+          console.log(data);
           router.push("/");
         })
         .catch((err) => {
           console.log(err?.response?.data?.message);
-          let error_string = err?.response?.data?.message;
-          toast.error(error_string, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            progress: undefined,
-            theme: "colored",
-          });
+
           setIsLoading(false);
         });
+      const myPromise = instance.post(`users/signup`, sendingData);
+      toast.promise(
+        myPromise,
+        {
+          loading: "Loading",
+          success: (data) => "Welcome " + data.data.Login.Username,
+          error: (err) =>
+            err?.response?.data?.message || "Internal Error Occurred",
+        },
+        {
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 3000,
+          },
+        }
+      );
     }
   };
   return (
@@ -58,54 +67,50 @@ export const SignUpComponent = () => {
       <form className={style.FormSubContainer} onSubmit={submitHandler}>
         <div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Full name*</label>
+            <label className={style.formlabel}>Full name</label>
             <input
               className={style.forminput}
               type="text"
               name="Username"
-              placeholder="Please Enter Your Full Name"
               onChange={change}
               required
             />
           </div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Email*</label>
+            <label className={style.formlabel}>Email</label>
             <input
               className={style.forminput}
               type="email"
               name="Email"
               onChange={change}
               required
-              placeholder="Please Enter Your Email"
             />
           </div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Password*</label>
+            <label className={style.formlabel}>Password</label>
             <input
               className={style.forminput}
               type="password"
               name="Password"
               onChange={change}
               required
-              placeholder="Please Enter Your Password"
             />
           </div>
           <div className={style.inputContainer}>
-            <label className={style.formlabel}>Confirm Password*</label>
+            <label className={style.formlabel}>Confirm Password</label>
             <input
               className={style.forminput}
               type="password"
               name="ConfirmPassword"
               onChange={change}
               required
-              placeholder="Please Confirm Your Password"
             />
           </div>
         </div>
         <div>
           {isLoading ? (
             <button className={style.formbutton}>
-              <DotSpinner color="#231F20" size={25} />
+              <DotSpinner color="white" size={20} />
             </button>
           ) : (
             <button className={style.formbutton} type="submit">

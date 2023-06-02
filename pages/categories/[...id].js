@@ -78,7 +78,7 @@ const CategoriesProducts = ({ data }) => {
 
 export async function getServerSideProps(context) {
   const res = await fetch(
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/search/categories/" +
+    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/search/categories/" +
       context.params.id[0] +
       "/" +
       context.params.id[1]

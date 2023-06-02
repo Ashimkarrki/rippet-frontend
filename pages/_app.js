@@ -2,16 +2,17 @@ import "../styles/globals.css";
 import axios from "axios";
 import NavbarFooterWrapper from "../components/NavbarFooterWrapper";
 import UserProvider from "../context/userContext";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "react-hot-toast";
+
 function MyApp({ Component, pageProps }) {
   axios.defaults.baseURL =
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/";
+    "https://expensive-cod-handkerchief.cyclic.app/api/v1/";
   axios.defaults.withCredentials = true;
-
-  return (
+  //expensive-cod-handkerchief.cyclic.app/
+  https: return (
     <UserProvider>
-      <ToastContainer />
+      <Toaster />
+
       <NavbarFooterWrapper>
         <Component {...pageProps} />
       </NavbarFooterWrapper>

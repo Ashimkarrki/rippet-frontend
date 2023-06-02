@@ -10,6 +10,7 @@ import { DotSpinner } from "@uiball/loaders";
 import axios from "axios";
 import IsAuth from "../../utils/IsAuth";
 import { Router, useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 const Product = ({ data }) => {
   const router = useRouter();
   const [isCartLoading, setIsCartLoading] = useState(false);
@@ -143,7 +144,9 @@ const Product = ({ data }) => {
                   <button
                     onClick={async () => {
                       if (!userInfo.id) {
-                        router.push("/login");
+                        toast.error("Not Logged In", {
+                          position: "bottom-left",
+                        });
                         return;
                       }
                       setIsCartLoading(true);
@@ -258,7 +261,7 @@ const Product = ({ data }) => {
 };
 export async function getServerSideProps(context) {
   const res = await fetch(
-    "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/" +
+    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/" +
       context.params.id
   );
   const data = await res.json();

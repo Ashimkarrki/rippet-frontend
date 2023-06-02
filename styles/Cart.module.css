@@ -1,46 +1,48 @@
-.image {
-  width: 9rem;
-  aspect-ratio: 3/4;
-  object-fit: contain;
+.img {
+  object-fit: cover;
 }
 .item_wrapper {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background-color: white;
+  background-color: #e2e8f0;
   padding: 2rem;
+  flex-grow: 3;
+  border-radius: 10px;
+  border: 1px rgba(99, 99, 99, 0.2) solid;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-
+.summary {
+  flex-grow: 1;
+  color: white;
+  background: #2457aa;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
 .cart {
   width: 82%;
-  margin: auto;
-  margin-top: 1rem;
+  margin: 2rem auto;
   display: flex;
-  align-items: flex-start;
   flex-wrap: wrap;
-  justify-content: center;
-  padding: 2rem;
+  align-items: flex-start;
   gap: 1rem;
-  min-height: 50vh;
 }
 .cartContainer {
   display: flex;
+  align-items: center;
   justify-content: center;
-  background-color: #eff0f5;
-  min-height: 50vh;
 }
 
 .item {
   display: flex;
   padding: 1rem;
   gap: 1rem;
-  width: 30vw;
-  min-width: 20rem;
+  /* width: 30vw; */
   border: 2px solid hsla(0, 0%, 62%, 0.2);
   position: relative;
 }
 .item:hover {
-  border-color: #ffff42;
+  border-color: #ffb327;
 }
 .item_info {
   display: flex;
@@ -48,14 +50,20 @@
   justify-content: center;
 }
 .button {
-  padding: 0.2rem 0.4rem;
-  border-radius: 0;
-  background-color: inherit;
-  border: 1px solid rgba(0, 0, 0, 0.39);
+  padding: 0.3rem 0.6rem;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-right: none;
   cursor: pointer;
   margin-top: 1rem;
 }
-
+.button_end {
+  border-right: 1px solid #d1d5db;
+  border-radius: 0 5px 5px 0;
+}
+.button_start {
+  border-radius: 5px 0 0 5px;
+}
 .deletebutton {
   background-color: inherit;
   border: none;
@@ -66,12 +74,6 @@
   padding: 1rem;
 }
 
-.summary {
-  min-height: 50vh;
-  color: white;
-  background: #2457aa;
-  /* width: 20vw; */
-}
 .st_line {
   width: 100%;
   height: 1px;
@@ -86,7 +88,6 @@
   font-size: 1.5rem;
   font-weight: 300;
   color: #6c6c6c;
-  background-color: white;
 }
 .button_group {
   display: flex;
@@ -101,14 +102,18 @@
 }
 
 .realprice {
-  font-size: 1.3rem;
+  /* font-size: 1.3rem; */
   font-weight: 500;
   color: #2457aa;
   display: flex;
   flex-direction: column-reverse;
 }
 .imagetextcart {
+  position: relative;
+  /* background-color: green; */
   display: flex;
+  width: 7rem;
+  aspect-ratio: 3/4;
   gap: 1rem;
 }
 .carttitle {
@@ -204,7 +209,7 @@
 .checkoutbutton {
   padding: 1rem;
   width: 100%;
-  background-color: orange;
+  background-color: #ffb327;
   color: white;
   font-size: 1rem;
   font-weight: 600;
