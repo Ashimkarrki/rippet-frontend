@@ -7,6 +7,7 @@ import styles from "../styles/Cart.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
 import { userContext } from "../context/userContext";
+import toast from "react-hot-toast";
 import IsAuth from "../utils/IsAuth";
 const Cart = () => {
   const [deletingId, setDeletingId] = useState("");
@@ -70,13 +71,21 @@ const Cart = () => {
                         <h4 className={styles.carttitle}>{Name}</h4>
                       </Link>
                       {deletingId ? (
-                        <button className={styles.deletebutton}>
+                        <button
+                          className={styles.deletebutton}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                          }}
+                        >
                           <AiFillCloseCircle className={styles.delete_icon} />
                         </button>
                       ) : (
                         <button
                           className={styles.deletebutton}
-                          onClick={async () => {
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
                             setDeletingId(id);
                             const res = await instance.delete(
                               "carts/delete/" + cartId
@@ -173,7 +182,21 @@ const Cart = () => {
             </p>
           </div>
           <div className={styles.submitProducts}>
-            <Link href={"/Order"}>
+            <Link
+              href={"/Order"}
+              onClick={(e) => {
+                if (cartInfo.results === 0) {
+                  e.preventDefault();
+                  toast.error("Cart Is Empty", {
+                    position: "bottom-left",
+                    style: {
+                      backgroundColor: "#ffb327",
+                      color: "white",
+                    },
+                  });
+                }
+              }}
+            >
               <button className={styles.checkoutbutton}>CHECKOUT</button>
             </Link>
             <p>OR</p>
