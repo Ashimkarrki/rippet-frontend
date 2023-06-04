@@ -58,6 +58,7 @@
 }
 .black {
   color: black;
+  font-weight: 600;
 }
 .blue {
   color: #1f4c94;
@@ -80,8 +81,5 @@
   }
   .grid_last {
     justify-self: center;
-  }
-  .flex_row {
-    /* flex-direction: row; */
   }
 }

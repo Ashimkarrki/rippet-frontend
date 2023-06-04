@@ -101,9 +101,11 @@ const Navbar = () => {
                     sideOffset={5}
                   >
                     <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                      <h6 className={styles.drop_down_user_info_heading}>
-                        My Orders
-                      </h6>
+                      <Link href={"/myorders"}>
+                        <h6 className={styles.drop_down_user_info_heading}>
+                          My Orders
+                        </h6>
+                      </Link>
                     </DropdownMenu.Item>
                     <DropdownMenu.Item className={styles.DropdownMenuItem}>
                       <Link href={"/myquestions"}>
