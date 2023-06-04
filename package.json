@@ -31,5 +31,5 @@
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1"
   },
-  "proxy": "http://localhost:4000"
+  "proxy": "https://adorable-leather-jacket-foal.cyclic.app"
 }

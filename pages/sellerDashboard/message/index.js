@@ -60,12 +60,12 @@ const Message = () => {
                       className={styles.img}
                     />
                     <div>
-                      <h6>{data.productId.Name}</h6>
-                      <h6>{data.productId.Price}</h6>
+                      <h6>Name - {data.productId.Name}</h6>
+                      <h6>Price - {data.productId.Price}</h6>
                     </div>
                   </div>
                   <div className={styles.userdetail}>
-                    <h6>Message from :-{data.people.user.Username}</h6>
+                    <h6>Message from - {data.people.user.Username}</h6>
                   </div>
                 </div>
               );
