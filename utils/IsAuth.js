@@ -30,7 +30,7 @@ function X(props, Children) {
     "/seller/signup",
     "/seller/login",
   ];
-  const userSpecificRoute = ["/Cart", "/Order"];
+  const userSpecificRoute = ["/Cart", "/Order", "/myquestions", "/myreviews"];
   const router = useRouter();
   useEffect(() => {
     const fetchIsMe = async () => {

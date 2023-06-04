@@ -3,7 +3,7 @@ import React from "react";
 import styles from "../styles/Footer.module.css";
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer id="footer" className={styles.footer}>
       <div>
         <h3 className={styles.heading}>Connect With Us</h3>
         <ul className={styles.list}>

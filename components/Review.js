@@ -165,14 +165,16 @@ const Review = ({ id, sellerId }) => {
       <div className={styles.allreviewcontainer}>
         {reviews ? (
           <>
-            {reviews?.data.map(({ _id, review, rating, user }) => {
+            {reviews?.data.map(({ _id, id, review, rating, user }) => {
               return (
                 <div
                   className={`${styles.review_item} ${
                     deletedId === _id && styles.is_deleting
                   }`}
+                  id={id}
                   key={_id}
                 >
+                  {console.log(id)}
                   <h5 className={styles.name}>{user?.Username}</h5>
                   <Star num={rating} />
                   <p>{review}</p>

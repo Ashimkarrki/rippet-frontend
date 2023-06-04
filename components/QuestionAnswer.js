@@ -17,7 +17,8 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo, sellerId }) => {
     });
     instance
       .post(`/ask/` + id, {
-        Question: question, sellerId: sellerId
+        Question: question,
+        sellerId: sellerId,
       })
       .then((data) => {
         let temp = { ...dataInfo };
@@ -61,9 +62,9 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo, sellerId }) => {
       <div className={styles.ask_wrapper}>
         {qa?.length ? (
           <>
-            {qa.map(({ _id, Question, Answer }) => {
+            {qa.map(({ _id, id, Question, Answer }) => {
               return (
-                <div key={_id}>
+                <div key={_id} id={id}>
                   <div className={styles.sentence}>
                     <RiQuestionnaireFill
                       className={`${styles.icons} ${styles.question}`}

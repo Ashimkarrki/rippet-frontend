@@ -106,14 +106,18 @@ const Navbar = () => {
                       </h6>
                     </DropdownMenu.Item>
                     <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                      <h6 className={styles.drop_down_user_info_heading}>
-                        My Questions
-                      </h6>
+                      <Link href={"/myquestions"}>
+                        <h6 className={styles.drop_down_user_info_heading}>
+                          My Questions
+                        </h6>
+                      </Link>
                     </DropdownMenu.Item>
                     <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                      <h6 className={styles.drop_down_user_info_heading}>
-                        My Reviews
-                      </h6>
+                      <Link href={"/myreviews"}>
+                        <h6 className={styles.drop_down_user_info_heading}>
+                          My Reviews
+                        </h6>
+                      </Link>
                     </DropdownMenu.Item>
                     <DropdownMenu.Item className={styles.DropdownMenuItem}>
                       <h6
