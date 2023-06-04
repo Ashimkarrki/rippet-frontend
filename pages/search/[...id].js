@@ -96,32 +96,6 @@ const SearchPage = ({ data }) => {
             </div>
           );
         })}{" "}
-        {data?.data?.product?.map((s) => {
-          return (
-            <div className={styles.wrapper} key={s.id + "1"}>
-              <ProductCard
-                id={s.id}
-                pic={s.MainImage}
-                title={s.Name}
-                price={s.Price}
-                discount={s.Discount}
-              />
-            </div>
-          );
-        })}{" "}
-        {data?.data?.product?.map((s) => {
-          return (
-            <div className={styles.wrapper} key={s.id + "2"}>
-              <ProductCard
-                id={s.id}
-                pic={s.MainImage}
-                title={s.Name}
-                price={s.Price}
-                discount={s.Discount}
-              />
-            </div>
-          );
-        })}
       </div>
       <div className={styles.button_grp}>
         {repeat(data.totalpages).map((s, index) => (
