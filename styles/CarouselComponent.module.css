@@ -11,8 +11,20 @@
 .title {
   font-weight: 500;
 }
-.slider {
-  /* background-color: white; */
+.view_more {
+  background-color: inherit;
+  border: none;
+  margin-left: auto;
+  border-bottom: 1px solid black;
+}
+.view_more:hover {
+  cursor: pointer;
+  color: #2457aa;
+  border-color: #2457aa;
+}
+.button_wrapper {
+  display: flex;
+  margin: 1rem 0 2rem 0;
 }
 .yellow {
   color: rgb(253, 253, 31);

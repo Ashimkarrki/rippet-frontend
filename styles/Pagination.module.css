@@ -29,10 +29,14 @@
   font-size: medium;
 }
 .button_start {
-  border-radius: 5px 0 0 5px;
+  /* border-radius: 5px 0 0 5px; */
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 .button_end {
-  border-radius: 0 5px 5px 0;
+  /* border-radius: 0 5px 5px 0; */
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   border-right: 1px solid #d1d5db;
 }
 .button:hover {
@@ -66,7 +70,7 @@
 }
 .wrap {
   display: flex;
-  color: #2457aa;
+  color: #ffb327;
 }
 .center {
   margin: 0 auto;

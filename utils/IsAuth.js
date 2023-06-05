@@ -29,6 +29,8 @@ function X(props, Children) {
     "/product/[id]",
     "/seller/signup",
     "/seller/login",
+    "/popular/[...id]",
+    "/latest/[...id]",
   ];
   const userSpecificRoute = ["/Cart", "/Order", "/myquestions", "/myreviews"];
   const router = useRouter();

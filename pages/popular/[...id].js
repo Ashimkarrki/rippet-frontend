@@ -1,5 +1,6 @@
 import React from "react";
 import Pagination from "../../components/Pagination";
+import IsAuth from "../../utils/IsAuth";
 const Popular = ({ data }) => {
   return (
     <div style={{ width: "82%", margin: "2rem auto" }}>
@@ -13,7 +14,6 @@ export const getServerSideProps = async (context) => {
       context.params.id[0] || 1
   );
   const data = await res.json();
-  console.log(data);
   if (!data.totalPages) {
     return {
       notFound: true,
@@ -23,4 +23,4 @@ export const getServerSideProps = async (context) => {
     props: { data },
   };
 };
-export default Popular;
+export default IsAuth(Popular);

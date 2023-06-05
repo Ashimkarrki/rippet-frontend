@@ -1,5 +1,6 @@
 import React from "react";
 import Pagination from "../../components/Pagination";
+import IsAuth from "../../utils/IsAuth";
 
 const Latest = ({ data }) => {
   return (
@@ -24,4 +25,4 @@ export const getServerSideProps = async (context) => {
     props: { data },
   };
 };
-export default Latest;
+export default IsAuth(Latest);

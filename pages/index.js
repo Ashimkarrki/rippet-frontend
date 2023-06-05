@@ -6,7 +6,7 @@ import Services from "../components/Services";
 import Category from "../components/Category";
 import SellerHomecomponenet from "../components/SellerHomeComponenet";
 import IsAuth from "../utils/IsAuth";
-function Home({ data }) {
+function Home({ allProducts, latestProducts, popularProducts }) {
   const category = [
     {
       id: 0,
@@ -40,22 +40,21 @@ function Home({ data }) {
       pic: "https://static-01.daraz.com.np/p/af9329c672b648e203195279ab20e0e0.jpg",
     },
   ];
-  const lists = data.data?.products;
-  const list1 = lists?.filter((s, i) => {
-    return i < data.results / 2;
-  });
-  const list2 = lists?.filter((s, i) => {
-    return i >= data.results / 2;
-  });
 
   return (
     <>
       <div className={styles.home}>
         <Banner />
-        <CarouselComponent list={list1} title={"Latest Products"} />
-        <CarouselComponent list={list2} title={"Popular Products"} />
+        <CarouselComponent
+          list={latestProducts?.data}
+          title={"Latest Products"}
+        />
+        <CarouselComponent
+          list={popularProducts?.data}
+          title={"Popular Products"}
+        />
         <Category list={category} />
-        <CarouselComponent list={list1} title={"Most Rated Products"} />
+        {/* <CarouselComponent list={list1} title={"Most Rated Products"} /> */}
         <Services />
       </div>
       <SellerHomecomponenet />
@@ -65,11 +64,19 @@ function Home({ data }) {
 export default IsAuth(Home);
 export async function getServerSideProps(context) {
   console.log(context.req.headers);
-  const res = await fetch(
+  const res1 = await fetch(
     "https://expensive-cod-handkerchief.cyclic.app/api/v1/products"
   );
-  const data = await res.json();
+  const allProducts = await res1.json();
+  const res2 = await fetch(
+    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/latestProduct/product"
+  );
+  const latestProducts = await res2.json();
+  const res3 = await fetch(
+    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/rated/product"
+  );
+  const popularProducts = await res3.json();
   return {
-    props: { data },
+    props: { allProducts, latestProducts, popularProducts },
   };
 }
