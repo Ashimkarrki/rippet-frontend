@@ -19,10 +19,6 @@ import rippet_logo from "../public/rippet_logo.png";
 import NotificationDropDown from "./NotificationDropDown";
 import UserInfoDropDown from "./UserInfoDropDown";
 const Navbar = () => {
-  const instance = axios.create({
-    withCredentials: true,
-    headers: { authorization: "Bearer" },
-  });
   const [notifications, setNotifications] = useState([]);
   const [toggleNotification, setToggleNotification] = useState(false);
   const [notificationLoading, setNotificationLoading] = useState(false);
@@ -35,20 +31,32 @@ const Navbar = () => {
   const [isMenuOn, setIsMenuOn] = useState(false);
 
   const { isLoading, data, isError } = useSWR(
-    "/notifications/seen",
+    userInfo.id ? "/notifications/seen" : null,
     async (url) => {
+      console.log("On server : ", typeof window);
+      const instance = axios.create({
+        withCredentials: true,
+        headers: { authorization: "Bearer" },
+      });
       try {
         const res = await instance.get(url);
+        console.log(res.data.unseennotification);
         return res.data.unseennotification;
       } catch (err) {
+        console.log("asdhg");
+        console.log(err.response.data.message);
         return err;
       }
     }
   );
   const getNotifications = async () => {
     setNotificationLoading(true);
+    const instance = axios.create({
+      withCredentials: true,
+      headers: { authorization: "Bearer" },
+    });
     try {
-      const res = await axios.get("notifications");
+      const res = await instance.get("notifications");
       setNotifications(res.data.notification);
       setNotificationLoading(false);
     } catch (err) {
@@ -147,7 +155,9 @@ const Navbar = () => {
 
           {userInfo.id && (
             <div className={` ${styles.relative} ${styles.asd}`}>
-              {data !== 0 && <h5 className={styles.notification_no}>{data}</h5>}
+              {data !== 0 && !isLoading && (
+                <h5 className={styles.notification_no}>{data}</h5>
+              )}
               {toggleNotification && (
                 <div
                   className={styles.notification_dropdown_wrapper}

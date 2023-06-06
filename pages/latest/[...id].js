@@ -12,7 +12,7 @@ const Latest = ({ data }) => {
 export const getServerSideProps = async (context) => {
   console.log(context.params.id);
   const res = await fetch(
-    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/latestProduct/product/all/" +
+    "https://rappitnepal.cyclic.app/api/v1/products/latestProduct/product/all/" +
       context.params.id[0] || 1
   );
   const data = await res.json();

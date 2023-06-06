@@ -12,7 +12,7 @@ const SearchPage = ({ data }) => {
 
 export const getServerSideProps = async (context) => {
   const res = await fetch(
-    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/search/" +
+    "https://rappitnepal.cyclic.app/api/v1/products/search/" +
       context.params.id[0] +
       "/" +
       context.params.id[1] +

@@ -64,16 +64,14 @@ function Home({ allProducts, latestProducts, popularProducts }) {
 export default IsAuth(Home);
 export async function getServerSideProps(context) {
   console.log(context.req.headers);
-  const res1 = await fetch(
-    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products"
-  );
+  const res1 = await fetch("https://rappitnepal.cyclic.app/api/v1/products");
   const allProducts = await res1.json();
   const res2 = await fetch(
-    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/latestProduct/product"
+    "https://rappitnepal.cyclic.app/api/v1/products/latestProduct/product"
   );
   const latestProducts = await res2.json();
   const res3 = await fetch(
-    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/rated/product"
+    "https://rappitnepal.cyclic.app/api/v1/products/rated/product"
   );
   const popularProducts = await res3.json();
   return {

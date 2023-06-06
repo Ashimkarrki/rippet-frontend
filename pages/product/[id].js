@@ -261,8 +261,7 @@ const Product = ({ data }) => {
 };
 export async function getServerSideProps(context) {
   const res = await fetch(
-    "https://expensive-cod-handkerchief.cyclic.app/api/v1/products/" +
-      context.params.id
+    "https://rappitnepal.cyclic.app/api/v1/products/" + context.params.id
   );
   const data = await res.json();
   return {
