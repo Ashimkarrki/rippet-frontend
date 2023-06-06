@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { userContext } from "../context/userContext";
 import Image from "next/image";
@@ -7,19 +7,54 @@ import { BsSearch, BsBag, BsCartDash } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import axios from "axios";
+import useSWR from "swr";
 import { RxCross1 } from "react-icons/rx";
 import { MdClose } from "react-icons/md";
 import { AiOutlineMenu, AiOutlineUp, AiOutlineDown } from "react-icons/ai";
-import { RiAccountCircleLine } from "react-icons/ri";
+import { RiAccountCircleLine, RiNotificationLine } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "react-dropdown/style.css";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
+import NotificationDropDown from "./NotificationDropDown";
+import UserInfoDropDown from "./UserInfoDropDown";
 const Navbar = () => {
+  const instance = axios.create({
+    withCredentials: true,
+    headers: { authorization: "Bearer" },
+  });
+  const [notifications, setNotifications] = useState([]);
+  const [toggleNotification, setToggleNotification] = useState(false);
+  const [notificationLoading, setNotificationLoading] = useState(false);
+
   const { userInfo } = useContext(userContext);
+  const [isUserInfoToggle, setIsUserInfoToggle] = useState(false);
+
   const [isDropDown, setIsDropDown] = useState(false);
   const router = useRouter();
   const [isMenuOn, setIsMenuOn] = useState(false);
+
+  const { isLoading, data, isError } = useSWR(
+    "/notifications/seen",
+    async (url) => {
+      try {
+        const res = await instance.get(url);
+        return res.data.unseennotification;
+      } catch (err) {
+        return err;
+      }
+    }
+  );
+  const getNotifications = async () => {
+    setNotificationLoading(true);
+    try {
+      const res = await axios.get("notifications");
+      setNotifications(res.data.notification);
+      setNotificationLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const [searchValue, setSearchValue] = useState(
     router.asPath.split("/")[1] === "search"
       ? router.asPath.split("/")[2].replace("%20", " ")
@@ -46,10 +81,6 @@ const Navbar = () => {
     router.push(`/search/${searchValue}/no/no/1`);
   };
   const logout = async () => {
-    const instance = axios.create({
-      withCredentials: true,
-      headers: { authorization: "Bearer" },
-    });
     try {
       const res = await instance.get("users/logout");
       console.log(res);
@@ -57,6 +88,7 @@ const Navbar = () => {
       console.log(err);
     }
   };
+
   return (
     <nav className={styles.nav}>
       <div className={styles.upper_nav}>
@@ -84,55 +116,26 @@ const Navbar = () => {
             </Link>
           </button>
         </form>
-
         <div className={styles.navigate_icons}>
           {userInfo.id ? (
-            <div className={styles.user_info}>
-              <DropdownMenu.Root>
-                <DropdownMenu.Trigger asChild>
-                  <h5 className={styles.user_info_heading}>
-                    {userInfo.userName}
-                  </h5>
-                </DropdownMenu.Trigger>
-
-                <DropdownMenu.Portal>
-                  <DropdownMenu.Content
-                    className={styles.drop_down}
-                    sideOffset={5}
-                  >
-                    <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                      <Link href={"/myorders"}>
-                        <h6 className={styles.drop_down_user_info_heading}>
-                          My Orders
-                        </h6>
-                      </Link>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                      <Link href={"/myquestions"}>
-                        <h6 className={styles.drop_down_user_info_heading}>
-                          My Questions
-                        </h6>
-                      </Link>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                      <Link href={"/myreviews"}>
-                        <h6 className={styles.drop_down_user_info_heading}>
-                          My Reviews
-                        </h6>
-                      </Link>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item className={styles.DropdownMenuItem}>
-                      <h6
-                        className={styles.drop_down_user_info_heading}
-                        onClick={logout}
-                      >
-                        Log Out
-                      </h6>
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Arrow className={styles.DropdownMenuArrow} />
-                  </DropdownMenu.Content>
-                </DropdownMenu.Portal>
-              </DropdownMenu.Root>
+            <div className={styles.relative}>
+              {isUserInfoToggle && (
+                <div className={styles.dropDown_wrapper}>
+                  <UserInfoDropDown setIsUserInfoToggle={setIsUserInfoToggle} />
+                </div>
+              )}
+              <div
+                className={styles.user_info}
+                onClick={() => {
+                  setIsUserInfoToggle(!isUserInfoToggle);
+                }}
+              >
+                <h5
+                  className={`${styles.user_info_heading} ${styles.dropDown_heading}`}
+                >
+                  {userInfo.userName.split(" ")[0]}
+                </h5>
+              </div>
             </div>
           ) : (
             <button className={styles.icons}>
@@ -141,10 +144,39 @@ const Navbar = () => {
               </Link>
             </button>
           )}
+
+          {userInfo.id && (
+            <div className={` ${styles.relative} ${styles.asd}`}>
+              {data !== 0 && <h5 className={styles.notification_no}>{data}</h5>}
+              {toggleNotification && (
+                <div
+                  className={styles.notification_dropdown_wrapper}
+                  onClick={() => setToggleNotification(true)}
+                >
+                  <NotificationDropDown
+                    data={notifications}
+                    notificationLoading={notificationLoading}
+                    setToggleNotification={setToggleNotification}
+                  />
+                </div>
+              )}
+              <div
+                className={styles.user_info}
+                onClick={() => {
+                  getNotifications();
+                  setToggleNotification(!toggleNotification);
+                }}
+              >
+                <RiNotificationLine className={styles.navbar_icons} />
+              </div>
+            </div>
+          )}
           {userInfo.id && (
             <button className={`${styles.icons} ${styles.relative}`}>
               <Link href="/Cart">
-                <h5 className={styles.cart_no}>{cartInfo.results}</h5>
+                {cartInfo.results !== 0 && (
+                  <h5 className={styles.cart_no}>{cartInfo.results}</h5>
+                )}
                 <FiShoppingCart className={styles.navbar_icons} />
               </Link>
             </button>

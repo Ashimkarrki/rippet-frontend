@@ -94,13 +94,14 @@
   cursor: pointer;
   color: #ffb327;
 }
-.cart_no {
+
+.cart_no,
+.notification_no {
   position: absolute;
   top: -0.5rem;
-  right: -15px;
-  border-radius: 3rem;
-  padding: 0.3rem 0.5rem;
-  background-color: #ffb327;
+  right: 0;
+  font-size: 1rem;
+  color: #ffb327;
 }
 .relative {
   position: relative;
@@ -250,15 +251,23 @@
 .user_info_heading:hover {
   color: #ffb327;
 }
-.drop_down {
-  padding: 5px;
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
-    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+
+.dropDown_heading {
+  text-align: center;
+  width: 5rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
-.DropdownMenuArrow {
-  fill: white;
+.dropDown_wrapper {
+  position: absolute;
+  top: 2rem;
+  left: -1.8rem;
+}
+.notification_dropdown_wrapper {
+  position: absolute;
+  top: 2rem;
+  left: -4.2rem;
 }
 
 @media (max-width: 796px) {
