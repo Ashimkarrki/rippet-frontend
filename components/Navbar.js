@@ -3,7 +3,14 @@ import { useRouter } from "next/router";
 import { userContext } from "../context/userContext";
 import Image from "next/image";
 import Link from "next/link";
-import { BsSearch, BsBag, BsCartDash } from "react-icons/bs";
+import {
+  BsSearch,
+  BsBag,
+  BsCartDash,
+  BsChevronUp,
+  BsChevronDown,
+  BsDot,
+} from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import axios from "axios";
@@ -18,37 +25,98 @@ import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
 import NotificationDropDown from "./NotificationDropDown";
 import UserInfoDropDown from "./UserInfoDropDown";
+import Collapse from "../pages/collapse";
+import Collapsible from "./Collapsible";
 const Navbar = () => {
+  // {{URL}}api/v1/products/search/categories/civil-secondsem-handwritten/no/no/1
   const [notifications, setNotifications] = useState([]);
   const [toggleNotification, setToggleNotification] = useState(false);
   const [notificationLoading, setNotificationLoading] = useState(false);
-
+  const [temp, setTemp] = useState([
+    {
+      _id: 12,
+      title: "1st sem",
+      children: [
+        {
+          _id: 10,
+          title: "Hand Written",
+          children: [],
+        },
+        {
+          _id: 101,
+          title: "Hard Copy",
+          children: [],
+        },
+      ],
+    },
+    {
+      _id: 2,
+      title: "2nd sem",
+      children: [
+        {
+          _id: 102,
+          title: "Hand Written",
+          children: [],
+        },
+        {
+          _id: 103,
+          title: "Hard Copy",
+          children: [],
+        },
+      ],
+    },
+  ]);
   const { userInfo } = useContext(userContext);
   const [isUserInfoToggle, setIsUserInfoToggle] = useState(false);
 
-  const [isDropDown, setIsDropDown] = useState(false);
+  const [isCatDrop, setIsCatDrop] = useState(false);
   const router = useRouter();
   const [isMenuOn, setIsMenuOn] = useState(false);
 
   const { isLoading, data, isError } = useSWR(
     userInfo.id ? "/notifications/seen" : null,
     async (url) => {
-      console.log("On server : ", typeof window);
       const instance = axios.create({
         withCredentials: true,
         headers: { authorization: "Bearer" },
       });
       try {
         const res = await instance.get(url);
-        console.log(res.data.unseennotification);
         return res.data.unseennotification;
       } catch (err) {
-        console.log("asdhg");
-        console.log(err.response.data.message);
         return err;
       }
     }
   );
+  const {
+    isLoading: isLoad,
+    data: category,
+    isError: iserror,
+  } = useSWR(
+    "/categories",
+    async (url) => {
+      try {
+        const res = await axios.get(url);
+        setParentClicked(
+          res.data.map((s) => {
+            return {
+              id: s._id,
+              state: false,
+            };
+          })
+        );
+        console.log(res.data);
+        return res.data;
+      } catch (err) {
+        return err;
+      }
+    },
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+    }
+  );
+  const [parentClicked, setParentClicked] = useState([]);
   const getNotifications = async () => {
     setNotificationLoading(true);
     const instance = axios.create({
@@ -69,17 +137,6 @@ const Navbar = () => {
       : ""
   );
   const [categories, setCategories] = useState([]);
-  // const fetchingCategories = async () => {
-  //   const res = await fetch(
-  //     "https://adorable-leather-jacket-foal.cyclic.app/api/v1/products/categories/category"
-  //   );
-  //   const result = await res.json();
-  //   const data = result.data;
-  //   setCategories(data);
-  // };
-  // useEffect(() => {
-  //   fetchingCategories();
-  // }, []);
   const categorieshandler = (e) => {
     router.push(`/categories/${e.value}/1`);
   };
@@ -91,12 +148,55 @@ const Navbar = () => {
   const logout = async () => {
     try {
       const res = await instance.get("users/logout");
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
   };
-
+  const subDropDown = (children, title, categoriesName) => {
+    if (children.length === 0) {
+      return (
+        <DropdownMenu.Item className={styles.DropdownMenuItem}>
+          {console.log(categoriesName)}
+          {categoriesName ? (
+            <Link href={"categories/" + categoriesName + "/no/no/1"}>
+              <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
+            </Link>
+          ) : (
+            <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
+          )}
+        </DropdownMenu.Item>
+      );
+    } else {
+      return (
+        <DropdownMenu.Sub>
+          <DropdownMenu.SubTrigger className={styles.DropdownMenuSubTrigger}>
+            {categoriesName ? (
+              <Link href={"categories/" + categoriesName + "/no/no/1"}>
+                <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
+              </Link>
+            ) : (
+              <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
+            )}
+            {/* <h5 className={styles.drop_down_user_info_heading}>{title}</h5> */}
+          </DropdownMenu.SubTrigger>
+          <DropdownMenu.Portal>
+            <DropdownMenu.SubContent
+              className={styles.drop_down}
+              sideOffset={10}
+            >
+              {children.map((s) => {
+                return (
+                  <div key={s._id}>
+                    {subDropDown(s.children, s.title, s?.categoriesName)}
+                  </div>
+                );
+              })}
+            </DropdownMenu.SubContent>
+          </DropdownMenu.Portal>
+        </DropdownMenu.Sub>
+      );
+    }
+  };
   return (
     <nav className={styles.nav}>
       <div className={styles.upper_nav}>
@@ -204,65 +304,38 @@ const Navbar = () => {
 
       <div className={styles.lower_nav}>
         <div className={styles.first_element}>
-          {/* {!!categories.length && (
-            <Dropdown
-              className={styles.myClassName}
-              controlClassName={styles.myControlClassName}
-              menuClassName={styles.myMenuClassName}
-              arrowClassName={styles.myArrowClassName}
-              arrowClosed={
-                <span className={styles.arrow}>
-                  <AiOutlineDown />
-                </span>
-              }
-              arrowOpen={
-                <span className={styles.arrow}>
-                  <AiOutlineUp />
-                </span>
-              }
-              options={categories}
-              onChange={(e) => categorieshandler(e)}
-              placeholder="Categories"
-            />
-          )} */}
           <div className={styles.drop_menu}>
-            <h3 onClick={() => setIsDropDown(!isDropDown)}>
-              {isDropDown ? (
-                <RxCross1 className={styles.ham_icon} />
-              ) : (
-                <GiHamburgerMenu className={styles.ham_icon} />
-              )}
-              Categories
-            </h3>
-            {/* <div
-              className={`${
-                isDropDown ? styles.dropdown_enable : styles.dropdown_disable
-              } ${styles.dropdown_same}`}
-            >
-              {categories.map((s, index) => {
-                return (
-                  <Link
-                    key={index}
-                    href={"/categories/" + s + "/1"}
-                    onClick={() => {
-                      setIsDropDown(false);
-                    }}
-                  >
-                    <h4 className={styles.dropdown_item}>{s}</h4>
-                  </Link>
-                );
-              })}
-            </div> */}
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild>
+                <h3 className={styles.user_info_heading}>Categories</h3>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Portal>
+                <DropdownMenu.Content
+                  className={styles.drop_down}
+                  sideOffset={5}
+                >
+                  {category?.map((s) => {
+                    return (
+                      <div key={s._id}>
+                        {subDropDown(s.children, s.title, s?.categoriesName)}
+                      </div>
+                    );
+                  })}
+
+                  <DropdownMenu.Arrow className={styles.DropdownMenuArrow} />
+                </DropdownMenu.Content>
+              </DropdownMenu.Portal>
+            </DropdownMenu.Root>
           </div>
         </div>
 
         <div className={styles.Linktext}>
-          <h3 className={styles.textStlingLink}>Home</h3>
-
-          <h3 className={styles.textStlingLink}>Shop</h3>
-          <h3 className={styles.textStlingLink}>Digital Study Material</h3>
-          <h3 className={styles.textStlingLink}>Available Roooms</h3>
-          <h3 className={styles.textStlingLink}>Sell Here</h3>
+          <Link href={"/"}>
+            <h3 className={styles.textStlingLink}>Home</h3>
+          </Link>
+          <Link href={"/seller/login"}>
+            <h3 className={styles.textStlingLink}>Sell Here</h3>
+          </Link>
         </div>
       </div>
       {isMenuOn && (
@@ -277,11 +350,71 @@ const Navbar = () => {
               <MdClose />
             </button>
             <div className={styles.hidden_flex}>
-              <h3 className={styles.textStlingLink}>Home</h3>
-              <h3 className={styles.textStlingLink}>Shop</h3>
-              <h3 className={styles.textStlingLink}>Digital Study Material</h3>
-              <h3 className={styles.textStlingLink}>Available Roooms</h3>
-              <h3 className={styles.textStlingLink}>Sell Here</h3>
+              <Link
+                href={"/"}
+                onClick={() => {
+                  setIsMenuOn(false);
+                }}
+              >
+                <h3 className={styles.textStlingLink}>Home</h3>
+              </Link>
+              <Link
+                href={"/seller/login"}
+                onClick={() => {
+                  setIsMenuOn(false);
+                }}
+              >
+                <h3 className={styles.textStlingLink}>Sell Here</h3>
+              </Link>
+              <h3
+                onClick={() => {
+                  setIsCatDrop(!isCatDrop);
+                }}
+                className={styles.textStlingLink}
+              >
+                Category
+              </h3>
+              <Collapsible child={category} clicked={isCatDrop} />
+
+              {/* <ul className={styles.ul}>
+                {category.map((s) => {
+                  return (
+                    <li key={s._id}>
+                      <h3
+                        className={styles.textStlingLink}
+                        onClick={() =>
+                          setParentClicked((prev) => {
+                            return prev.map((k) => {
+                              if (k.id === s._id) {
+                                return { ...k, state: !k.state };
+                              }
+                              return {
+                                ...k,
+                                state: false,
+                              };
+                            });
+                          })
+                        }
+                      >
+                        {parentClicked.find((k) => k.id === s._id).state ? (
+                          <BsChevronDown className={styles.icon_cat} />
+                        ) : (
+                          <BsDot className={styles.icon_cat} />
+                        )}
+                        {s.title}
+                      </h3>
+                      <Collapsible
+                        key={s._id}
+                        clicked={
+                          parentClicked.find((k) => k.id === s._id).state
+                        }
+                        child={s.children}
+                        title={s.title}
+                      />
+                    </li>
+                  );
+                })}
+              </ul> */}
             </div>
           </div>
         </>

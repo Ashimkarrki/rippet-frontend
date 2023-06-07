@@ -21,6 +21,7 @@
 }
 .drop_down {
   color: black;
+  z-index: 2;
 
   position: relative;
   padding: 5px;

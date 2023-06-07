@@ -28,44 +28,62 @@ const Pagination = ({ data, from }) => {
   const onSortChange = (e) => {
     const value = e.target.value;
     setFilter(value);
-    if (value === "p_Dsc") {
-      router.push(`/search/${data.searchTerm}/no/dsc/1`);
-    } else if (value === "p_Asc") {
-      router.push(`/search/${data.searchTerm}/no/asc/1`);
-    } else if (value === "r_Dsc") {
-      router.push(`/search/${data.searchTerm}/dsc/no/1`);
-    } else if (value === "r_Asc") {
-      router.push(`/search/${data.searchTerm}/asc/no/1`);
-    } else if (value === "") {
-      router.push(`/search/${data.searchTerm}/no/no/1`);
+    if (from === "search") {
+      if (value === "p_Dsc") {
+        router.push(`/search/${data.searchTerm}/no/dsc/1`);
+      } else if (value === "p_Asc") {
+        router.push(`/search/${data.searchTerm}/no/asc/1`);
+      } else if (value === "r_Dsc") {
+        router.push(`/search/${data.searchTerm}/dsc/no/1`);
+      } else if (value === "r_Asc") {
+        router.push(`/search/${data.searchTerm}/asc/no/1`);
+      } else if (value === "") {
+        router.push(`/search/${data.searchTerm}/no/no/1`);
+      }
+    }
+    if (from === "category") {
+      if (value === "p_Dsc") {
+        router.replace(`/categories/${data.categoryName}/no/dsc/1`);
+      } else if (value === "p_Asc") {
+        router.replace(`/categories/${data.categoryName}/no/asc/1`);
+      } else if (value === "r_Dsc") {
+        router.replace(`/categories/${data.categoryName}/dsc/no/1`);
+      } else if (value === "r_Asc") {
+        router.replace(`/categories/${data.categoryName}/asc/no/1`);
+      } else if (value === "") {
+        router.replace(`/categories/${data.categoryName}/no/no/1`);
+      }
     }
   };
   return (
     <div className={styles.search_wrapper}>
       <div className={styles.wrap}>
-        <h2 className={styles.center}>{from !== "search" && from}</h2>
+        <h2 className={styles.center}>
+          {from !== "search" && from !== "category" && from}
+        </h2>
       </div>
-      {from === "search" && (
-        <div value={filter} className={styles.sort}>
-          <select onChange={onSortChange} className={styles.select}>
-            <option className={styles.option} value="">
-              Sort By
-            </option>
-            <option className={styles.option} value="p_Dsc">
-              By Price (High &gt; Low)
-            </option>
-            <option className={styles.option} value="p_Asc">
-              By Price (Low &gt; High)
-            </option>
-            <option className={styles.option} value="r_Dsc">
-              By Rating (High &gt; Low){" "}
-            </option>
-            <option className={styles.option} value="r_Asc">
-              By Rating (Low &lt; High){" "}
-            </option>
-          </select>
-        </div>
-      )}
+      {from === "search" ||
+        (from === "category" && (
+          <div value={filter} className={styles.sort}>
+            <select onChange={onSortChange} className={styles.select}>
+              <option className={styles.option} value="">
+                Sort By
+              </option>
+              <option className={styles.option} value="p_Dsc">
+                By Price (High &gt; Low)
+              </option>
+              <option className={styles.option} value="p_Asc">
+                By Price (Low &gt; High)
+              </option>
+              <option className={styles.option} value="r_Dsc">
+                By Rating (High &gt; Low){" "}
+              </option>
+              <option className={styles.option} value="r_Asc">
+                By Rating (Low &lt; High){" "}
+              </option>
+            </select>
+          </div>
+        ))}
       <div className={styles.button_grp}>
         {repeat(data.totalpages || data.totalPages).map((s, index) => {
           if (from === "Latest") {
@@ -89,6 +107,25 @@ const Pagination = ({ data, from }) => {
                 href={
                   "/search/" +
                   data.searchTerm +
+                  "/" +
+                  data.reviewSort +
+                  "/" +
+                  data.priceSort +
+                  "/" +
+                  Number(index + 1)
+                }
+              >
+                {s}
+              </Link>
+            );
+          }
+          if (from === "category") {
+            return (
+              <Link
+                key={index}
+                href={
+                  "/categories/" +
+                  data.categoryName +
                   "/" +
                   data.reviewSort +
                   "/" +
@@ -155,6 +192,25 @@ const Pagination = ({ data, from }) => {
                 href={
                   "/search/" +
                   data.searchTerm +
+                  "/" +
+                  data.reviewSort +
+                  "/" +
+                  data.priceSort +
+                  "/" +
+                  Number(index + 1)
+                }
+              >
+                {s}
+              </Link>
+            );
+          }
+          if (from === "category") {
+            return (
+              <Link
+                key={index}
+                href={
+                  "/categories/" +
+                  data.categoryName +
                   "/" +
                   data.reviewSort +
                   "/" +

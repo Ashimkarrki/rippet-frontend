@@ -74,6 +74,8 @@ export async function getServerSideProps(context) {
     "https://rappitnepal.cyclic.app/api/v1/products/rated/product"
   );
   const popularProducts = await res3.json();
+  // const res4 = await fetch("https://rappitnepal.cyclic.app/api/v1/categories");
+  // const categories = await res4.json();
   return {
     props: { allProducts, latestProducts, popularProducts },
   };
