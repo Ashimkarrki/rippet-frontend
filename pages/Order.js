@@ -3,6 +3,8 @@ import styles from "../styles/Order.module.css";
 import { userContext } from "../context/userContext";
 import IsAuth from "../utils/IsAuth";
 import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 const Order = () => {
   const charge = 20;
@@ -69,6 +71,7 @@ const Order = () => {
   return (
     <div className={styles.order}>
       <form className={styles.userInform} onSubmit={submitHandeler}>
+        <h3 className={styles.head_heading}>Details</h3>
         <div className={styles.userInfo_child}>
           <label for="Name">Name</label>
           <input
@@ -102,7 +105,6 @@ const Order = () => {
             onChange={onChangeState}
           />
         </div>
-
         <div className={styles.userInfo_child}>
           <label for="streetAddress">Street Address</label>
           <input
@@ -156,28 +158,54 @@ const Order = () => {
             onChange={onChangeState}
           />
         </div>
-        <input type="submit" value="Order" />
+        <input type="submit" value="Order" className={styles.submit} />
       </form>
       <div className={styles.cartInform}>
-        Products:
+        <h3 className={styles.head_heading}>Your Order</h3>
+        <div className={styles.product_top}>
+          <h5 className={`${styles.heading} ${styles.heading_first}`}>
+            Product
+          </h5>
+          <h5 className={styles.heading}>Quantity</h5>
+          <h5 className={styles.heading}>Price</h5>
+        </div>
         <div className={styles.products}>
           {cartInfo.items.map((s) => {
             return (
               <div className={styles.product} key={s.id}>
-                <img className={styles.image} src={s.MainImage} alt={s.Name} />
-                <div>
-                  <h5>Name : {s.Name}</h5>
-                  <h5>Price : {s.Price}</h5>
-                  <h5>Quantity : {s.quantity}</h5>
-                </div>
+                <Link
+                  className={`${styles.heading_first} ${styles.hover}`}
+                  href={"/product/" + s.id}
+                >
+                  <h5 className={styles.heading}>{s.Name}</h5>{" "}
+                </Link>
+                <h5 className={styles.heading}>{s.quantity}</h5>
+                <h5 className={styles.heading}> {s.Price}</h5>
               </div>
             );
           })}
         </div>
-        <div className={styles.math}>
-          <h5>Total Price: {total()} </h5>
-          <h5>Charge : {charge}</h5>
-          <h5>Net Total : {total() + charge}</h5>
+        <div className={styles.product_bottom}>
+          <h5 className={`${styles.heading} ${styles.heading_first}`}>
+            Sub total
+          </h5>
+          <h5 className={`${styles.heading} ${styles.heading_last}`}>
+            {total()}
+          </h5>
+        </div>
+        <div className={styles.product_bottom}>
+          <h5 className={`${styles.heading} ${styles.heading_first}`}>
+            Charge
+          </h5>
+          <h5 className={`${styles.heading} ${styles.heading_last}`}>
+            {charge}
+          </h5>
+        </div>
+        <div className={styles.product_bottom}>
+          <h5 className={`${styles.heading} ${styles.heading_first}`}>Total</h5>
+          <h5 className={`${styles.heading} ${styles.heading_last}`}>
+            {total() + charge}
+          </h5>
         </div>
       </div>
     </div>
