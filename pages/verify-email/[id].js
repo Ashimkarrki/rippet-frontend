@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import style from "../../styles/LoadingContainer.module.css";
 import axios from "axios";
 import ClockLoader from "react-spinners/ClockLoader";
-const id = () => {
+const Id = () => {
   const URL = "http://localhost:4000/";
   const router = useRouter();
   const id = router.query.id;
@@ -35,4 +35,4 @@ const id = () => {
   );
 };
 
-export default id;
+export default Id;

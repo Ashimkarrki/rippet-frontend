@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import style from "../../styles/ResetPassword.module.css";
-const resetpasswordhandler = () => {
+const Resetpasswordhandler = () => {
   const router = useRouter();
   const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
 
@@ -64,4 +64,4 @@ const resetpasswordhandler = () => {
   );
 };
 
-export default resetpasswordhandler;
+export default Resetpasswordhandler;

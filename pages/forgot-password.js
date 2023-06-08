@@ -2,7 +2,7 @@ import React from "react";
 import style from "../styles/ForgotPassword.module.css";
 import { useState } from "react";
 import axios from "axios";
-const forgot_password = () => {
+const Forgot_password = () => {
   const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
   const [Email, setEmail] = useState({ Email: "" });
   const [Emailsent, setEmailsent] = useState(false);
@@ -58,4 +58,4 @@ const forgot_password = () => {
   );
 };
 
-export default forgot_password;
+export default Forgot_password;
