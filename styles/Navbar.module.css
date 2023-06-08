@@ -2,6 +2,11 @@
   color: #ffffff;
   position: relative;
 }
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .upper_nav {
   display: grid;
   width: 100%;

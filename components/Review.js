@@ -8,7 +8,13 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { userContext } from "../context/userContext";
 import useSWR from "swr";
 import { DotSpinner } from "@uiball/loaders";
-const Review = ({ id, sellerId }) => {
+const Review = ({
+  id,
+  sellerId,
+  averagerating,
+  noofrating,
+  reviews: propReviews,
+}) => {
   const [isSubmitLoading, setisSubmitLoading] = useState(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
@@ -16,10 +22,18 @@ const Review = ({ id, sellerId }) => {
 
   const { userInfo } = useContext(userContext);
   const intialState = {
-    total: 0,
-    averageRating: 0,
-    data: [],
+    total: noofrating,
+    averageRating: averagerating,
+    data: propReviews.map((s) => {
+      return {
+        _id: s._id,
+        rating: s.rating,
+        review: s.review,
+        user: s.user,
+      };
+    }),
   };
+  console.log("intial", intialState);
   const reviewReducer = (state, action) => {
     switch (action.type) {
       case "LOAD_REVIEW":
@@ -41,28 +55,30 @@ const Review = ({ id, sellerId }) => {
     }
   };
   const [reviews, dispatch] = useReducer(reviewReducer, intialState);
-  const { dat, error, isLoading } = useSWR("reviews/" + id, async (url) => {
-    const instance = axios.create({
-      withCredentials: true,
-      headers: { authorization: "Bearer" },
-    });
-    try {
-      const res = await instance.get(url);
-      dispatch({
-        type: "LOAD_REVIEW",
-        payload: {
-          raw: res.data.data.ReviewAll,
-          total: res.data.results,
-          averageRating: res.data.AverageRating,
-        },
-      });
 
-      return res;
-    } catch (err) {
-      console.log(err.message);
-      return err;
-    }
-  });
+  // const { dat, error, isLoading } = useSWR("reviews/" + id, async (url) => {
+  //   const instance = axios.create({
+  //     withCredentials: true,
+  //     headers: { authorization: "Bearer" },
+  //   });
+  //   try {
+  //     const res = await instance.get(url);
+  //     console.log("review", res.data);
+  //     dispatch({
+  //       type: "LOAD_REVIEW",
+  //       payload: {
+  //         raw: res.data.data.ReviewAll,
+  //         total: res.data.results,
+  //         averageRating: res.data.AverageRating,
+  //       },
+  //     });
+
+  //     return res;
+  //   } catch (err) {
+  //     console.log(err.message);
+  //     return err;
+  //   }
+  // });
 
   const [createReviewData, setCreateReviewData] = useState({
     review: "",
@@ -74,13 +90,6 @@ const Review = ({ id, sellerId }) => {
     });
   };
 
-  if (isLoading) {
-    return (
-      <div className={styles.review}>
-        <h2> Loading...</h2>
-      </div>
-    );
-  }
   return (
     <div className={styles.review}>
       <h3 className={styles.reviewprimaryheading}>Review</h3>

@@ -12,7 +12,6 @@ function X(props, Children) {
     sellerInfo,
     isDataFetched,
   } = useContext(userContext);
-  console.log(isDataFetched);
   const [isUserAuthorised, setIsUserAuthorised] = useState(
     userInfo.id ? true : false
   );
@@ -73,7 +72,6 @@ function X(props, Children) {
 
   // show loading screen
   else if (isLoading) {
-    console.log("loading");
     return (
       <div
         style={{
@@ -92,13 +90,10 @@ function X(props, Children) {
     !isUserAuthorised &&
     (router.pathname === "/login" || router.pathname === "/signup")
   ) {
-    console.log("second");
-
     return <Children {...props} />;
   }
   // if not authorised the redirect to /login
   else if (!isUserAuthorised && userSpecificRoute.includes(router.pathname)) {
-    console.log("is not user and redirecting to login");
     router.replace("/login");
   }
   // if authorised then prevent from going to /login , /signup
@@ -110,7 +105,6 @@ function X(props, Children) {
   }
   // if authorised then give all other pages
   else if (isUserAuthorised && userSpecificRoute.includes(router.pathname)) {
-    console.log("up");
     return <Children {...props} />;
   }
   // is seller but requesting user route
@@ -129,8 +123,6 @@ function X(props, Children) {
     isSellerAuthorised &&
     router.pathname.split("/")[1] === "sellerDashboard"
   ) {
-    console.log("down");
-
     return <Children {...props} />;
   }
   // is authorised but want to go seller login or sign up

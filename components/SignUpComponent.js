@@ -39,7 +39,8 @@ export const SignUpComponent = () => {
         })
         .catch((err) => {
           console.log(err?.response?.data?.message);
-
+          console.log(err);
+          console.log(err.response);
           setIsLoading(false);
         });
       const myPromise = instance.post(`users/signup`, sendingData);

@@ -27,6 +27,7 @@ import NotificationDropDown from "./NotificationDropDown";
 import UserInfoDropDown from "./UserInfoDropDown";
 import Collapse from "../pages/collapse";
 import Collapsible from "./Collapsible";
+import { DotSpinner } from "@uiball/loaders";
 const Navbar = () => {
   // {{URL}}api/v1/products/search/categories/civil-secondsem-handwritten/no/no/1
   const [notifications, setNotifications] = useState([]);
@@ -68,35 +69,22 @@ const Navbar = () => {
   ]);
   const { userInfo } = useContext(userContext);
   const [isUserInfoToggle, setIsUserInfoToggle] = useState(false);
-
   const [isCatDrop, setIsCatDrop] = useState(false);
   const router = useRouter();
-  const [isMenuOn, setIsMenuOn] = useState(false);
+  const [category, setCategory] = useState([]);
 
-  const { isLoading, data, isError } = useSWR(
-    userInfo.id ? "/notifications/seen" : null,
-    async (url) => {
-      const instance = axios.create({
-        withCredentials: true,
-        headers: { authorization: "Bearer" },
-      });
-      try {
-        const res = await instance.get(url);
-        return res.data.unseennotification;
-      } catch (err) {
-        return err;
-      }
-    }
-  );
+  const [isMenuOn, setIsMenuOn] = useState(false);
   const {
     isLoading: isLoad,
-    data: category,
-    isError: iserror,
+    // data: category,
+    error: iserror,
   } = useSWR(
     "/categories",
     async (url) => {
       try {
         const res = await axios.get(url);
+        setCategory(res.data);
+        console.log(res);
         setParentClicked(
           res.data.map((s) => {
             return {
@@ -105,9 +93,10 @@ const Navbar = () => {
             };
           })
         );
-        console.log(res.data);
         return res.data;
       } catch (err) {
+        console.log("err");
+        console.log(err);
         return err;
       }
     },
@@ -116,6 +105,24 @@ const Navbar = () => {
       revalidateOnFocus: false,
     }
   );
+  const {
+    isLoading,
+    data,
+    error: error,
+  } = useSWR(userInfo.id ? "/notifications/seen" : null, async (url) => {
+    const instance = axios.create({
+      withCredentials: true,
+      headers: { authorization: "Bearer" },
+    });
+    try {
+      const res = await instance.get(url);
+
+      return res.data.unseennotification;
+    } catch (err) {
+      return err;
+    }
+  });
+
   const [parentClicked, setParentClicked] = useState([]);
   const getNotifications = async () => {
     setNotificationLoading(true);
@@ -145,19 +152,11 @@ const Navbar = () => {
     e.preventDefault();
     router.push(`/search/${searchValue}/no/no/1`);
   };
-  const logout = async () => {
-    try {
-      const res = await instance.get("users/logout");
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   const subDropDown = (children, title, categoriesName) => {
     if (children.length === 0) {
       return (
         <DropdownMenu.Item className={styles.DropdownMenuItem}>
-          {console.log(categoriesName)}
           {categoriesName ? (
             <Link href={"categories/" + categoriesName + "/no/no/1"}>
               <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
@@ -261,7 +260,7 @@ const Navbar = () => {
 
           {userInfo.id && (
             <div className={` ${styles.relative} ${styles.asd}`}>
-              {data !== 0 && !isLoading && (
+              {data !== 0 && !isLoading && !error && (
                 <h5 className={styles.notification_no}>{data}</h5>
               )}
               {toggleNotification && (
@@ -320,13 +319,22 @@ const Navbar = () => {
                   className={styles.drop_down}
                   sideOffset={5}
                 >
-                  {category?.map((s) => {
-                    return (
-                      <div key={s._id}>
-                        {subDropDown(s.children, s.title, s?.categoriesName)}
-                      </div>
-                    );
-                  })}
+                  {console.log(isLoad)}
+                  {console.log(category)}
+                  {isLoad ? (
+                    <div className={styles.spinner}>
+                      <DotSpinner color="blue" size={25} />
+                    </div>
+                  ) : (
+                    category &&
+                    category?.map((s) => {
+                      return (
+                        <div key={s._id}>
+                          {subDropDown(s.children, s.title, s?.categoriesName)}
+                        </div>
+                      );
+                    })
+                  )}
 
                   <DropdownMenu.Arrow className={styles.DropdownMenuArrow} />
                 </DropdownMenu.Content>
@@ -344,6 +352,8 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
+      {console.log("naya")}
+      {console.log(category)}
       {isMenuOn && (
         <>
           <div className={styles.hidden_menu}>

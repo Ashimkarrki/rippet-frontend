@@ -15,7 +15,7 @@ const Collapsible = ({ child, clicked }) => {
   }
   return (
     <ul className={!clicked ? styles.no_show : styles.show}>
-      {child.map((s) => {
+      {child?.map((s) => {
         return (
           <li key={s._id} className={styles.li}>
             <p

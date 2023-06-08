@@ -10,8 +10,10 @@ import { DotSpinner } from "@uiball/loaders";
 import axios from "axios";
 import IsAuth from "../../utils/IsAuth";
 import { Router, useRouter } from "next/router";
+import Image from "next/image";
 import { toast } from "react-hot-toast";
 const Product = ({ data }) => {
+  console.log("[id]", data);
   const router = useRouter();
   const [isCartLoading, setIsCartLoading] = useState(false);
   const instance = axios.create({
@@ -56,47 +58,60 @@ const Product = ({ data }) => {
             Message Seller
           </button>
           <div className={styles.image_section}>
-            <img
-              className={styles.header_image}
-              src={dataInfo.Images[headPic]}
-              alt={data.title}
-            />
+            <div className={styles.header_image_wrapper}>
+              <Image
+                fill
+                priority={true}
+                src={dataInfo.Images[headPic]}
+                className={styles.header_image}
+                alt={data.title}
+              />
+            </div>
             <div className={styles.choose_image_wrapper}>
               {dataInfo.Images[0] && (
-                <img
-                  onClick={() => {
-                    setHeadPic(0);
-                  }}
-                  className={`${styles.sub_image} ${
-                    headPic === 0 ? styles.outline : ""
-                  }`}
-                  src={dataInfo?.Images[0]}
-                  alt={dataInfo.name}
-                />
+                <div className={styles.sub_image_wrapper}>
+                  <Image
+                    fill
+                    onClick={() => {
+                      setHeadPic(0);
+                    }}
+                    className={`${styles.sub_image} ${
+                      headPic === 0 ? styles.outline : ""
+                    }`}
+                    src={dataInfo?.Images[0]}
+                    alt={dataInfo.name}
+                  />
+                </div>
               )}
               {dataInfo.Images[1] && (
-                <img
-                  onClick={() => {
-                    setHeadPic(1);
-                  }}
-                  className={`${styles.sub_image} ${
-                    headPic === 1 ? styles.outline : ""
-                  }`}
-                  src={dataInfo?.Images[1]}
-                  alt={dataInfo.name}
-                />
+                <div className={styles.sub_image_wrapper}>
+                  <Image
+                    fill
+                    onClick={() => {
+                      setHeadPic(1);
+                    }}
+                    className={`${styles.sub_image} ${
+                      headPic === 1 ? styles.outline : ""
+                    }`}
+                    src={dataInfo?.Images[1]}
+                    alt={dataInfo.name}
+                  />
+                </div>
               )}
               {dataInfo.Images[2] && (
-                <img
-                  onClick={() => {
-                    setHeadPic(2);
-                  }}
-                  className={`${styles.sub_image} ${
-                    headPic === 2 ? styles.outline : ""
-                  }`}
-                  src={dataInfo?.Images[2]}
-                  alt={dataInfo.name}
-                />
+                <div className={styles.sub_image_wrapper}>
+                  <Image
+                    fill
+                    onClick={() => {
+                      setHeadPic(2);
+                    }}
+                    className={`${styles.sub_image} ${
+                      headPic === 2 ? styles.outline : ""
+                    }`}
+                    src={dataInfo?.Images[2]}
+                    alt={dataInfo.name}
+                  />
+                </div>
               )}
             </div>
           </div>
