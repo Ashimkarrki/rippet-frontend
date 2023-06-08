@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import styles from "../styles/Dropdown.module.css";
 import Link from "next/link";
+import axios from "axios";
 const UserInfoDropDown = ({ setIsUserInfoToggle }) => {
   const ref = useRef();
-
+  const instance = axios.create({
+    withCredentials: true,
+    headers: { authorization: "Bearer" },
+  });
   useEffect(() => {
     const handleClick = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {

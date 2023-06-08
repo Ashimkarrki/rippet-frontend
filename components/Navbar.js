@@ -148,6 +148,7 @@ const Navbar = () => {
   const logout = async () => {
     try {
       const res = await instance.get("users/logout");
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -201,7 +202,12 @@ const Navbar = () => {
     <nav className={styles.nav}>
       <div className={styles.upper_nav}>
         <Link href={"/"} className={styles.rippet_logo_parent}>
-          <Image src={rippet_logo} alt="logo" className={styles.rippet_logo} />
+          <Image
+            src={rippet_logo}
+            alt="logo"
+            className={styles.rippet_logo}
+            fill
+          />
         </Link>
         <form className={styles.icon_wrapper} onSubmit={submitHandler}>
           <input

@@ -55,10 +55,11 @@
 }
 .rippet_logo_parent {
   justify-self: start;
-}
-.rippet_logo {
+  position: relative;
   width: 6.5rem;
   height: 7rem;
+}
+.rippet_logo {
   object-fit: contain;
 }
 .lower_nav {
@@ -296,6 +297,10 @@
 @media (max-width: 796px) {
   .lower_nav {
     display: none;
+  }
+  .rippet_logo_parent {
+    width: 5rem;
+    height: 5.5rem;
   }
   .upper_nav {
     row-gap: 0.5rem;

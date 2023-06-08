@@ -117,7 +117,7 @@ const Product = ({ data }) => {
               <div className={styles.button_group}>
                 <div className={styles.button_add}>
                   <button
-                    className={styles.buttons}
+                    className={`${styles.buttons} ${styles.button_minus}`}
                     onClick={() =>
                       setNoOfItem((prev) => (prev != 0 ? prev - 1 : 0))
                     }
@@ -128,7 +128,7 @@ const Product = ({ data }) => {
                     {noOfItem}
                   </button>
                   <button
-                    className={styles.buttons}
+                    className={`${styles.buttons} ${styles.button_plus}`}
                     onClick={() => setNoOfItem((prev) => prev + 1)}
                   >
                     +
@@ -138,7 +138,7 @@ const Product = ({ data }) => {
                   <button
                     className={`${styles.buttons} ${styles.add_to_cart} ${styles.loading_spinner}`}
                   >
-                    <DotSpinner color="#231F20" size={18} />
+                    <DotSpinner color="white" size={18} />
                   </button>
                 ) : (
                   <button
@@ -167,16 +167,16 @@ const Product = ({ data }) => {
                   </button>
                 )}
 
-                <button className={styles.buttons}>
+                {/* <button className={styles.buttons}>
                   <AiOutlineHeart className={styles.heart} />
-                </button>
+                </button> */}
               </div>
             ) : isCartLoading ? (
               <div className={styles.added_to_cart_container}>
                 <button
                   className={`${styles.add_to_cart} ${styles.added_to_cart} ${styles.loading_spinner}`}
                 >
-                  <DotSpinner color="#231F20" size={18} />
+                  <DotSpinner color="white" size={18} />
                 </button>
               </div>
             ) : (

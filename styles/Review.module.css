@@ -37,6 +37,7 @@
 }
 
 .reviewInputContainer {
+  min-width: 12rem;
   width: 35%;
   display: flex;
   flex-direction: column;
@@ -56,15 +57,24 @@
 
 .reviewbutton {
   width: 100%;
-  height: 3rem;
-  border: none;
-  background-color: #2457aa;
-  color: white;
+  padding: 0.5rem;
+  border: 1px solid grey;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
+  transition: background-color 400ms ease-in-out;
+}
+.reviewbutton:hover {
+  background-color: #2457aa;
+  color: white;
+  border: 1px solid #2457aa;
 }
 .loading_spinner {
   display: flex;
+  background-color: #2457aa;
+  color: white;
   align-items: center;
   justify-content: center;
 }
@@ -90,15 +100,18 @@
   justify-content: center;
 }
 .review_button_delete {
-  background-color: inherit;
+  background-color: #ef4444;
+  color: white;
   border: none;
-  padding: 4px;
+  padding: 0.3rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  transition: background-color 200ms ease-in-out;
 }
 .review_button_delete:hover {
   cursor: pointer;
-}
-.review_delete {
-  font-size: 1.2rem;
+  background-color: #ef44449f;
 }
 
 .noreviewtext {

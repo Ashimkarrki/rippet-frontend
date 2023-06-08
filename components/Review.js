@@ -120,7 +120,7 @@ const Review = ({ id, sellerId }) => {
             <button
               className={`${styles.reviewbutton} ${styles.loading_spinner}`}
             >
-              <DotSpinner size={25} color="white" />
+              <DotSpinner size={19} color="white" />
             </button>
           ) : (
             <button
@@ -163,25 +163,26 @@ const Review = ({ id, sellerId }) => {
         <div></div>
       </div>
       <div className={styles.allreviewcontainer}>
+        {console.log(reviews)}
         {reviews ? (
           <>
-            {reviews?.data.map(({ _id, id, review, rating, user }) => {
+            {reviews?.data.map(({ _id, review, rating, user }) => {
               return (
                 <div
                   className={`${styles.review_item} ${
                     deletedId === _id && styles.is_deleting
                   }`}
-                  id={id}
+                  id={_id}
                   key={_id}
                 >
-                  {console.log(id)}
                   <h5 className={styles.name}>{user?.Username}</h5>
                   <Star num={rating} />
                   <p>{review}</p>
+                  {console.log("is", isDeleteLoading)}
                   {user?.id === userInfo.id &&
                     (isDeleteLoading ? (
                       <button className={styles.review_button_delete}>
-                        <RiDeleteBin6Fill className={styles.review_delete} />
+                        Delete
                       </button>
                     ) : (
                       <button
@@ -193,23 +194,28 @@ const Review = ({ id, sellerId }) => {
                             withCredentials: true,
                             headers: { authorization: "Bearer" },
                           });
-                          const res = await instance.delete(
-                            "/reviews/delete/" + _id + "/" + id,
-                            { sellerId: sellerId }
-                          );
-                          dispatch({
-                            type: "LOAD_REVIEW",
-                            payload: {
-                              raw: res.data.data.remainingReview,
-                              total: res.data.results,
-                              averageRating: res.data.AverageRating,
-                            },
-                          });
-                          setIsDeleteLoading(false);
-                          setDeletedId("");
+                          let res;
+                          try {
+                            res = await instance.delete(
+                              "/reviews/delete/" + _id + "/" + id,
+                              { sellerId: sellerId }
+                            );
+                            dispatch({
+                              type: "LOAD_REVIEW",
+                              payload: {
+                                raw: res.data.data.remainingReview,
+                                total: res.data.results,
+                                averageRating: res.data.AverageRating,
+                              },
+                            });
+                            setIsDeleteLoading(false);
+                            setDeletedId("");
+                          } catch (err) {
+                            console.log(err);
+                          }
                         }}
                       >
-                        <RiDeleteBin6Fill className={styles.review_delete} />
+                        Delete
                       </button>
                     ))}
                 </div>
