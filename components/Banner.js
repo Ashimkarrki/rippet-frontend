@@ -1,26 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Banner.module.css";
 import "slick-carousel/slick/slick.css";
+import Slider from "react-slick";
+import PrevButton from "./PrevButton";
+import NextButton from "./NextButton";
+import Image from "next/image";
 
-const Banner = () => {
+const Banner = ({ banner }) => {
+  console.log(banner);
   const settings = {
-    dots: false,
     infinite: true,
-    speed: 500,
+    speed: 400,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 4000,
     arrows: false,
     rows: 1,
   };
   return (
     <div className={styles.banner}>
-      <img
-        className={styles.image}
-        alt="banner"
-        src="https://static.vecteezy.com/system/resources/previews/001/637/223/non_2x/big-sale-discount-banner-template-vector.jpg"
-      />
+      <div className={styles.mainImage}>
+        <Slider {...settings} className={styles.slider}>
+          {banner.MainImages.map((data) => {
+            return (
+              <div className={styles.main_image_container} key={data._id}>
+                <Image
+                  fill
+                  className={styles.image}
+                  alt="banner"
+                  src={data.Imagesource}
+                />
+              </div>
+            );
+          })}
+        </Slider>
+      </div>
+      <div className={styles.subImagecontainer}>
+        <div className={styles.sub_image_container}>
+          <Image
+            fill
+            className={styles.subimage}
+            alt="banner"
+            src={banner?.RightTopImage?.Imagesource}
+          />
+        </div>
+        <div className={styles.sub_image_container}>
+          <Image
+            fill
+            className={styles.subimage}
+            alt="banner"
+            src={banner?.RightMiddleImage?.Imagesource}
+          />
+        </div>
+        <div className={styles.sub_image_container}>
+          <Image
+            fill
+            className={styles.subimage}
+            alt="banner"
+            src={banner?.RightBottomImage?.Imagesource}
+          />
+        </div>
+      </div>
     </div>
   );
 };

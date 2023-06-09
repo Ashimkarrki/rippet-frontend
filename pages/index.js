@@ -6,7 +6,7 @@ import Services from "../components/Services";
 import Category from "../components/Category";
 import SellerHomecomponenet from "../components/SellerHomeComponenet";
 import IsAuth from "../utils/IsAuth";
-function Home({ allProducts, latestProducts, popularProducts }) {
+function Home({ allProducts, latestProducts, popularProducts, banner }) {
   const category = [
     {
       id: 0,
@@ -44,7 +44,7 @@ function Home({ allProducts, latestProducts, popularProducts }) {
   return (
     <>
       <div className={styles.home}>
-        <Banner />
+        <Banner banner={banner.message[0]} />
         <CarouselComponent
           list={latestProducts?.data}
           title={"Latest Products"}
@@ -74,9 +74,9 @@ export async function getServerSideProps(context) {
     "https://rappitnepal.cyclic.app/api/v1/products/rated/product"
   );
   const popularProducts = await res3.json();
-  // const res4 = await fetch("https://rappitnepal.cyclic.app/api/v1/categories");
-  // const categories = await res4.json();
+  const res4 = await fetch("https://rappitnepal.cyclic.app/api/v1/banner");
+  const banner = await res4.json();
   return {
-    props: { allProducts, latestProducts, popularProducts },
+    props: { allProducts, latestProducts, popularProducts, banner },
   };
 }

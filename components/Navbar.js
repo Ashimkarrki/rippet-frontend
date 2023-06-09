@@ -182,7 +182,9 @@ const Navbar = () => {
           <DropdownMenu.Portal>
             <DropdownMenu.SubContent
               className={styles.drop_down}
-              sideOffset={10}
+              // alignOffset={-10}
+              avoidCollisions={false}
+              sideOffset={5}
             >
               {children.map((s) => {
                 return (
@@ -317,7 +319,7 @@ const Navbar = () => {
               <DropdownMenu.Portal>
                 <DropdownMenu.Content
                   className={styles.drop_down}
-                  sideOffset={5}
+                  alignOffset={-5}
                 >
                   {console.log(isLoad)}
                   {console.log(category)}
