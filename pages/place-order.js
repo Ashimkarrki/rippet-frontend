@@ -21,7 +21,6 @@ const PlaceOrder = () => {
   };
   useEffect(() => {
     ref.current.focus();
-    console.log(ref);
   }, []);
   const { cartInfo, userInfo } = useContext(userContext);
   const total = () => {

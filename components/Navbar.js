@@ -3,14 +3,7 @@ import { useRouter } from "next/router";
 import { userContext } from "../context/userContext";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  BsSearch,
-  BsBag,
-  BsCartDash,
-  BsChevronUp,
-  BsChevronDown,
-  BsDot,
-} from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import axios from "axios";
@@ -25,54 +18,19 @@ import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
 import NotificationDropDown from "./NotificationDropDown";
 import UserInfoDropDown from "./UserInfoDropDown";
-import Collapse from "../pages/collapse";
 import Collapsible from "./Collapsible";
 import { DotSpinner } from "@uiball/loaders";
 const Navbar = () => {
-  // {{URL}}api/v1/products/search/categories/civil-secondsem-handwritten/no/no/1
   const [notifications, setNotifications] = useState([]);
   const [toggleNotification, setToggleNotification] = useState(false);
   const [notificationLoading, setNotificationLoading] = useState(false);
-  const [temp, setTemp] = useState([
-    {
-      _id: 12,
-      title: "1st sem",
-      children: [
-        {
-          _id: 10,
-          title: "Hand Written",
-          children: [],
-        },
-        {
-          _id: 101,
-          title: "Hard Copy",
-          children: [],
-        },
-      ],
-    },
-    {
-      _id: 2,
-      title: "2nd sem",
-      children: [
-        {
-          _id: 102,
-          title: "Hand Written",
-          children: [],
-        },
-        {
-          _id: 103,
-          title: "Hard Copy",
-          children: [],
-        },
-      ],
-    },
-  ]);
   const { userInfo } = useContext(userContext);
   const [isUserInfoToggle, setIsUserInfoToggle] = useState(false);
   const [isCatDrop, setIsCatDrop] = useState(false);
   const router = useRouter();
-  const [category, setCategory] = useState([]);
+  const [data, setData] = useState();
 
+  const [category, setCategory] = useState([]);
   const [isMenuOn, setIsMenuOn] = useState(false);
   const {
     isLoading: isLoad,
@@ -84,7 +42,6 @@ const Navbar = () => {
       try {
         const res = await axios.get(url);
         setCategory(res.data);
-        console.log(res);
         setParentClicked(
           res.data.map((s) => {
             return {
@@ -95,7 +52,6 @@ const Navbar = () => {
         );
         return res.data;
       } catch (err) {
-        console.log("err");
         console.log(err);
         return err;
       }
@@ -107,7 +63,7 @@ const Navbar = () => {
   );
   const {
     isLoading,
-    data,
+
     error: error,
   } = useSWR(userInfo.id ? "/notifications/seen" : null, async (url) => {
     const instance = axios.create({
@@ -116,7 +72,7 @@ const Navbar = () => {
     });
     try {
       const res = await instance.get(url);
-
+      setData(res.data.unseennotification);
       return res.data.unseennotification;
     } catch (err) {
       return err;
@@ -149,13 +105,20 @@ const Navbar = () => {
     e.preventDefault();
     router.push(`/search/${searchValue}/no/no/1`);
   };
-
+  console.log(router.pathname.split("/")[1]);
   const subDropDown = (children, title, categoriesName, position) => {
     if (children.length === 0) {
       return (
         <DropdownMenu.Item className={styles.DropdownMenuItem}>
           {categoriesName ? (
-            <Link href={"categories/" + categoriesName + "/no/no/1"}>
+            <Link
+              href={
+                // router.pathname.split("/")[1] === "categories"
+                //   ? categoriesName + "/no/no/1"
+                //   :
+                "/categories/" + categoriesName + "/no/no/1"
+              }
+            >
               <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
             </Link>
           ) : (
@@ -168,23 +131,29 @@ const Navbar = () => {
         <DropdownMenu.Sub>
           <DropdownMenu.SubTrigger className={styles.DropdownMenuSubTrigger}>
             {categoriesName ? (
-              <Link href={"categories/" + categoriesName + "/no/no/1"}>
+              <Link
+                href={
+                  // router.pathname.split("/")[1] === "categories"
+                  //   ? categoriesName + "/no/no/1"
+                  //   :
+                  "/categories/" + categoriesName + "/no/no/1"
+                }
+              >
                 <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
               </Link>
             ) : (
               <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
             )}
-            {/* <h5 className={styles.drop_down_user_info_heading}>{title}</h5> */}
           </DropdownMenu.SubTrigger>
           <DropdownMenu.Portal>
             <DropdownMenu.SubContent
               className={styles.drop_down}
-              alignOffset={-6.5 - position * 29}
-              sideOffset={5}
+              alignOffset={-1 - position * 29}
+              sideOffset={0}
             >
               {children.map((s, index) => {
                 return (
-                  <div key={s._id}>
+                  <div key={s._id} className={styles.grey}>
                     {subDropDown(s.children, s.title, s?.categoriesName, index)}
                   </div>
                 );
@@ -328,7 +297,7 @@ const Navbar = () => {
                     category &&
                     category?.map((s, index) => {
                       return (
-                        <div key={s._id}>
+                        <div className={styles.grey} key={s._id}>
                           {subDropDown(
                             s.children,
                             s.title,

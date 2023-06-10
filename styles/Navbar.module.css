@@ -257,19 +257,23 @@
 }
 
 .drop_down_user_info_heading {
-  font-weight: 300;
+  font-weight: 400;
   font-size: medium;
   padding: 5px 10px;
   border-radius: 5px;
 }
+
 .DropdownMenuSubTrigger:hover {
   outline: none;
   border: none;
+  /* background-color: #575cd6; */
+}
+.grey:hover {
+  background-color: #d1d5db85;
 }
 .drop_down_user_info_heading:hover {
-  background-color: #575cd6;
   cursor: pointer;
-  color: white;
+  color: #2457aa;
   outline: none;
   border: none;
 }
@@ -281,10 +285,10 @@
 }
 .user_info_heading:hover {
   color: #ffb327;
+  cursor: pointer;
 }
 .drop_down {
-  padding: 5px;
-  min-height: 28rem;
+  min-height: 28.5rem;
   min-width: 12rem;
   background-color: white;
 
