@@ -2,3 +2,12 @@
   width: 82%;
   margin: 2rem auto;
 }
+.notFound {
+  text-align: center;
+  margin: 5rem;
+  font-size: 1.2rem;
+}
+.icons {
+  font-size: 2rem;
+  color: #f44336;
+}

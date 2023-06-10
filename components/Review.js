@@ -4,10 +4,16 @@ import StarRatingComponent from "react-rating-stars-component";
 import { useState, useReducer } from "react";
 import axios from "axios";
 import { useContext } from "react";
-import { RiDeleteBin6Fill } from "react-icons/ri";
 import { userContext } from "../context/userContext";
 import useSWR from "swr";
 import { DotSpinner } from "@uiball/loaders";
+import toast from "react-hot-toast";
+
+// {{URL}}api/v1/reviews/cancreate/646cbe24caf7d0e97b2f7738
+// {
+//   message:true
+// }
+
 const Review = ({
   id,
   sellerId,
@@ -33,7 +39,6 @@ const Review = ({
       };
     }),
   };
-  console.log("intial", intialState);
   const reviewReducer = (state, action) => {
     switch (action.type) {
       case "LOAD_REVIEW":
@@ -56,30 +61,6 @@ const Review = ({
   };
   const [reviews, dispatch] = useReducer(reviewReducer, intialState);
 
-  // const { dat, error, isLoading } = useSWR("reviews/" + id, async (url) => {
-  //   const instance = axios.create({
-  //     withCredentials: true,
-  //     headers: { authorization: "Bearer" },
-  //   });
-  //   try {
-  //     const res = await instance.get(url);
-  //     console.log("review", res.data);
-  //     dispatch({
-  //       type: "LOAD_REVIEW",
-  //       payload: {
-  //         raw: res.data.data.ReviewAll,
-  //         total: res.data.results,
-  //         averageRating: res.data.AverageRating,
-  //       },
-  //     });
-
-  //     return res;
-  //   } catch (err) {
-  //     console.log(err.message);
-  //     return err;
-  //   }
-  // });
-
   const [createReviewData, setCreateReviewData] = useState({
     review: "",
     rating: 5,
@@ -89,6 +70,24 @@ const Review = ({
       return { ...data, rating };
     });
   };
+
+  const {
+    data: canCreate,
+    isLoading: isCanLoad,
+    error,
+  } = useSWR("reviews/cancreate/" + id, async (url) => {
+    const instance = axios.create({
+      withCredentials: true,
+      headers: { authorization: "Bearer" },
+    });
+    try {
+      const res = await instance.get(url);
+      console.log(res.data, "helloooooo");
+      return res.data.message;
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
   return (
     <div className={styles.review}>
@@ -104,71 +103,76 @@ const Review = ({
           <Star num={reviews.averageRating ? reviews.averageRating : 0} />
           <p>{reviews.total ? reviews.total : 0} Rating</p>
         </div>
-        <div className={styles.reviewInputContainer}>
-          <input
-            required
-            className={styles.reviewinput}
-            type="text"
-            value={createReviewData.review ? createReviewData.review : ""}
-            onChange={(e) => {
-              setCreateReviewData((data) => {
-                return { ...data, review: e.target.value };
-              });
-            }}
-            placeholder="Submit Your Review"
-          />
-          <StarRatingComponent
-            name="rating"
-            value={createReviewData.rating * 1}
-            starColor={"#faca51"}
-            className={styles.createreviewicon}
-            onChange={reviewChangeHandler}
-          />
-          {/* {console.log(typeof createReviewData.rating)} */}
-          {isSubmitLoading ? (
-            <button
-              className={`${styles.reviewbutton} ${styles.loading_spinner}`}
-            >
-              <DotSpinner size={19} color="white" />
-            </button>
-          ) : (
-            <button
-              className={styles.reviewbutton}
-              onClick={async () => {
-                if (createReviewData.review) {
-                  setisSubmitLoading(true);
-                  const instance = axios.create({
-                    withCredentials: true,
-                    headers: { authorization: "Bearer" },
-                  });
-                  try {
-                    const res = await instance.post(
-                      "products/" + id + "/reviews",
-                      {
-                        ...createReviewData,
-                        sellerId: sellerId,
-                      }
-                    );
-                    dispatch({
-                      type: "LOAD_REVIEW",
-                      payload: {
-                        raw: res.data.data.newReview,
-                        total: res.data.results,
-                        averageRating: res.data.AverageRating,
-                      },
-                    });
-                    setCreateReviewData({ review: "", rating: 5 });
-                    setisSubmitLoading(false);
-                  } catch (err) {
-                    console.log(err);
-                  }
-                }
+        {(!isCanLoad || canCreate) && userInfo.id && (
+          <div className={styles.reviewInputContainer}>
+            <input
+              required
+              className={styles.reviewinput}
+              type="text"
+              value={createReviewData.review ? createReviewData.review : ""}
+              onChange={(e) => {
+                setCreateReviewData((data) => {
+                  return { ...data, review: e.target.value };
+                });
               }}
-            >
-              Submit
-            </button>
-          )}
-        </div>
+              placeholder="Submit Your Review"
+            />
+            <StarRatingComponent
+              name="rating"
+              value={createReviewData.rating * 1}
+              starColor={"#faca51"}
+              className={styles.createreviewicon}
+              onChange={reviewChangeHandler}
+            />
+            {isSubmitLoading ? (
+              <button
+                className={`${styles.reviewbutton} ${styles.loading_spinner}`}
+              >
+                <DotSpinner size={19} color="white" />
+              </button>
+            ) : (
+              <button
+                className={styles.reviewbutton}
+                onClick={async () => {
+                  if (createReviewData.review) {
+                    setisSubmitLoading(true);
+                    const instance = axios.create({
+                      withCredentials: true,
+                      headers: { authorization: "Bearer" },
+                    });
+                    try {
+                      const res = await instance.post(
+                        "products/" + id + "/reviews",
+                        {
+                          ...createReviewData,
+                          sellerId: sellerId,
+                        }
+                      );
+                      dispatch({
+                        type: "LOAD_REVIEW",
+                        payload: {
+                          raw: res.data.data.newReview,
+                          total: res.data.results,
+                          averageRating: res.data.AverageRating,
+                        },
+                      });
+                      setCreateReviewData({ review: "", rating: 5 });
+                      setisSubmitLoading(false);
+                    } catch (err) {
+                      toast.error(err?.response?.data?.message, {
+                        position: "bottom-left",
+                      });
+                      setisSubmitLoading(false);
+                    }
+                  }
+                }}
+              >
+                Submit
+              </button>
+            )}
+          </div>
+        )}
+
         <div></div>
       </div>
       <div className={styles.allreviewcontainer}>

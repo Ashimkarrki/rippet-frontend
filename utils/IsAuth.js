@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { userContext } from "../context/userContext";
 import BarLoader from "react-spinners/BarLoader";
 import axios from "axios";
+import Loading from "../components/Loading";
 function X(props, Children) {
   const {
     addDetails,
@@ -31,7 +32,13 @@ function X(props, Children) {
     "/popular/[...id]",
     "/latest/[...id]",
   ];
-  const userSpecificRoute = ["/Cart", "/Order", "/myquestions", "/myreviews"];
+  const userSpecificRoute = [
+    "/Cart",
+    "/Order",
+    "/myquestions",
+    "/myreviews",
+    "/myorders",
+  ];
   const router = useRouter();
   useEffect(() => {
     const fetchIsMe = async () => {
@@ -72,18 +79,7 @@ function X(props, Children) {
 
   // show loading screen
   else if (isLoading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "2rem",
-          marginBottom: "2rem",
-        }}
-      >
-        <BarLoader color="#2457aa" height={7} />
-      </div>
-    );
+    return <Loading />;
   }
   // if not authorised then no problem with login sign page
   else if (
@@ -139,18 +135,7 @@ function X(props, Children) {
   ) {
     router.replace("/sellerDashboard");
   } else {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "2rem",
-          marginBottom: "2rem",
-        }}
-      >
-        <BarLoader color="#2457aa" height={7} />
-      </div>
-    );
+    return <Loading />;
   }
 }
 

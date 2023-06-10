@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import styles from "../styles/QuestionAnswer.module.css";
 import { RiQuestionnaireFill, RiQuestionAnswerFill } from "react-icons/ri";
 import axios from "axios";
+import { useContext } from "react";
+import { userContext } from "../context/userContext";
 import { DotSpinner } from "@uiball/loaders";
 
 const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo, sellerId }) => {
+  const { userInfo } = useContext(userContext);
+
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [row, setRow] = useState(2);
   const [question, setQuestion] = useState("");
@@ -37,28 +41,32 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo, sellerId }) => {
       <h3 className={styles.reviewaskquestionheading}>
         Questions About This Product ({qa.length})
       </h3>
-      <form className={styles.ask} onSubmit={asksubmitHandler}>
-        <textarea
-          onClick={() => {
-            setRow(6);
-          }}
-          className={styles.text_area}
-          value={question ? question : ""}
-          onChange={(e) => setQuestion(e.target.value)}
-          cols="30"
-          required
-          rows={row}
-        ></textarea>
-        {isSubmitLoading ? (
-          <button className={`${styles.button_ask} ${styles.loading_spinner}`}>
-            <DotSpinner color="white" size={18} />
-          </button>
-        ) : (
-          <button className={styles.button_ask} type="submit">
-            Ask Question
-          </button>
-        )}
-      </form>
+      {userInfo.id && (
+        <form className={styles.ask} onSubmit={asksubmitHandler}>
+          <textarea
+            onClick={() => {
+              setRow(6);
+            }}
+            className={styles.text_area}
+            value={question ? question : ""}
+            onChange={(e) => setQuestion(e.target.value)}
+            cols="30"
+            required
+            rows={row}
+          ></textarea>
+          {isSubmitLoading ? (
+            <button
+              className={`${styles.button_ask} ${styles.loading_spinner}`}
+            >
+              <DotSpinner color="white" size={18} />
+            </button>
+          ) : (
+            <button className={styles.button_ask} type="submit">
+              Ask Question
+            </button>
+          )}
+        </form>
+      )}
       <div className={styles.ask_wrapper}>
         {qa?.length ? (
           <>

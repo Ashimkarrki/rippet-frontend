@@ -4,6 +4,7 @@ import useSWR from "swr";
 import axios from "axios";
 import BarLoader from "react-spinners/BarLoader";
 import IsAuth from "../utils/IsAuth";
+import Loading from "../components/Loading";
 const Qna = () => {
   console.log("helo");
   const { isLoading, data, isError } = useSWR(
@@ -26,18 +27,7 @@ const Qna = () => {
   );
   console.log(isLoading);
   if (isLoading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "2rem",
-          marginBottom: "2rem",
-        }}
-      >
-        <BarLoader color="#2457aa" height={7} />
-      </div>
-    );
+    return <Loading />;
   }
   return <ReviewsAndQnaComponent data={data} content="qna" />;
 };

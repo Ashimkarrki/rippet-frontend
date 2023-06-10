@@ -1,0 +1,6 @@
+.loading {
+  height: 20rem;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}

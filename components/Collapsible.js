@@ -75,30 +75,6 @@ const Collapsible = ({ child, clicked, setIsMenuOn }) => {
                 {s.title}
               </p>
             )}
-            {/* <p
-              className={styles.heading}
-              onClick={() =>
-                setParentClicked((prev) => {
-                  return prev.map((k) => {
-                    if (k.id === s._id) {
-                      return { ...k, state: !k.state };
-                    }
-                    return {
-                      ...k,
-                      state: false,
-                    };
-                  });
-                })
-              }
-            >
-              {parentClicked.find((k) => k.id === s._id).state &&
-              s.children.length !== 0 ? (
-                <BsChevronDown className={styles.icon_cat} />
-              ) : (
-                <BsDot className={styles.icon_cat} />
-              )}
-              {s.title}
-            </p> */}
             <Collapsible
               child={s.children}
               title={s.title}

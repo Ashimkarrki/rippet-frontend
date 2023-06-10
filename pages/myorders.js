@@ -4,6 +4,8 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/MyOrders.module.css";
+import Loading from "../components/Loading";
+import IsAuth from "../utils/IsAuth";
 const MyOrders = () => {
   const { isLoading, data, isError } = useSWR("orders", async (url) => {
     const instance = axios.create({
@@ -20,7 +22,7 @@ const MyOrders = () => {
     }
   });
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
   return (
     <div className={styles.container}>
@@ -99,4 +101,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default IsAuth(MyOrders);

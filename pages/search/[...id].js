@@ -1,8 +1,17 @@
 import React from "react";
 import styles from "../../styles/SearchPage.module.css";
 import IsAuth from "../../utils/IsAuth";
+import { BiError } from "react-icons/bi";
 import Pagination from "../../components/Pagination";
-const SearchPage = ({ data }) => {
+const SearchPage = ({ success, data }) => {
+  if (!success) {
+    return (
+      <div className={styles.notFound}>
+        <p>Sorry , Product Currenty Not Available</p>
+        <BiError className={styles.icons} />
+      </div>
+    );
+  }
   return (
     <div className={styles.search_wrapper}>
       <Pagination data={data} from={"search"} />
@@ -22,13 +31,19 @@ export const getServerSideProps = async (context) => {
       context.params.id[3]
   );
   const data = await res.json();
+  console.log(data);
   if (!data.totalpages) {
     return {
-      notFound: true,
+      props: {
+        success: false,
+      },
     };
   }
   return {
-    props: { data },
+    props: {
+      success: true,
+      data: data,
+    },
   };
 };
 export default IsAuth(SearchPage);
