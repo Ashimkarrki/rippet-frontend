@@ -1,19 +1,23 @@
 .no_show {
   height: 0;
   transform: scaleY(0);
+  opacity: 0;
   list-style-type: none;
 }
 .show {
   height: 100%;
   transform-origin: top;
   transform: scaleY(1);
+  opacity: 1;
   transition: transform 200ms ease-in-out;
+  transition: opacity 300ms ease-in-out;
   list-style-type: none;
 }
 .heading {
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 5px;
+  /* margin-left: 1rem; */
 }
 .heading:hover {
   cursor: pointer;
@@ -23,5 +27,6 @@
   margin-right: 5px;
 }
 .li {
-  text-align: center;
+  text-align: left;
+  margin-left: 1rem;
 }

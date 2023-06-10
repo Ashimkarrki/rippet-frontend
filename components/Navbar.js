@@ -143,17 +143,14 @@ const Navbar = () => {
       ? router.asPath.split("/")[2].replace("%20", " ")
       : ""
   );
-  const [categories, setCategories] = useState([]);
-  const categorieshandler = (e) => {
-    router.push(`/categories/${e.value}/1`);
-  };
+
   const { cartInfo } = useContext(userContext);
   const submitHandler = (e) => {
     e.preventDefault();
     router.push(`/search/${searchValue}/no/no/1`);
   };
 
-  const subDropDown = (children, title, categoriesName) => {
+  const subDropDown = (children, title, categoriesName, position) => {
     if (children.length === 0) {
       return (
         <DropdownMenu.Item className={styles.DropdownMenuItem}>
@@ -182,14 +179,13 @@ const Navbar = () => {
           <DropdownMenu.Portal>
             <DropdownMenu.SubContent
               className={styles.drop_down}
-              // alignOffset={-10}
-              avoidCollisions={false}
+              alignOffset={-6.5 - position * 29}
               sideOffset={5}
             >
-              {children.map((s) => {
+              {children.map((s, index) => {
                 return (
                   <div key={s._id}>
-                    {subDropDown(s.children, s.title, s?.categoriesName)}
+                    {subDropDown(s.children, s.title, s?.categoriesName, index)}
                   </div>
                 );
               })}
@@ -262,7 +258,7 @@ const Navbar = () => {
 
           {userInfo.id && (
             <div className={` ${styles.relative} ${styles.asd}`}>
-              {data !== 0 && !isLoading && !error && (
+              {data !== 0 && !isLoading && data && (
                 <h5 className={styles.notification_no}>{data}</h5>
               )}
               {toggleNotification && (
@@ -319,7 +315,8 @@ const Navbar = () => {
               <DropdownMenu.Portal>
                 <DropdownMenu.Content
                   className={styles.drop_down}
-                  alignOffset={-5}
+                  align="center"
+                  sideOffset={8}
                 >
                   {console.log(isLoad)}
                   {console.log(category)}
@@ -329,10 +326,15 @@ const Navbar = () => {
                     </div>
                   ) : (
                     category &&
-                    category?.map((s) => {
+                    category?.map((s, index) => {
                       return (
                         <div key={s._id}>
-                          {subDropDown(s.children, s.title, s?.categoriesName)}
+                          {subDropDown(
+                            s.children,
+                            s.title,
+                            s?.categoriesName,
+                            index
+                          )}
                         </div>
                       );
                     })
@@ -392,47 +394,12 @@ const Navbar = () => {
               >
                 Category
               </h3>
-              <Collapsible child={category} clicked={isCatDrop} />
-
-              {/* <ul className={styles.ul}>
-                {category.map((s) => {
-                  return (
-                    <li key={s._id}>
-                      <h3
-                        className={styles.textStlingLink}
-                        onClick={() =>
-                          setParentClicked((prev) => {
-                            return prev.map((k) => {
-                              if (k.id === s._id) {
-                                return { ...k, state: !k.state };
-                              }
-                              return {
-                                ...k,
-                                state: false,
-                              };
-                            });
-                          })
-                        }
-                      >
-                        {parentClicked.find((k) => k.id === s._id).state ? (
-                          <BsChevronDown className={styles.icon_cat} />
-                        ) : (
-                          <BsDot className={styles.icon_cat} />
-                        )}
-                        {s.title}
-                      </h3>
-                      <Collapsible
-                        key={s._id}
-                        clicked={
-                          parentClicked.find((k) => k.id === s._id).state
-                        }
-                        child={s.children}
-                        title={s.title}
-                      />
-                    </li>
-                  );
-                })}
-              </ul> */}
+              {console.log(category)}
+              <Collapsible
+                child={category}
+                clicked={isCatDrop}
+                setIsMenuOn={setIsMenuOn}
+              />
             </div>
           </div>
         </>

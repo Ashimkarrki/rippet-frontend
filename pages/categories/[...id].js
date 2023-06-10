@@ -5,6 +5,7 @@ import styles from "../../styles/CategoriesProduct.module.css";
 import { BiChevronsUp, BiChevronsDown } from "react-icons/bi";
 import Link from "next/link";
 import Pagination from "../../components/Pagination";
+import IsAuth from "../../utils/IsAuth";
 const CategoriesProducts = ({ data }) => {
   const { asPath } = useRouter();
   const List = data.data;
@@ -45,4 +46,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default CategoriesProducts;
+export default IsAuth(CategoriesProducts);

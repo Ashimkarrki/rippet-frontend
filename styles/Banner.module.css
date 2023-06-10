@@ -7,6 +7,7 @@
 .main_image_container {
   aspect-ratio: 5/3;
   position: relative;
+  width: 100%;
 }
 .sub_image_container {
   aspect-ratio: 5/3;
@@ -14,17 +15,16 @@
   flex-grow: 1;
 }
 .banner {
-  width: 70%;
-  margin: 3rem auto;
+  width: 72%;
+  margin: 1rem auto;
   overflow: hidden;
   display: grid;
   grid-template-columns: 6fr 2fr;
   align-items: end;
+  gap: 5px;
 }
-.mainImage {
-  padding: 0.5rem;
-}
-.subImageContainer {
+
+.subImagecontainer {
   display: flex;
   flex-direction: column;
 }
@@ -34,8 +34,14 @@
 @media screen and (max-width: 800px) {
   .banner {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
   }
-  .sub_image_container {
+  .subImagecontainer {
+    gap: 5px;
     flex-direction: row;
+  }
+  .banner {
+    width: 100%;
+    padding: 0 10px;
   }
 }

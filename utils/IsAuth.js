@@ -24,7 +24,7 @@ function X(props, Children) {
   const freeRoute = [
     "/",
     "/search/[...id]",
-    "/category",
+    "/categories/[...id]",
     "/product/[id]",
     "/seller/signup",
     "/seller/login",
