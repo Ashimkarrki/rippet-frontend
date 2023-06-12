@@ -52,6 +52,14 @@ const AddProduct = () => {
           Object.keys(data).map((s) => {
             formData.set(s, data[s]);
           });
+          instance
+            .post("/products", formData)
+            .then((result) => {
+              console.log(result);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
           for (const value of formData.values()) {
             console.log(value);
           }
