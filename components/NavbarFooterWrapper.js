@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import SellerNavbar from "./SellerNavbar";
+import AdminNavbar from "./Admin Components/AdminNavbar";
 import { useRouter } from "next/router";
 
 const NavbarFooterWrapper = ({ children }) => {
@@ -14,6 +15,13 @@ const NavbarFooterWrapper = ({ children }) => {
       </>
     );
   }
+  if(route.pathname.slice(0, 15) === "/adminDashboard") {
+    return (<>
+        <AdminNavbar />
+        {children}
+      </>)
+    }
+
   return (
     <>
       <Navbar />
