@@ -46,6 +46,7 @@ const Product = ({ data }) => {
           <PopUpMessgenger
             sellerId={dataInfo.sellerId}
             productId={dataInfo.id}
+            setIsPopUpMessenger={setIsPopUpMessenger}
           />
         )}
         <div className={styles.product}>

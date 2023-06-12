@@ -1,13 +1,12 @@
 import React from "react";
-import style from "../styles/ForgotPassword.module.css";
+import style from "../styles/FormComponent.module.css";
 import { useState } from "react";
 import axios from "axios";
+import IsAuth from "../utils/IsAuth";
 const Forgot_password = () => {
-  const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
   const [Email, setEmail] = useState({ Email: "" });
   const [Emailsent, setEmailsent] = useState(false);
   const changeHandeler = (e) => {
-    console.log(e.target.value);
     setEmail({ Email: e.target.value });
   };
   const submitHandler = async (e) => {
@@ -18,7 +17,7 @@ const Forgot_password = () => {
         headers: { authorization: "Bearer" },
       });
       instance
-        .post(`users/forgotpassword`, Email)
+        .post(`users/forgotpassword/user`, Email)
         .then((data) => {
           console.log(data);
           setEmailsent(true);
@@ -30,32 +29,32 @@ const Forgot_password = () => {
   };
 
   return (
-    <div className={style.forgotContainer}>
+    <div className={style.FormContainer}>
       {!Emailsent ? (
-        <div className={style.forgotsubcontainer}>
-          <h1>Forgot Password?</h1>
-          <label className={style.formlabel}>Email*</label>
-          <input
-            className={style.forminput}
-            type="text"
-            name="Email"
-            placeholder="Please Enter Your Email"
-            required
-            onChange={(e) => changeHandeler(e)}
-          />
-          <button onClick={submitHandler} className={style.forgotButton}>
+        <div className={style.FormSubContainer}>
+          <h1 className={style.heading}>Forgot Password ?</h1>
+          <div className={style.inputContainer}>
+            <label className={style.formlabel}>Email</label>
+            <input
+              className={style.forminput}
+              type="text"
+              name="Email"
+              placeholder="Please Enter Your Email"
+              required
+              onChange={(e) => changeHandeler(e)}
+            />
+          </div>
+          <button onClick={submitHandler} className={style.formbutton}>
             Submit
           </button>
         </div>
       ) : (
-        <div className={style.forgotsubcontainer}>
-          <h1 className={style.emailsentconfirm}>
-            Email sent. Check your inbox.
-          </h1>
+        <div className={style.FormSubContainer}>
+          <h1 className={style.heading}>Email Sent Check Your Inbox.</h1>
         </div>
       )}
     </div>
   );
 };
 
-export default Forgot_password;
+export default IsAuth(Forgot_password);

@@ -105,7 +105,6 @@ const Navbar = () => {
     e.preventDefault();
     router.push(`/search/${searchValue}/no/no/1`);
   };
-  console.log(router.pathname.split("/")[1]);
   const subDropDown = (children, title, categoriesName, position) => {
     if (children.length === 0) {
       return (
@@ -227,8 +226,12 @@ const Navbar = () => {
 
           {userInfo.id && (
             <div className={` ${styles.relative} ${styles.asd}`}>
+              {console.log(data)}
               {data !== 0 && !isLoading && data && (
-                <h5 className={styles.notification_no}>{data}</h5>
+                <h5 className={styles.notification_no}>
+                  {data}
+                  {console.log("enterd")}
+                </h5>
               )}
               {toggleNotification && (
                 <div
@@ -287,15 +290,15 @@ const Navbar = () => {
                   align="center"
                   sideOffset={8}
                 >
-                  {console.log(isLoad)}
                   {console.log(category)}
                   {isLoad ? (
                     <div className={styles.spinner}>
                       <DotSpinner color="blue" size={25} />
                     </div>
                   ) : (
-                    category &&
+                    category.length !== 0 &&
                     category?.map((s, index) => {
+                      console.log("entered");
                       return (
                         <div className={styles.grey} key={s._id}>
                           {subDropDown(
@@ -325,8 +328,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-      {console.log("naya")}
-      {console.log(category)}
+
       {isMenuOn && (
         <>
           <div className={styles.hidden_menu}>
@@ -363,7 +365,6 @@ const Navbar = () => {
               >
                 Category
               </h3>
-              {console.log(category)}
               <Collapsible
                 child={category}
                 clicked={isCatDrop}

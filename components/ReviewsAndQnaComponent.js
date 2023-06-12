@@ -11,7 +11,7 @@ const ReviewsAndQnaComponent = ({ content, data }) => {
         <h3 className={styles.title}>
           Your {content === "reviews" ? "Reviews" : "Questions"} ({data.length})
         </h3>
-        {data.map((s) => {
+        {data?.map((s) => {
           return (
             <Link
               href={"/product/" + s.product.id + "#" + s.id}

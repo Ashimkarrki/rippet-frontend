@@ -7,7 +7,6 @@ import NextButton from "./NextButton";
 import Image from "next/image";
 
 const Banner = ({ banner }) => {
-  console.log(banner);
   const settings = {
     infinite: true,
     speed: 400,

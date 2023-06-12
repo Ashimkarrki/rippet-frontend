@@ -43,27 +43,32 @@ const AddProduct = () => {
         onSubmit={(e) => {
           e.preventDefault();
           let formData = new FormData();
+          // console.log(files);
           console.log(files);
           formData.set("MainImage", files.MainImage);
-          formData.set("Images", [files.Image1, files.Image2, files.Image3]);
+          formData.set("Image1", files.Image1);
+          formData.set("Image2", files.Image2);
+          formData.set("Image3", files.Image3);
           Object.keys(data).map((s) => {
             formData.set(s, data[s]);
           });
-          console.log(formData);
-          instance
-            .post("/products", formData)
-            .then((result) => {
-              console.log(result);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          for (const value of formData.values()) {
+            console.log(value);
+          }
+          // instance
+          //   .post("/products", formData)
+          //   .then((result) => {
+          //     console.log(result);
+          //   })
+          //   .catch((err) => {
+          //     console.log(err);
+          //   });
 
-          setData((prev) => {
-            return {
-              ...prev,
-            };
-          });
+          // setData((prev) => {
+          //   return {
+          //     ...prev,
+          //   };
+          // });
         }}
       >
         <div>

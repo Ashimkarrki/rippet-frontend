@@ -62,28 +62,27 @@ const Pagination = ({ data, from }) => {
           {from !== "search" && from !== "category" && from}
         </h2>
       </div>
-      {from === "search" ||
-        (from === "category" && (
-          <div value={filter} className={styles.sort}>
-            <select onChange={onSortChange} className={styles.select}>
-              <option className={styles.option} value="">
-                Sort By
-              </option>
-              <option className={styles.option} value="p_Dsc">
-                By Price (High &gt; Low)
-              </option>
-              <option className={styles.option} value="p_Asc">
-                By Price (Low &gt; High)
-              </option>
-              <option className={styles.option} value="r_Dsc">
-                By Rating (High &gt; Low){" "}
-              </option>
-              <option className={styles.option} value="r_Asc">
-                By Rating (Low &lt; High){" "}
-              </option>
-            </select>
-          </div>
-        ))}
+      {(from === "search" || from === "category") && (
+        <div value={filter} className={styles.sort}>
+          <select onChange={onSortChange} className={styles.select}>
+            <option className={styles.option} value="">
+              Sort By
+            </option>
+            <option className={styles.option} value="p_Dsc">
+              By Price (High &gt; Low)
+            </option>
+            <option className={styles.option} value="p_Asc">
+              By Price (Low &gt; High)
+            </option>
+            <option className={styles.option} value="r_Dsc">
+              By Rating (High &gt; Low){" "}
+            </option>
+            <option className={styles.option} value="r_Asc">
+              By Rating (Low &lt; High){" "}
+            </option>
+          </select>
+        </div>
+      )}
       <div className={styles.button_grp}>
         {repeat(data.totalpages || data.totalPages).map((s, index) => {
           if (from === "Latest") {

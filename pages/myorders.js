@@ -31,7 +31,7 @@ const MyOrders = () => {
         <p className={styles.grey}>Check the status of recent orders</p>
       </div>
       <div className={styles.flex}>
-        {data.map((s) => {
+        {data?.map((s) => {
           return (
             <div key={s.id}>
               <div className={styles.order_info}>

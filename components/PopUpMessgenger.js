@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/PopupMessenger.module.css";
 import axios from "axios";
 import io from "socket.io-client";
+import { GrClose } from "react-icons/gr";
 // const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
 const URLlocal = "http://localhost:4000";
 var socket = io(URLlocal, {
   withCredentials: true,
 });
-const PopUpMessgenger = ({ sellerId, productId }) => {
+const PopUpMessgenger = ({ sellerId, productId, setIsPopUpMessenger }) => {
   const [loading, setLoading] = useState(false);
   const [chatid, setChatId] = useState("");
   const [allmessages, setAllmessages] = useState([]);
@@ -21,7 +22,7 @@ const PopUpMessgenger = ({ sellerId, productId }) => {
     const sendingData = { id: sellerId, Role: "seller", productId: productId };
     console.log(sendingData);
     instance
-      .post(`chats`, sendingData)
+      .post("chats", sendingData)
       .then((data) => {
         console.log(data.data.message._id, "hello message");
         if (data?.data?.message?._id) {
@@ -61,13 +62,6 @@ const PopUpMessgenger = ({ sellerId, productId }) => {
     console.log("hello fetching");
   }, []);
 
-  useEffect(() => {
-    socket.on("message recieved", (data) => {
-      setAllmessages((prev) => {
-        return [...prev, data];
-      });
-    });
-  });
   const changeHandler = (e) => {
     setMessage(e.target.value);
   };
@@ -113,14 +107,26 @@ const PopUpMessgenger = ({ sellerId, productId }) => {
     socket.on("message recieved", (data) => {
       console.log("Message Received!", data);
       setAllmessages((prev) => {
-        return [...prev, data];
+        const messageIds = new Set(prev.map((msg) => msg._id));
+        if (!messageIds.has(data._id)) {
+          return [...prev, data];
+        } else {
+          return prev;
+        }
       });
     });
   });
   return (
     <form className={styles.PopUpMessgenger}>
       <h4 className={styles.heading}>Message with seller</h4>
-      <h1>Messages with seller name</h1>
+      <button
+        className={`${styles.heading} ${styles.abs}`}
+        onClick={() => {
+          setIsPopUpMessenger(false);
+        }}
+      >
+        <GrClose className={styles.icon} />
+      </button>
 
       {loading ? (
         <div>
@@ -131,7 +137,7 @@ const PopUpMessgenger = ({ sellerId, productId }) => {
                   <div
                     key={i}
                     className={
-                      data.sender == sellerId
+                      data.sender === sellerId
                         ? styles.singlemessagesender
                         : styles.singlemessageuser
                     }
@@ -144,7 +150,7 @@ const PopUpMessgenger = ({ sellerId, productId }) => {
           )}
         </div>
       ) : (
-        <h1>loading...</h1>
+        <h1 className={styles.loading}>loading...</h1>
       )}
       {loading && (
         <div className={styles.input_msg}>

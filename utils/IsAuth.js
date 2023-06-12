@@ -91,6 +91,7 @@ function X(props, Children) {
   // if not authorised the redirect to /login
   else if (!isUserAuthorised && userSpecificRoute.includes(router.pathname)) {
     router.replace("/login");
+    return <Loading />;
   }
   // if authorised then prevent from going to /login , /signup
   else if (
@@ -98,6 +99,7 @@ function X(props, Children) {
     (router.pathname === "/signup" || router.pathname === "/login")
   ) {
     router.replace("/");
+    return <Loading />;
   }
   // if authorised then give all other pages
   else if (isUserAuthorised && userSpecificRoute.includes(router.pathname)) {
@@ -106,6 +108,7 @@ function X(props, Children) {
   // is seller but requesting user route
   else if (isSellerAuthorised && userSpecificRoute.includes(router.pathname)) {
     router.replace("/login");
+    return <Loading />;
   }
   // is not seller but accessing seller routes
   else if (
@@ -113,6 +116,7 @@ function X(props, Children) {
     router.pathname.split("/")[1] === "sellerDashboard"
   ) {
     router.replace("/seller/login");
+    return <Loading />;
   }
   //is seller authorised then give any route related to sellerDashboard
   else if (
@@ -127,6 +131,7 @@ function X(props, Children) {
     (router.pathname === "seller/login" || router.pathname === "seller/signup")
   ) {
     router.replace("/sellerDashboard");
+    return <Loading />;
   }
   // is seller authorised but want to go user specific route
   else if (
@@ -134,6 +139,23 @@ function X(props, Children) {
     (router.pathname === "seller/login" || router.pathname === "seller/signup")
   ) {
     router.replace("/sellerDashboard");
+    return <Loading />;
+  } else if (
+    (isSellerAuthorised || isUserAuthorised) &&
+    (router.pathname === "/forgot-password" ||
+      router.pathname === "/resetPassword/[...id]" ||
+      router.pathname === "/verify-email/[...id]")
+  ) {
+    router.replace("/");
+    return <Loading />;
+  } else if (
+    !isSellerAuthorised &&
+    !isUserAuthorised &&
+    (router.pathname === "/forgot-password" ||
+      router.pathname === "/resetPassword/[...id]" ||
+      router.pathname === "/verify-email/[...id]")
+  ) {
+    return <Children {...props} />;
   } else {
     return <Loading />;
   }
