@@ -2,10 +2,16 @@
   display: grid;
   place-items: center;
 }
-.title {
+/* .title {
   align-self: center;
-  font-weight: 400;
+  font-weight: 400; */
+/* } */
+
+.black {
+  color: black;
+  font-weight: 600;
 }
+
 .img {
   object-fit: cover;
 }
@@ -18,21 +24,28 @@
 .box {
   width: 82%;
   margin: 2rem auto;
-  background-color: #eff6ff;
+  /* background-color: #eff6ff; */
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  /* padding: 1rem; */
   align-items: flex-start;
   gap: 2rem;
-  border-radius: 10px;
-  border: 1px rgba(99, 99, 99, 0.2) solid;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  /* border-radius: 10px; */
+  /* border: 1px rgba(99, 99, 99, 0.2) solid;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
 }
 .item {
   display: flex;
   width: 100%;
   gap: 2rem;
+  background-color: #f9fafb;
+  padding: 1rem;
+
 }
+.grey{
+  color: #67696d;
+}
+
 .main_info {
   flex-grow: 1;
   display: flex;
@@ -60,16 +73,20 @@
   color: black;
 }
 .tara {
-  color: red;
+  color: #ffd106;
   font-size: 1rem;
 }
 .no_tara {
   color: rgb(123, 125, 133);
   font-size: 1rem;
 }
-.name,
-.date {
+.name{
   font-weight: 600;
+}
+
+.date{
+  color: #67696d;
+
 }
 @media screen and (max-width: 530px) {
   .box {
