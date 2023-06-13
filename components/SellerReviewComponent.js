@@ -3,7 +3,7 @@ import styles from "../styles/SellerReviewComponent.module.css";
 import { FaPencilAlt } from "react-icons/fa";
 import { userContext } from "../context/userContext";
 import { DotSpinner } from "@uiball/loaders";
-
+import Button from "./SubComponent/Button";
 import axios from "axios";
 import Star from "./Star";
 const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
@@ -59,7 +59,16 @@ const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
   };
   return (
     <div className={styles.item}>
-      <img className={styles.img} src={data.MainImage} alt={data.productName} />
+      <div className={styles.image_name_wrapper}>
+        <img
+          className={styles.img}
+          src={data.MainImage}
+          alt={data.productName}
+        />
+        <div className={styles.product_desc}>
+          <h4 className={styles.heading}>{data.productName}</h4>
+        </div>
+      </div>
       <div className={styles.user_review}>
         <div className={styles.wrapper}>
           <h4 className={styles.heading}>- By {data.reviewer}</h4>
@@ -68,33 +77,60 @@ const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
         <div className={styles.star}>
           <Star className={styles.tara} num={data.rating} />
         </div>
-        <p className={styles.user_send_review}>{data.reviewer} - {data.review}</p>
+        <p className={styles.user_send_review}>
+          {data.reviewer} - {data.review}
+        </p>
         {data.reply && !reply && (
-        <div className={styles.seller_reply}>From you
-            - {data.reply}{" "}
-            <FaPencilAlt className={styles.pencil_icon} onClick={editHandler} />
+          <div className={styles.seller_reply}>
+            From you - {data.reply}{" "}
+            {!replyLoading && (
+              <div>
+                <Button
+                  content={"Edit"}
+                  onClick={editHandler}
+                  marginTop=".5rem"
+                />
+              </div>
+            )}
           </div>
         )}
         {!reply ? (
-          !data.reply && <button className={styles.replybutton} onClick={() => setReply(true)}> Reply</button>
+          !data.reply &&
+          !replyLoading && (
+            <Button
+              marginTop=".5rem"
+              // className={styles.replyButton}
+              onClick={() => setReply(true)}
+              content="Reply"
+            />
+          )
         ) : (
           <form onSubmit={submitHandeler}>
             <textarea
               className={styles.text_area}
               value={replyValue || ""}
               onChange={(e) => setReplyValue(e.target.value)}
+              rows={5}
+              maxLength={100}
               required
             />
-            <button
-            className={styles.cancelButton}
+            <Button
               onClick={() => {
                 setReply(false);
                 setReplyValue("");
               }}
-            >
-              Cancel
-            </button>
-            <input    className={styles.submitButton} type="submit" value={"Submit"} />
+              marginTop=".5rem"
+              marginRight=".5rem"
+              content="Cancel"
+            />
+            {!replyLoading && (
+              <Button
+                // className={styles.submitButton}
+                marginTop=".5rem"
+                type="submit"
+                content={"Submit"}
+              />
+            )}
           </form>
         )}
         {replyLoading ? (
@@ -104,12 +140,6 @@ const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
         ) : (
           ""
         )}
-      </div>
-      <div className={styles.product_desc}>
-        <h4 className={styles.heading}>{data.productName}</h4>
-        {/* <div className={styles.star}>
-          <Star className={styles.tara} num={data.rating} />
-        </div> */}
       </div>
     </div>
   );

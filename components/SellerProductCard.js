@@ -9,10 +9,12 @@ const SellerProductCard = ({
 }) => {
   return (
     <div className={styles.card}>
-      <div className={styles.image_wrapper}>
-        <img src={data.MainImage} alt={data.Name} className={styles.img} />
+      <div className={styles.img_name_wrapper}>
+        <div className={styles.image_wrapper}>
+          <img src={data.MainImage} alt={data.Name} className={styles.img} />
+        </div>
+        <h5 className={styles.title}>{data.Name}</h5>
       </div>
-      <h5 className={styles.title}>{data.Name}</h5>
       <div className={styles.button_group}>
         <button
           className={`${styles.buttons} ${styles.delete}`}

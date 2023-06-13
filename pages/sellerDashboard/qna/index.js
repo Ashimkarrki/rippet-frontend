@@ -4,18 +4,11 @@ import styles from "../../../styles/QNA.module.css";
 import { userContext } from "../../../context/userContext";
 import useFetchUser from "../../../features/fetchUser";
 import axios from "axios";
-import Cart from "../../Cart";
 import SellerQNAComponent from "../../../components/SellerQNAComponent";
-import useFetchSeller from "../../../features/fetchSeller";
 import IsAuth from "../../../utils/IsAuth";
-// {{URL}}api/v1/ask/63d4c3fd6812d1d08802841c/seller
-// {{URL}}api/v1/ask/update/63baf05f75a40a49333f2a2f/63bba72e6a8f7cdd85c336d8
-// /update/:productId/:askId
-
 const QNA = () => {
   const [QNAInfo, setQNAInfo] = useState();
-  // useFetchSeller();
-  // const { sellerInfo } = useContext(userContext);
+
   const { data, isLoading, error } = useSWR(
     `ask/seller/allasks`,
     async (url) => {

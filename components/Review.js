@@ -109,6 +109,7 @@ const Review = ({
               required
               className={styles.reviewinput}
               type="text"
+              maxLength={100}
               value={createReviewData.review ? createReviewData.review : ""}
               onChange={(e) => {
                 setCreateReviewData((data) => {

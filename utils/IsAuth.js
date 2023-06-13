@@ -21,7 +21,6 @@ function X(props, Children) {
   );
 
   const [isLoading, setIsloading] = useState(isDataFetched ? false : true);
-  // const [isLoading, setIsloading] = useState(false);
   const freeRoute = [
     "/",
     "/search/[...id]",
@@ -57,7 +56,6 @@ function X(props, Children) {
         if (res?.data?.user?.Role === "seller") {
           setIsloading(false);
           dataFetched(true);
-
           setIsSellerAuthorised(true);
           addSeller(res.data.user);
         }

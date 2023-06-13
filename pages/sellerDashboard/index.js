@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import useFetchUser from "../../features/fetchUser";
 import useSWR from "swr";
 import axios from "axios";
 import SellerProductCard from "../../components/SellerProductCard";
@@ -20,7 +19,9 @@ const AllProducts = () => {
     async (url) => {
       try {
         const res = await instance.get(url);
+        console.log("fetching");
         setProducts(res.data.data);
+        return res.data.data;
       } catch (err) {
         console.log(err);
       }
@@ -40,10 +41,10 @@ const AllProducts = () => {
         <EditProductPopUp product={editItem} setEditItem={setEditItem} />
       )}
       <div className={styles.headingContainer}>
-      <h3 className={styles.heading}>Top Products </h3>
+        <h3 className={styles.heading}>Top Products </h3>
       </div>
       <div className={styles.image_grid}>
-        {products.map((s) => {
+        {products?.map((s) => {
           return (
             <SellerProductCard
               key={s.id}
@@ -56,11 +57,10 @@ const AllProducts = () => {
         })}
       </div>
       <div className={styles.headingContainer}>
-
-      <h3 className={styles.heading}>Other Products ({products.length})</h3>
+        <h3 className={styles.heading}>Other Products ({products?.length})</h3>
       </div>
       <div className={styles.image_grid}>
-        {products.map((s) => {
+        {products?.map((s) => {
           return (
             <SellerProductCard
               key={s.id}
@@ -71,7 +71,7 @@ const AllProducts = () => {
             />
           );
         })}
-        {products.map((s) => {
+        {products?.map((s) => {
           return (
             <SellerProductCard
               key={s.id}

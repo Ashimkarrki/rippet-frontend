@@ -49,6 +49,7 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo, sellerId }) => {
             }}
             className={styles.text_area}
             value={question ? question : ""}
+            maxLength={30}
             onChange={(e) => setQuestion(e.target.value)}
             cols="30"
             required
