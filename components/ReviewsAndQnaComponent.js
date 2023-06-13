@@ -8,9 +8,14 @@ const ReviewsAndQnaComponent = ({ content, data }) => {
   return (
     <div className={styles.container}>
       <div className={styles.box}>
-        <h3 className={styles.title}>
-          Your {content === "reviews" ? "Reviews" : "Questions"} ({data.length})
-        </h3>
+      <div>
+        <h1 className={styles.black}>
+        {content === "reviews" ? "Reviews" : "Questions"} History ({data.length})
+        </h1> 
+        <p className={styles.grey}>Check the status of recent {content === "reviews" ? "Reviews" : "Questions"}</p>
+        </div>
+
+        
         {data?.map((s) => {
           return (
             <Link
@@ -28,7 +33,7 @@ const ReviewsAndQnaComponent = ({ content, data }) => {
               </div>
               <div className={styles.main_info}>
                 <h4 className={styles.name}>{s.product.Name}</h4>
-                <h5 className={styles.date}>on {s?.createdAt?.slice(0, 10)}</h5>
+                <p className={styles.date}>on {s?.createdAt?.slice(0, 10)}</p>
                 {content === "reviews" && (
                   <Star
                     className={`${styles.tara} ${styles.no_tara}`}
