@@ -130,29 +130,29 @@ const PopUpMessgenger = ({ sellerId, productId, setIsPopUpMessenger }) => {
 
       {loading ? (
         <div>
-          {allmessages.length && (
-            <div className={styles.messages}>
-              {allmessages.map((data, i) => {
-                return (
-                  <div
-                    key={i}
-                    className={
-                      data.sender === sellerId
-                        ? styles.singlemessagesender
-                        : styles.singlemessageuser
-                    }
-                  >
-                    <h1>{data.content}</h1>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          {/* {allmessages.length !== 0 && ( */}
+          <div className={styles.messages}>
+            {allmessages.map((data, i) => {
+              return (
+                <div
+                  key={i}
+                  className={
+                    data.sender === sellerId
+                      ? styles.singlemessagesender
+                      : styles.singlemessageuser
+                  }
+                >
+                  <h1>{data.content}</h1>
+                </div>
+              );
+            })}
+          </div>
+          {/* // )} */}
         </div>
       ) : (
-        <h1 className={styles.loading}>loading...</h1>
+        <div className={styles.messages}></div>
       )}
-      {loading && (
+      {loading ? (
         <div className={styles.input_msg}>
           <input
             type="text"
@@ -162,6 +162,15 @@ const PopUpMessgenger = ({ sellerId, productId, setIsPopUpMessenger }) => {
           <button className={styles.button} onClick={submitHandler}>
             Submit
           </button>
+        </div>
+      ) : (
+        <div className={styles.input_msg}>
+          <input
+            type="text"
+            className={styles.input}
+            onChange={(e) => changeHandler(e)}
+          />
+          <button className={styles.button}>Submit</button>
         </div>
       )}
     </form>
