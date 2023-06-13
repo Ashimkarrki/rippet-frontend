@@ -18,6 +18,7 @@ const ReviewsAndQnaComponent = ({ content, data }) => {
         
         {data?.map((s) => {
           return (
+            <>
             <Link
               href={"/product/" + s.product.id + "#" + s.id}
               className={styles.item}
@@ -42,7 +43,9 @@ const ReviewsAndQnaComponent = ({ content, data }) => {
                 )}
 
                 <p>- {content === "reviews" ? s.review : s.Question}</p>
-                <div className={styles.answer_wrapper}>
+              </div>
+            </Link>
+            <div className={styles.answer_wrapper}>
                   <p className={`${!s.Answer ? styles.red : styles.blue}`}>
                     {!s.Answer
                       ? "No Reply From The Seller "
@@ -55,8 +58,7 @@ const ReviewsAndQnaComponent = ({ content, data }) => {
                     {s.Answer}
                   </p>
                 </div>
-              </div>
-            </Link>
+                </>
           );
         })}
       </div>
