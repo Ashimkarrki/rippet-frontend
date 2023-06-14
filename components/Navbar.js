@@ -8,11 +8,9 @@ import { FiShoppingCart } from "react-icons/fi";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import axios from "axios";
 import useSWR from "swr";
-import { RxCross1 } from "react-icons/rx";
 import { MdClose } from "react-icons/md";
 import { AiOutlineMenu, AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 import { RiAccountCircleLine, RiNotificationLine } from "react-icons/ri";
-import { GiHamburgerMenu } from "react-icons/gi";
 import "react-dropdown/style.css";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
@@ -20,12 +18,12 @@ import NotificationDropDown from "./NotificationDropDown";
 import UserInfoDropDown from "./UserInfoDropDown";
 import Collapsible from "./Collapsible";
 import { DotSpinner } from "@uiball/loaders";
+import WelcomeNav from "./WelcomeNav";
 const Navbar = () => {
   const [notifications, setNotifications] = useState([]);
   const [toggleNotification, setToggleNotification] = useState(false);
   const [notificationLoading, setNotificationLoading] = useState(false);
   const { userInfo } = useContext(userContext);
-  const [isUserInfoToggle, setIsUserInfoToggle] = useState(false);
   const [isCatDrop, setIsCatDrop] = useState(false);
   const router = useRouter();
   const [data, setData] = useState();
@@ -165,6 +163,7 @@ const Navbar = () => {
   };
   return (
     <nav className={styles.nav}>
+      <WelcomeNav />
       <div className={styles.upper_nav}>
         <Link href={"/"} className={styles.rippet_logo_parent}>
           <Image
@@ -196,27 +195,7 @@ const Navbar = () => {
           </button>
         </form>
         <div className={styles.navigate_icons}>
-          {userInfo.id ? (
-            <div className={styles.relative}>
-              {isUserInfoToggle && (
-                <div className={styles.dropDown_wrapper}>
-                  <UserInfoDropDown setIsUserInfoToggle={setIsUserInfoToggle} />
-                </div>
-              )}
-              <div
-                className={styles.user_info}
-                onClick={() => {
-                  setIsUserInfoToggle(!isUserInfoToggle);
-                }}
-              >
-                <h5
-                  className={`${styles.user_info_heading} ${styles.dropDown_heading}`}
-                >
-                  {userInfo.userName.split(" ")[0]}
-                </h5>
-              </div>
-            </div>
-          ) : (
+          {!userInfo.id && (
             <button className={styles.icons}>
               <Link href="/signup">
                 <RiAccountCircleLine className={styles.navbar_icons} />
@@ -290,7 +269,6 @@ const Navbar = () => {
                   align="center"
                   sideOffset={8}
                 >
-                  {console.log(category)}
                   {isLoad ? (
                     <div className={styles.spinner}>
                       <DotSpinner color="blue" size={25} />

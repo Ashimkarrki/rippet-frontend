@@ -8,40 +8,49 @@ const ReviewsAndQnaComponent = ({ content, data }) => {
   return (
     <div className={styles.container}>
       <div className={styles.box}>
-      <div>
-        <h1 className={styles.black}>
-        {content === "reviews" ? "Reviews" : "Questions"} History ({data.length})
-        </h1> 
-        <p className={styles.grey}>Check the status of recent {content === "reviews" ? "Reviews" : "Questions"}</p>
+        <div>
+          <h1 className={styles.black}>
+            {content === "reviews" ? "Reviews" : "Questions"} History (
+            {data.length})
+          </h1>
+          <p className={styles.grey}>
+            Check the status of recent{" "}
+            {content === "reviews" ? "Reviews" : "Questions"}
+          </p>
         </div>
+        <div className={styles.bg_color}>
+          {data?.map((s) => {
+            return (
+              <Link
+                href={"/product/" + s.product.id + "#" + s.id}
+                // className={styles.item}
+                className={styles.after}
+                key={s.id}
+              >
+                <div className={styles.item}>
+                  <div className={styles.image_container}>
+                    <Image
+                      className={styles.img}
+                      src={s.product.MainImage}
+                      fill
+                      alt={s.product.Name}
+                    />
+                  </div>
+                  <div className={styles.main_info}>
+                    <h4 className={styles.name}>{s.product.Name}</h4>
+                    <p className={styles.date}>
+                      on {s?.createdAt?.slice(0, 10)}
+                    </p>
+                    {content === "reviews" && (
+                      <Star
+                        className={`${styles.tara} ${styles.no_tara}`}
+                        num={s.rating}
+                      />
+                    )}
 
-        
-        {data?.map((s) => {
-          return (
-            <Link
-              href={"/product/" + s.product.id + "#" + s.id}
-              className={styles.item}
-              key={s.id}
-            >
-              <div className={styles.image_container}>
-                <Image
-                  className={styles.img}
-                  src={s.product.MainImage}
-                  fill
-                  alt={s.product.Name}
-                />
-              </div>
-              <div className={styles.main_info}>
-                <h4 className={styles.name}>{s.product.Name}</h4>
-                <p className={styles.date}>on {s?.createdAt?.slice(0, 10)}</p>
-                {content === "reviews" && (
-                  <Star
-                    className={`${styles.tara} ${styles.no_tara}`}
-                    num={s.rating}
-                  />
-                )}
-
-                <p>- {content === "reviews" ? s.review : s.Question}</p>
+                    <p>- {content === "reviews" ? s.review : s.Question}</p>
+                  </div>
+                </div>
                 <div className={styles.answer_wrapper}>
                   <p className={`${!s.Answer ? styles.red : styles.blue}`}>
                     {!s.Answer
@@ -55,10 +64,10 @@ const ReviewsAndQnaComponent = ({ content, data }) => {
                     {s.Answer}
                   </p>
                 </div>
-              </div>
-            </Link>
-          );
-        })}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

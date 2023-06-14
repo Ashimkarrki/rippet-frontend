@@ -33,6 +33,10 @@
 .title {
   margin-top: 0.5rem;
   font-weight: 500;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .price {
   color: rgb(42, 42, 245);

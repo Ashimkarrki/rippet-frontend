@@ -53,8 +53,7 @@ function Home({ allProducts, latestProducts, popularProducts, banner }) {
           list={popularProducts?.data}
           title={"Popular Products"}
         />
-        <Category list={category} />
-        {/* <CarouselComponent list={list1} title={"Most Rated Products"} /> */}
+
         <Services />
       </div>
       <SellerHomecomponenet />

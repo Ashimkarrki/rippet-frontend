@@ -24,10 +24,6 @@ const Footer = () => {
           <li>
             <a href="#">Langhali Chowk, Dharan</a>
           </li>
-          <li className={styles.search}>
-            <input className={styles.input} type="text" placeholder="Search" />
-            <button className={styles.button}>Search</button>
-          </li>
         </ul>
       </div>
       <div>

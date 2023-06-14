@@ -69,76 +69,79 @@ const Pagination = ({ data, from }) => {
               Sort By
             </option>
             <option className={styles.option} value="p_Dsc">
-              By Price (High &gt; Low)
+              By Price (High to Low)
             </option>
             <option className={styles.option} value="p_Asc">
-              By Price (Low &gt; High)
+              By Price (Low to High)
             </option>
             <option className={styles.option} value="r_Dsc">
-              By Rating (High &gt; Low){" "}
+              By Rating (High to Low){" "}
             </option>
             <option className={styles.option} value="r_Asc">
-              By Rating (Low &lt; High){" "}
+              By Rating (Low to High){" "}
             </option>
           </select>
         </div>
       )}
-      <div className={styles.button_grp}>
-        {repeat(data.totalpages || data.totalPages).map((s, index) => {
-          if (from === "Latest") {
-            return (
-              <Link key={index} href={"/latest/" + Number(index + 1)}>
-                {s}
-              </Link>
-            );
-          }
-          if (from === "Popular") {
-            return (
-              <Link key={index} href={"/popular/" + Number(index + 1)}>
-                {s}
-              </Link>
-            );
-          }
-          if (from === "search") {
-            return (
-              <Link
-                key={index}
-                href={
-                  "/search/" +
-                  data.searchTerm +
-                  "/" +
-                  data.reviewSort +
-                  "/" +
-                  data.priceSort +
-                  "/" +
-                  Number(index + 1)
-                }
-              >
-                {s}
-              </Link>
-            );
-          }
-          if (from === "category") {
-            return (
-              <Link
-                key={index}
-                href={
-                  "/categories/" +
-                  data.categoryName +
-                  "/" +
-                  data.reviewSort +
-                  "/" +
-                  data.priceSort +
-                  "/" +
-                  Number(index + 1)
-                }
-              >
-                {s}
-              </Link>
-            );
-          }
-        })}
-      </div>
+      {console.log(data.totalpages, "jhag")}
+      {data.totalPages !== 1 && data.totalpages !== 1 && (
+        <div className={styles.button_grp}>
+          {repeat(data.totalpages || data.totalPages).map((s, index) => {
+            if (from === "Latest") {
+              return (
+                <Link key={index} href={"/latest/" + Number(index + 1)}>
+                  {s}
+                </Link>
+              );
+            }
+            if (from === "Popular") {
+              return (
+                <Link key={index} href={"/popular/" + Number(index + 1)}>
+                  {s}
+                </Link>
+              );
+            }
+            if (from === "search") {
+              return (
+                <Link
+                  key={index}
+                  href={
+                    "/search/" +
+                    data.searchTerm +
+                    "/" +
+                    data.reviewSort +
+                    "/" +
+                    data.priceSort +
+                    "/" +
+                    Number(index + 1)
+                  }
+                >
+                  {s}
+                </Link>
+              );
+            }
+            if (from === "category") {
+              return (
+                <Link
+                  key={index}
+                  href={
+                    "/categories/" +
+                    data.categoryName +
+                    "/" +
+                    data.reviewSort +
+                    "/" +
+                    data.priceSort +
+                    "/" +
+                    Number(index + 1)
+                  }
+                >
+                  {s}
+                </Link>
+              );
+            }
+          })}
+        </div>
+      )}
       <div className={styles.search}>
         {from === "search"
           ? data?.data?.product?.map((s) => {
@@ -168,62 +171,64 @@ const Pagination = ({ data, from }) => {
               );
             })}
       </div>
-      <div className={styles.button_grp}>
-        {repeat(data.totalpages || data.totalPages).map((s, index) => {
-          if (from === "Latest") {
-            return (
-              <Link key={index} href={"/latest/" + Number(index + 1)}>
-                {s}
-              </Link>
-            );
-          }
-          if (from === "Popular") {
-            return (
-              <Link key={index} href={"/popular/" + Number(index + 1)}>
-                {s}
-              </Link>
-            );
-          }
-          if (from === "search") {
-            return (
-              <Link
-                key={index}
-                href={
-                  "/search/" +
-                  data.searchTerm +
-                  "/" +
-                  data.reviewSort +
-                  "/" +
-                  data.priceSort +
-                  "/" +
-                  Number(index + 1)
-                }
-              >
-                {s}
-              </Link>
-            );
-          }
-          if (from === "category") {
-            return (
-              <Link
-                key={index}
-                href={
-                  "/categories/" +
-                  data.categoryName +
-                  "/" +
-                  data.reviewSort +
-                  "/" +
-                  data.priceSort +
-                  "/" +
-                  Number(index + 1)
-                }
-              >
-                {s}
-              </Link>
-            );
-          }
-        })}
-      </div>
+      {data.totalPages !== 1 && data.totalpages !== 1 && (
+        <div className={styles.button_grp}>
+          {repeat(data.totalpages || data.totalPages).map((s, index) => {
+            if (from === "Latest") {
+              return (
+                <Link key={index} href={"/latest/" + Number(index + 1)}>
+                  {s}
+                </Link>
+              );
+            }
+            if (from === "Popular") {
+              return (
+                <Link key={index} href={"/popular/" + Number(index + 1)}>
+                  {s}
+                </Link>
+              );
+            }
+            if (from === "search") {
+              return (
+                <Link
+                  key={index}
+                  href={
+                    "/search/" +
+                    data.searchTerm +
+                    "/" +
+                    data.reviewSort +
+                    "/" +
+                    data.priceSort +
+                    "/" +
+                    Number(index + 1)
+                  }
+                >
+                  {s}
+                </Link>
+              );
+            }
+            if (from === "category") {
+              return (
+                <Link
+                  key={index}
+                  href={
+                    "/categories/" +
+                    data.categoryName +
+                    "/" +
+                    data.reviewSort +
+                    "/" +
+                    data.priceSort +
+                    "/" +
+                    Number(index + 1)
+                  }
+                >
+                  {s}
+                </Link>
+              );
+            }
+          })}
+        </div>
+      )}
     </div>
   );
 };

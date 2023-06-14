@@ -236,15 +236,11 @@
 
 .dropDown_heading {
   text-align: center;
-  width: 5rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 }
 .dropDown_wrapper {
   position: absolute;
   top: 2rem;
-  left: -1.8rem;
+  left: -1rem;
 }
 .notification_dropdown_wrapper {
   position: absolute;
@@ -255,7 +251,6 @@
   font-weight: 400;
   font-size: medium;
 }
-
 .drop_down_user_info_heading {
   font-weight: 400;
   font-size: medium;
@@ -288,7 +283,7 @@
   cursor: pointer;
 }
 .drop_down {
-  min-height: 28.5rem;
+  min-height: 27rem;
   min-width: 12rem;
   background-color: white;
 

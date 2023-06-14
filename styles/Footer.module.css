@@ -4,7 +4,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   background: #e2e8f0;
 
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
   gap: 1rem;
 }
 .list {
@@ -16,10 +16,7 @@
 .search {
   margin-top: 1rem;
 }
-.input {
-  width: 15rem;
-  min-width: 10rem;
-}
+
 .input,
 .button {
   padding: 0.5rem;

@@ -71,6 +71,21 @@ const CarouselComponent = ({ list, title }) => {
       <div className={styles.header}>
         <CgShapeCircle className={styles.yellow} />
         <h3 className={styles.title}>{title}</h3>
+        <div className={styles.button_wrapper}>
+          <button className={styles.view_more}>
+            <Link
+              href={
+                title === "Latest Products"
+                  ? "/latest/1"
+                  : title === "Popular Products"
+                  ? "/popular/1"
+                  : ""
+              }
+            >
+              View More
+            </Link>
+          </button>
+        </div>
       </div>
       <Slider className={styles.slider} {...settings}>
         {list.map(({ id, Name, MainImage, Price, Discount }) => {
@@ -86,21 +101,6 @@ const CarouselComponent = ({ list, title }) => {
           );
         })}
       </Slider>
-      <div className={styles.button_wrapper}>
-        <button className={styles.view_more}>
-          <Link
-            href={
-              title === "Latest Products"
-                ? "/latest/1"
-                : title === "Popular Products"
-                ? "/popular/1"
-                : ""
-            }
-          >
-            View More
-          </Link>
-        </button>
-      </div>
     </div>
   );
 };
