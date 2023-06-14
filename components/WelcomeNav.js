@@ -24,21 +24,25 @@ const WelcomeNav = () => {
                 <UserInfoDropDown setIsUserInfoToggle={setIsUserInfoToggle} />
               </div>
             )}
-            <div
-              className={`${otherStyle.user_info}  `}
-              onClick={() => {
-                setIsUserInfoToggle(!isUserInfoToggle);
-              }}
-            >
-              <div className={`${styles.iconwrapper}`}>
-                {isUserInfoToggle ? (
-                  <BsChevronUp className={styles.arrow} />
-                ) : (
-                  <BsChevronDown className={styles.arrow} />
-                )}
-                <h5 className={styles.name}>Ashim</h5>
+            {userInfo?.id && (
+              <div
+                className={`${otherStyle.user_info}  `}
+                onClick={() => {
+                  setIsUserInfoToggle(!isUserInfoToggle);
+                }}
+              >
+                <div className={`${styles.iconwrapper}`}>
+                  {isUserInfoToggle ? (
+                    <BsChevronUp className={styles.arrow} />
+                  ) : (
+                    <BsChevronDown className={styles.arrow} />
+                  )}
+                  <h5 className={styles.name}>
+                    {userInfo.userName.split(" ")[0]}
+                  </h5>
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className={styles.flex}>
             <a

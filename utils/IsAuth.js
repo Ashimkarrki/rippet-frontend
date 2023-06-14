@@ -12,6 +12,8 @@ function X(props, Children) {
     userInfo,
     sellerInfo,
     isDataFetched,
+    isAdmin,
+    setAdmin,
   } = useContext(userContext);
   const [isUserAuthorised, setIsUserAuthorised] = useState(
     userInfo.id ? true : false
@@ -45,19 +47,27 @@ function X(props, Children) {
         withCredentials: true,
         headers: { authorization: "Bearer" },
       });
+      console.log("vitra");
       try {
         const res = await instance.get("users/isme");
-        if (res?.data?.user?.Role === "user") {
+        console.log(res.data);
+        console.log(res.data.user.Role);
+        if (res?.data?.Role === "user") {
           setIsloading(false);
           setIsUserAuthorised(true);
           dataFetched(true);
           addDetails(res.data.user);
         }
-        if (res?.data?.user?.Role === "seller") {
+        if (res?.data?.Role === "seller") {
           setIsloading(false);
           dataFetched(true);
           setIsSellerAuthorised(true);
           addSeller(res.data.user);
+        }
+        if (res?.data?.Role === "admin") {
+          setIsloading(false);
+          dataFetched(true);
+          setAdmin(true);
         }
       } catch (err) {
         setIsloading(false);
@@ -154,6 +164,15 @@ function X(props, Children) {
       router.pathname === "/verify-email/[...id]")
   ) {
     return <Children {...props} />;
+  }
+  // if admin then give pass
+  else if (isAdmin && router.pathname.split("/")[1] === "adminDashboard") {
+    return <Children {...props} />;
+  }
+  //if not admin then dont
+  else if (!isAdmin && router.pathname.split("/")[1] === "adminDashboard") {
+    router.replace("/");
+    return <Loading />;
   } else {
     return <Loading />;
   }

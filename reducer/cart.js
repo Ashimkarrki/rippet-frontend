@@ -17,6 +17,7 @@ export const initialState = {
     role: "",
     id: "",
   },
+  isAdmin: false,
   isDataFetched: false,
 };
 const formatCart = (payload) => {
@@ -118,7 +119,12 @@ const userReducer = (state, action) => {
         ...state,
         isDataFetched: action.payload,
       };
-
+    case "SET_ADMIN": {
+      return {
+        ...state,
+        isAdmin: action.payload,
+      };
+    }
     default:
       return { ...state };
   }

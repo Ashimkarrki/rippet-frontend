@@ -17,6 +17,7 @@
   max-width: 13rem; */
   /* width: clamp(9rem, 33%, 13rem); */
 }
+
 .button_grp {
   text-align: center;
   margin: 1rem 0;
@@ -51,7 +52,7 @@
 }
 .sort {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 1rem;
 }
 .select {

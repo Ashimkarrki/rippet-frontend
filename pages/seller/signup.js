@@ -7,7 +7,6 @@ import { DotSpinner } from "@uiball/loaders";
 import IsAuth from "../../utils/IsAuth";
 const SignUpComponent = () => {
   const router = useRouter();
-  const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
   const [isLoading, setIsLoading] = useState(false);
 
   const [userData, setuserData] = useState({
@@ -34,7 +33,7 @@ const SignUpComponent = () => {
       });
       const sendingData = { ...userData, Role: "seller" };
       instance
-        .post(`${URL}api/v1/users/signup`, sendingData)
+        .post(`users/signup`, sendingData)
         .then((data) => {
           router.push("/seller/login");
         })

@@ -27,6 +27,9 @@ const UserProvider = ({ children }) => {
   const dataFetched = (payload) => {
     dispatch({ type: "DATA_FETCHED", payload: payload });
   };
+  const setAdmin = (payload) => {
+    dispatch({ type: "SET_ADMIN", payload: payload });
+  };
   return (
     <userContext.Provider
       value={{
@@ -39,6 +42,8 @@ const UserProvider = ({ children }) => {
         sellerInfo: state.seller,
         userInfo: state.user,
         cartInfo: state.cart,
+        setAdmin,
+        isAdmin: state.isAdmin,
       }}
     >
       {children}

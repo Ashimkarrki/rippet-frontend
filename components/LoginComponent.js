@@ -41,12 +41,17 @@ const LoginComponent = ({ role }) => {
         .post(`/users/login`, sendingData)
         .then((data) => {
           console.log(data);
-          if (role == "user") {
+          console.log(data.Role);
+
+          if (data.data.Role === "user") {
             dataFetched(false);
             router.replace("/");
-          } else if (role === "seller") {
+          } else if (data.data.Role === "seller") {
             dataFetched(false);
             router.replace("/sellerDashboard");
+          } else if (data.data.Role === "admin") {
+            dataFetched(false);
+            router.replace("/adminDashboard");
           }
         })
         .catch((err) => {
