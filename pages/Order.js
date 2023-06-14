@@ -69,7 +69,8 @@ const Order = () => {
     });
   };
   return (
-    <div className={styles.order}>
+    <div className={styles.ordercontainer}>
+      <div className={styles.order}>
       <form className={styles.userInform} onSubmit={submitHandeler}>
         <h3 className={styles.head_heading}>Details</h3>
         <div className={styles.userInfo_child}>
@@ -99,7 +100,8 @@ const Order = () => {
           <input
             className={styles.input}
             type="number"
-            name="PhoneNumber"
+            name="PhoneNumber..."
+            placeholder="Enter PhoneNumber"
             value={data.PhoneNumber}
             required
             onChange={onChangeState}
@@ -130,6 +132,7 @@ const Order = () => {
           <input
             className={styles.input}
             type="text"
+            placeholder="Enter Town/city...."
             name="Town"
             value={data.Town}
             required
@@ -142,6 +145,7 @@ const Order = () => {
             className={styles.input}
             type="text"
             name="State"
+            placeholder="Enter state..."
             value={data.State}
             required
             onChange={onChangeState}
@@ -152,6 +156,7 @@ const Order = () => {
           <input
             className={styles.input}
             type="number"
+            placeholder="Enter Postcode..."
             name="Zip"
             value={data.Zip}
             required
@@ -172,19 +177,20 @@ const Order = () => {
         <div className={styles.products}>
           {cartInfo.items.map((s) => {
             return (
-              <div className={styles.product} key={s.id}>
-                <Link
-                  className={`${styles.heading_first} ${styles.hover}`}
+              <Link
+                  className={styles.productItem}
                   href={"/product/" + s.id}
                 >
+              <div className={styles.product} key={s.id}>
                   <h5 className={styles.heading}>{s.Name}</h5>{" "}
-                </Link>
-                <h5 className={styles.heading}>{s.quantity}</h5>
-                <h5 className={styles.heading}> {s.Price}</h5>
+                  <h5 className={styles.heading}>{s.quantity}</h5>
+                  <h5 className={styles.heading}> {s.Price}</h5>
               </div>
+              </Link>
             );
           })}
         </div>
+        {/* <div> */}
         <div className={styles.product_bottom}>
           <h5 className={`${styles.heading} ${styles.heading_first}`}>
             Sub total
@@ -207,6 +213,8 @@ const Order = () => {
             {total() + charge}
           </h5>
         </div>
+        {/* </div> */}
+      </div>
       </div>
     </div>
   );

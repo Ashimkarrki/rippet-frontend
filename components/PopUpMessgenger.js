@@ -3,6 +3,7 @@ import styles from "../styles/PopupMessenger.module.css";
 import axios from "axios";
 import io from "socket.io-client";
 import { GrClose } from "react-icons/gr";
+import {RiSendPlane2Fill} from "react-icons/ri"
 // const URLlocal ="https://adorable-leather-jacket-foal.cyclic.app";
 const URLlocal = "http://localhost:4000";
 var socket = io(URLlocal, {
@@ -118,7 +119,17 @@ const PopUpMessgenger = ({ sellerId, productId, setIsPopUpMessenger }) => {
   });
   return (
     <form className={styles.PopUpMessgenger}>
-      <h4 className={styles.heading}>Message with seller</h4>
+    <div className={styles.topcontainer}>
+    <div className={styles.sellerDetail}>
+    <div className={styles.imagewrapper}>
+      <img className={styles.img} src="https://www.pngmart.com/files/22/User-Avatar-Profile-Transparent-Background.png" />
+    </div>
+        <div>
+      <h4 className={styles.heading}>John similge</h4>
+      <p className={styles.subheading}>Seller</p>
+      </div>
+      </div>
+
       <button
         className={`${styles.heading} ${styles.abs}`}
         onClick={() => {
@@ -127,7 +138,9 @@ const PopUpMessgenger = ({ sellerId, productId, setIsPopUpMessenger }) => {
       >
         <GrClose className={styles.icon} />
       </button>
+    </div>
 
+        <div>
       {loading ? (
         <div>
           {/* {allmessages.length !== 0 && ( */}
@@ -142,7 +155,9 @@ const PopUpMessgenger = ({ sellerId, productId, setIsPopUpMessenger }) => {
                       : styles.singlemessageuser
                   }
                 >
-                  <h1>{data.content}</h1>
+                  <h1 className={data.sender === sellerId
+                      ? styles.textseller
+                      : styles.textuser}>{data.content}</h1>
                 </div>
               );
             })}
@@ -152,27 +167,18 @@ const PopUpMessgenger = ({ sellerId, productId, setIsPopUpMessenger }) => {
       ) : (
         <div className={styles.messages}></div>
       )}
-      {loading ? (
+      {loading &&
         <div className={styles.input_msg}>
           <input
             type="text"
             className={styles.input}
+            placeholder="Enter Message...."
             onChange={(e) => changeHandler(e)}
           />
-          <button className={styles.button} onClick={submitHandler}>
-            Submit
-          </button>
+          <RiSendPlane2Fill className={styles.button} onClick={submitHandler} />
         </div>
-      ) : (
-        <div className={styles.input_msg}>
-          <input
-            type="text"
-            className={styles.input}
-            onChange={(e) => changeHandler(e)}
-          />
-          <button className={styles.button}>Submit</button>
-        </div>
-      )}
+      }
+      </div>
     </form>
   );
 };
