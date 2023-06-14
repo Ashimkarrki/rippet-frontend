@@ -5,54 +5,30 @@ import useSWR from "swr";
 import axios from "axios";
 import SellerReviewComponent from "../../../components/SellerReviewComponent";
 import IsAuth from "../../../utils/IsAuth";
+import Loading from "../../../components/Loading";
 const SellerReviews = () => {
-  const [productReviewInfo, setProductReviewInfo] = useState();
-
   const instance = axios.create({
     withCredentials: true,
     headers: { authorization: "Bearer" },
   });
-  const { data, isLoading, error } = useSWR(
+  const { data, isLoading, error, mutate } = useSWR(
     `reviews/seller/allreviews`,
     async (url) => {
       try {
         const res = await instance.get(url);
-        console.log(res.data.data);
-        setProductReviewInfo(
-          res.data.data.map((s) => {
-            return {
-              id: s.id,
-              rating: s.rating,
-              review: s.review,
-              reply: s.Answer,
-              reviewer: s.user.Username,
-              userId: s.user.id,
-              date: s.createdAt,
-              MainImage: s.product.MainImage,
-              sellerId: s.sellerId,
-              productId: s.id,
-              productName: s.product.Name,
-              productPrice: s.product.Price,
-              productAvgRating: s.product.AverageRating,
-            };
-          })
-        );
         return res.data.data;
       } catch (err) {
         console.log(err);
       }
     }
   );
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className={styles.review}>
-      {productReviewInfo?.map((s) => {
-        return (
-          <SellerReviewComponent
-            key={s.id}
-            data={s}
-            setProductReviewInfo={setProductReviewInfo}
-          />
-        );
+      {data?.map((s) => {
+        return <SellerReviewComponent key={s.id} data={s} mutate={mutate} />;
       })}
     </div>
   );

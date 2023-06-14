@@ -6,6 +6,7 @@ import styles from "../../styles/AllProducts.module.css";
 import ProductDeletePopup from "../../components/ProductDeletePopup";
 import EditProductPopUp from "../../components/EditProductPopUp";
 import IsAuth from "../../utils/IsAuth";
+import Loading from "../../components/Loading";
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [deleteItem, setDeleteItem] = useState();
@@ -27,6 +28,9 @@ const AllProducts = () => {
       }
     }
   );
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className={styles.allProduct}>
       {deleteItem && (
@@ -44,7 +48,7 @@ const AllProducts = () => {
         <h3 className={styles.heading}>Top Products </h3>
       </div>
       <div className={styles.image_grid}>
-        {products?.map((s) => {
+        {data?.map((s) => {
           return (
             <SellerProductCard
               key={s.id}
@@ -57,10 +61,10 @@ const AllProducts = () => {
         })}
       </div>
       <div className={styles.headingContainer}>
-        <h3 className={styles.heading}>Other Products ({products?.length})</h3>
+        <h3 className={styles.heading}>Other Products ({data?.length})</h3>
       </div>
       <div className={styles.image_grid}>
-        {products?.map((s) => {
+        {data?.map((s) => {
           return (
             <SellerProductCard
               key={s.id}
@@ -71,7 +75,7 @@ const AllProducts = () => {
             />
           );
         })}
-        {products?.map((s) => {
+        {data?.map((s) => {
           return (
             <SellerProductCard
               key={s.id}

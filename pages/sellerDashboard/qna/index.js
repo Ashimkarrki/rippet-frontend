@@ -6,10 +6,9 @@ import useFetchUser from "../../../features/fetchUser";
 import axios from "axios";
 import SellerQNAComponent from "../../../components/SellerQNAComponent";
 import IsAuth from "../../../utils/IsAuth";
+import Loading from "../../../components/Loading";
 const QNA = () => {
-  const [QNAInfo, setQNAInfo] = useState();
-
-  const { data, isLoading, error } = useSWR(
+  const { data, isLoading, error, mutate } = useSWR(
     `ask/seller/allasks`,
     async (url) => {
       const instance = axios.create({
@@ -18,36 +17,19 @@ const QNA = () => {
       });
       try {
         const res = await instance.get(url);
-        console.log(res.data.data);
-        setQNAInfo(
-          res.data.data.map((s) => {
-            return {
-              id: s.id,
-              Question: s.Question,
-              Answer: s.Answer,
-              questioner: s?.user?.Username,
-              userId: s?.user?.id,
-              date: s.createdAt,
-              MainImage: s.product.MainImage,
-              sellerId: s.sellerId,
-              productId: s.product.id,
-              productName: s.product.Name,
-              productPrice: s.product.Price,
-            };
-          })
-        );
         return res.data.data;
       } catch (err) {
         console.log(err);
       }
     }
   );
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div className={styles.qna}>
-      {QNAInfo?.map((s) => {
-        return (
-          <SellerQNAComponent key={s.id} data={s} setQNAInfo={setQNAInfo} />
-        );
+      {data?.map((s) => {
+        return <SellerQNAComponent key={s.id} data={s} mutate={mutate} />;
       })}
     </div>
   );

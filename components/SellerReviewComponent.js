@@ -6,7 +6,7 @@ import { DotSpinner } from "@uiball/loaders";
 import Button from "./SubComponent/Button";
 import axios from "axios";
 import Star from "./Star";
-const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
+const SellerReviewComponent = ({ data, mutate }) => {
   const { userInfo } = useContext(userContext);
   const [replyLoading, setReplyLoading] = useState(false);
   const [reply, setReply] = useState(false);
@@ -22,31 +22,12 @@ const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
     });
     try {
       const res = await instance.patch(
-        `reviews/update/${data.id}/${data.productId}/${data.sellerId}`,
+        `reviews/update/${data.id}/${data.id}/${data.sellerId}`,
         {
           Answer: replyValue,
         }
       );
-      // console.log(res.data.data.remainingReview);
-      setProductReviewInfo(
-        res.data.data.remainingReview.map((s) => {
-          return {
-            id: s.id,
-            rating: s.rating,
-            review: s.review,
-            reply: s.Answer,
-            reviewer: s.user.Username,
-            userId: s.user.id,
-            date: s.createdAt,
-            MainImage: s.product.MainImage,
-            sellerId: s.sellerId,
-            productId: s.id,
-            productName: s.product.Name,
-            productPrice: s.product.Price,
-            productAvgRating: s.product.AverageRating,
-          };
-        })
-      );
+      mutate(res.data.data.remainingReview);
       setReplyLoading(false);
     } catch (err) {
       console.log(err);
@@ -54,7 +35,7 @@ const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
   };
   const editHandler = () => {
     console.log("onedit");
-    setReplyValue(data.reply);
+    setReplyValue(data.Answer);
     setReply(true);
   };
   return (
@@ -62,27 +43,27 @@ const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
       <div className={styles.image_name_wrapper}>
         <img
           className={styles.img}
-          src={data.MainImage}
-          alt={data.productName}
+          src={data.product.MainImage}
+          alt={data.product.name}
         />
         <div className={styles.product_desc}>
-          <h4 className={styles.heading}>{data.productName}</h4>
+          <h4 className={styles.heading}>{data.product.name}</h4>
         </div>
       </div>
       <div className={styles.user_review}>
         <div className={styles.wrapper}>
-          <h4 className={styles.heading}>- By {data.reviewer}</h4>
-          <p className={styles.grey}>({data.date.slice(0, 10)})</p>
+          <h4 className={styles.heading}>- By {data.user.Username}</h4>
+          <p className={styles.grey}>({data.createdAt.slice(0, 10)})</p>
         </div>
         <div className={styles.star}>
           <Star className={styles.tara} num={data.rating} />
         </div>
         <p className={styles.user_send_review}>
-          {data.reviewer} - {data.review}
+          {data.user.Username} - {data.review}
         </p>
-        {data.reply && !reply && (
+        {data.Answer && !reply && (
           <div className={styles.seller_reply}>
-            From you - {data.reply}{" "}
+            From you - {data.Answer}{" "}
             {!replyLoading && (
               <div>
                 <Button
@@ -95,11 +76,10 @@ const SellerReviewComponent = ({ data, setProductReviewInfo }) => {
           </div>
         )}
         {!reply ? (
-          !data.reply &&
+          !data.Answer &&
           !replyLoading && (
             <Button
               marginTop=".5rem"
-              // className={styles.replyButton}
               onClick={() => setReply(true)}
               content="Reply"
             />

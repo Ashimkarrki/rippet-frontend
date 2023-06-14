@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/ProductDeletePopop.module.css";
 import { AiOutlineDelete, AiOutlineCloseCircle } from "react-icons/ai";
 import { DotSpinner } from "@uiball/loaders";
+import useSWR, { useSWRConfig } from "swr";
 import axios from "axios";
 const ProductDeletePopup = ({ deleteItem, setDeleteItem, setProducts }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,10 +15,11 @@ const ProductDeletePopup = ({ deleteItem, setDeleteItem, setProducts }) => {
     });
     try {
       const res = await instance.delete(`products/${deleteItem.id}`);
-      console.log(res);
-      setProducts((prev) => {
-        return prev.filter((s) => s.id !== deleteItem.id);
-      });
+
+      // setProducts((prev) => {
+      //   return prev.filter((s) => s.id !== deleteItem.id);
+      // });
+      mutate("products/seller/allproducts");
       setDeleteItem("");
       setIsLoading(false);
     } catch (err) {
@@ -33,16 +35,25 @@ const ProductDeletePopup = ({ deleteItem, setDeleteItem, setProducts }) => {
           className={styles.image}
           alt={deleteItem.Name}
         />
-        
-        <h4 className={styles.heading}><span>Name :</span> {deleteItem.Name}</h4>
-        <div className={styles.subdetail}>
-        <h4 className={styles.heading}><span>AverageRating : </span>{deleteItem.AverageRating}
+
+        <h4 className={styles.heading}>
+          <span>Name :</span> {deleteItem.Name}
         </h4>
-        
-        <h4 className={styles.heading}><span>Price : </span>{deleteItem.Price}</h4>
-        <h4 className={styles.heading}><span>Discount :</span> {deleteItem.Discount}</h4>
+        <div className={styles.subdetail}>
+          <h4 className={styles.heading}>
+            <span>AverageRating : </span>
+            {deleteItem.AverageRating}
+          </h4>
+
+          <h4 className={styles.heading}>
+            <span>Price : </span>
+            {deleteItem.Price}
+          </h4>
+          <h4 className={styles.heading}>
+            <span>Discount :</span> {deleteItem.Discount}
+          </h4>
         </div>
-   
+
         {/* <div>
           <h4 className={styles.heading}>Description : </h4>
           <p className={styles.desc}>{deleteItem.Description} </p>

@@ -3,7 +3,7 @@ import { DotSpinner } from "@uiball/loaders";
 import styles from "../styles/SellerQNAComponent.module.css";
 import axios from "axios";
 import Button from "./SubComponent/Button";
-const SellerQNAComponent = ({ data, setQNAInfo }) => {
+const SellerQNAComponent = ({ data, mutate }) => {
   const [replyLoading, setReplyLoading] = useState(false);
   const [reply, setReply] = useState(false);
   const [replyValue, setReplyValue] = useState();
@@ -18,29 +18,12 @@ const SellerQNAComponent = ({ data, setQNAInfo }) => {
     });
     try {
       const res = await instance.patch(
-        `ask/update/${data.productId}/${data.id}`,
+        `ask/update/${data.product.id}/${data.id}`,
         {
           Answer: replyValue,
         }
       );
-      console.log(res);
-      setQNAInfo(
-        res.data.data.remainingAsk.map((s) => {
-          return {
-            id: s.id,
-            Question: s.Question,
-            Answer: s.Answer,
-            questioner: s?.user?.Username,
-            userId: s?.user?.id,
-            date: s.createdAt,
-            MainImage: s.product.MainImage,
-            sellerId: s.sellerId,
-            productId: s.product.id,
-            productName: s.product.Name,
-            productPrice: s.product.Price,
-          };
-        })
-      );
+      mutate(res.data.data.remainingAsk);
       setReplyLoading(false);
     } catch (err) {
       console.log(err);
@@ -56,16 +39,16 @@ const SellerQNAComponent = ({ data, setQNAInfo }) => {
       <div className={styles.image_name_wrapper}>
         <img
           className={styles.img}
-          src={data.MainImage}
-          alt={data.productName}
+          src={data.product.MainImage}
+          alt={data.product.Name}
         />
         <div className={styles.product_desc}>
-          <h4 className={styles.heading}>{data.productName}</h4>
+          <h4 className={styles.heading}>{data.product.Name}</h4>
         </div>
       </div>
       <div className={styles.user_review}>
         <div className={styles.wrapper}>
-          <h4 className={styles.heading}>- By {data.reviewer}</h4>
+          <h4 className={styles.heading}>- By {data?.user?.Username}</h4>
         </div>
 
         <p className={styles.user_send_review}>From user - {data.Question}</p>
