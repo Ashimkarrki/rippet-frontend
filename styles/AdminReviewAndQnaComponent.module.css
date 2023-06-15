@@ -1,3 +1,7 @@
+.container {
+  margin-left: 12rem;
+}
+
 .button_grp {
   text-align: center;
   margin: 1rem 0;
@@ -10,12 +14,10 @@
   font-size: medium;
 }
 .button_start {
-  /* border-radius: 5px 0 0 5px; */
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 .button_end {
-  /* border-radius: 0 5px 5px 0; */
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border-right: 1px solid #d1d5db;
@@ -29,4 +31,9 @@
   background-color: #2457aa;
   border-color: #2457aa;
   color: white;
+}
+@media (max-width: 520px) {
+  .container {
+    margin-left: 0;
+  }
 }

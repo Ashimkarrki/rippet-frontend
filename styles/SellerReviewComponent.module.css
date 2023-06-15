@@ -9,12 +9,15 @@
   padding: 1rem;
 }
 .img {
+  object-fit: cover;
+}
+.image_wrapper {
+  position: relative;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   border-radius: 1rem;
-  width: 6rem;
+  width: 100%;
   aspect-ratio: 3/4;
-  object-fit: cover;
 }
 .product_desc {
   text-align: center;
@@ -36,6 +39,12 @@
 }
 .heading {
   font-weight: 400;
+}
+.name {
+  margin-top: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .text_area {
   width: 100%;
@@ -106,12 +115,15 @@
   background-color: rgb(255, 208, 115);
 }
 .image_name_wrapper {
-  max-width: 6rem;
+  width: 6rem;
 }
 
 @media screen and (max-width: 660px) {
   .item {
     margin-left: 0;
     margin-right: 0;
+  }
+  .image_name_wrapper {
+    width: 5rem;
   }
 }

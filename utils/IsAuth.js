@@ -74,6 +74,7 @@ function X(props, Children) {
         dataFetched(true);
       }
     };
+    console.log(isDataFetched, "=>", "data fetched");
     if (!isDataFetched) {
       fetchIsMe();
     }

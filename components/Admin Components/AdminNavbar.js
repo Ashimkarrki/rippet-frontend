@@ -4,6 +4,9 @@ import styles from "../../styles/SellerNavbar.module.css";
 import { BsFillHouseDashFill } from "react-icons/bs";
 import { IoIosCreate } from "react-icons/io";
 import { BiBorderAll } from "react-icons/bi";
+import { RiMenu2Fill } from "react-icons/ri";
+import { IoMdClose } from "react-icons/io";
+
 import { BsQuestionSquareFill } from "react-icons/bs";
 import { MdReviews, MdMessage } from "react-icons/md";
 import { useRouter } from "next/router";
@@ -24,7 +27,7 @@ const AdminNavbar = () => {
           >
             <Link href={"/adminDashboard"}>
               <AiFillHome className={styles.icons_nav} />
-              Home
+              <span className={styles.heading}>Home</span>
             </Link>
           </li>
           <li
@@ -34,7 +37,7 @@ const AdminNavbar = () => {
           >
             <Link href={"/adminDashboard/user"}>
               <FaUser className={styles.icons_nav} />
-              User
+              <span className={styles.heading}>User</span>
             </Link>
           </li>
           <li
@@ -44,7 +47,7 @@ const AdminNavbar = () => {
           >
             <Link href={"/adminDashboard/seller"}>
               <FaUserTie className={styles.icons_nav} />
-              Seller
+              <span className={styles.heading}>Seller</span>
             </Link>
           </li>
           <li
@@ -55,7 +58,8 @@ const AdminNavbar = () => {
             }
           >
             <Link href={"/adminDashboard/products"}>
-              <BsFillHouseDashFill className={styles.icons_nav} /> Product
+              <BsFillHouseDashFill className={styles.icons_nav} />
+              <span className={styles.heading}>Product</span>
             </Link>
           </li>
           <li
@@ -67,7 +71,7 @@ const AdminNavbar = () => {
           >
             <Link href={"/adminDashboard/addProduct"}>
               <IoIosCreate className={styles.icons_nav} />
-              Add Product
+              <span className={styles.heading}>Add Product</span>
             </Link>
           </li>
 
@@ -79,7 +83,7 @@ const AdminNavbar = () => {
             }
           >
             <BiBorderAll className={styles.icons_nav} />
-            Order
+            <span className={styles.heading}>Order</span>
           </li>
           <li
             className={
@@ -90,7 +94,7 @@ const AdminNavbar = () => {
           >
             <Link href={"/adminDashboard/reviews"}>
               <MdReviews className={styles.icons_nav} />
-              Reviews
+              <span className={styles.heading}>Reviews</span>
             </Link>
           </li>
           <li
@@ -100,7 +104,7 @@ const AdminNavbar = () => {
           >
             <Link href={"/adminDashboard/qna"}>
               <BsQuestionSquareFill className={styles.icons_nav} />
-              QNA
+              <span className={styles.heading}>QNA</span>
             </Link>
           </li>
           <li
@@ -112,7 +116,7 @@ const AdminNavbar = () => {
           >
             <Link href={"/adminDashboard/message"}>
               <MdMessage className={styles.icons_nav} />
-              Message
+              <span className={styles.heading}>Message</span>
             </Link>
           </li>
         </ul>

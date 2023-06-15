@@ -1,5 +1,6 @@
 .item {
   margin: 1rem;
+  margin-top: 0;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1rem;
@@ -9,13 +10,21 @@
   padding: 1rem;
 }
 .img {
+  object-fit: cover;
+}
+.image_wrapper {
+  position: relative;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-  border-radius: 1rem;
-
-  width: 6rem;
   aspect-ratio: 3/4;
-  object-fit: cover;
+  width: 100%;
+}
+.name {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 1rem;
+  text-overflow: ellipsis;
 }
 .product_desc {
   text-align: center;
@@ -106,11 +115,14 @@
   right: 0;
 }
 .image_name_wrapper {
-  max-width: 6rem;
+  width: 6rem;
 }
 @media screen and (max-width: 660px) {
   .item {
     margin-left: 0;
     margin-right: 0;
+  }
+  .image_name_wrapper {
+    width: 5rem;
   }
 }

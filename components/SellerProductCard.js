@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../styles/SellerProductCard.module.css";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import Image from "next/image";
 const SellerProductCard = ({
   data,
   deleteItem,
@@ -11,7 +12,12 @@ const SellerProductCard = ({
     <div className={styles.card}>
       <div className={styles.img_name_wrapper}>
         <div className={styles.image_wrapper}>
-          <img src={data.MainImage} alt={data.Name} className={styles.img} />
+          <Image
+            src={data.MainImage}
+            alt={data.Name}
+            fill
+            className={styles.img}
+          />
         </div>
         <h5 className={styles.title}>{data.Name}</h5>
       </div>

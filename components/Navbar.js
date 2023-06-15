@@ -7,7 +7,7 @@ import { BsSearch } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import axios from "axios";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { MdClose } from "react-icons/md";
 import { AiOutlineMenu, AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 import { RiAccountCircleLine, RiNotificationLine } from "react-icons/ri";
@@ -20,26 +20,27 @@ import Collapsible from "./Collapsible";
 import { DotSpinner } from "@uiball/loaders";
 import WelcomeNav from "./WelcomeNav";
 const Navbar = () => {
+  const { mutate } = useSWRConfig();
   const [notifications, setNotifications] = useState([]);
   const [toggleNotification, setToggleNotification] = useState(false);
   const [notificationLoading, setNotificationLoading] = useState(false);
   const { userInfo } = useContext(userContext);
   const [isCatDrop, setIsCatDrop] = useState(false);
   const router = useRouter();
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
 
-  const [category, setCategory] = useState([]);
+  // const [category, setCategory] = useState([]);
   const [isMenuOn, setIsMenuOn] = useState(false);
   const {
     isLoading: isLoad,
-    // data: category,
+    data: category,
     error: iserror,
   } = useSWR(
     "/categories",
     async (url) => {
       try {
         const res = await axios.get(url);
-        setCategory(res.data);
+        // setCategory(res.data);
         setParentClicked(
           res.data.map((s) => {
             return {
@@ -61,7 +62,7 @@ const Navbar = () => {
   );
   const {
     isLoading,
-
+    data,
     error: error,
   } = useSWR(userInfo.id ? "/notifications/seen" : null, async (url) => {
     const instance = axios.create({
@@ -70,7 +71,7 @@ const Navbar = () => {
     });
     try {
       const res = await instance.get(url);
-      setData(res.data.unseennotification);
+      // setData(res.data.unseennotification);
       return res.data.unseennotification;
     } catch (err) {
       return err;
@@ -88,6 +89,7 @@ const Navbar = () => {
       const res = await instance.get("notifications");
       setNotifications(res.data.notification);
       setNotificationLoading(false);
+      mutate("/notifications/seen");
     } catch (err) {
       console.log(err);
     }
@@ -205,13 +207,20 @@ const Navbar = () => {
 
           {userInfo.id && (
             <div className={` ${styles.relative} ${styles.asd}`}>
-              {console.log(data)}
-              {data !== 0 && !isLoading && data && (
-                <h5 className={styles.notification_no}>
-                  {data}
-                  {console.log("enterd")}
-                </h5>
-              )}
+              <button
+                className={`${styles.icons} ${styles.relative}`}
+                onClick={() => {
+                  getNotifications();
+                  setToggleNotification(!toggleNotification);
+                }}
+              >
+                {data !== 0 && !isLoading && data && (
+                  <h5 className={styles.notification_no}>{data}</h5>
+                )}
+
+                <RiNotificationLine className={styles.navbar_icons} />
+                {/* </div> */}
+              </button>
               {toggleNotification && (
                 <div
                   className={styles.notification_dropdown_wrapper}
@@ -224,15 +233,6 @@ const Navbar = () => {
                   />
                 </div>
               )}
-              <div
-                className={styles.user_info}
-                onClick={() => {
-                  getNotifications();
-                  setToggleNotification(!toggleNotification);
-                }}
-              >
-                <RiNotificationLine className={styles.navbar_icons} />
-              </div>
             </div>
           )}
           {userInfo.id && (
@@ -269,12 +269,18 @@ const Navbar = () => {
                   align="center"
                   sideOffset={8}
                 >
+                  {console.log(category)}
+                  {console.log("hello")}
+                  {console.log(
+                    !isLoading && category && category?.length !== 0
+                      ? "true"
+                      : "false"
+                  )}
                   {isLoad ? (
                     <div className={styles.spinner}>
                       <DotSpinner color="blue" size={25} />
                     </div>
-                  ) : (
-                    category.length !== 0 &&
+                  ) : !isLoading && category && category?.length !== 0 ? (
                     category?.map((s, index) => {
                       console.log("entered");
                       return (
@@ -288,6 +294,8 @@ const Navbar = () => {
                         </div>
                       );
                     })
+                  ) : (
+                    ""
                   )}
 
                   <DropdownMenu.Arrow className={styles.DropdownMenuArrow} />

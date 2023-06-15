@@ -1,27 +1,15 @@
 .qna {
-  margin-top: 1rem;
   margin-bottom: 1rem;
   margin-right: 1rem;
   margin-left: 12rem;
   border-radius: 0.4rem;
   padding: 1rem;
-  background-color: #f1f3f6a0;
-  background-color: #e9f9ff;
-  max-height: 95vh;
-  overflow-y: scroll;
 }
 
-.qna::-webkit-scrollbar {
-  width: 5px;
-}
-
-.qna::-webkit-scrollbar-thumb {
-  background: #2457aa;
-}
 @media (max-width: 520px) {
   .qna {
-    margin-top: 4rem;
     margin-left: 0;
     margin-right: 0;
+    font-size: 0.8rem;
   }
 }

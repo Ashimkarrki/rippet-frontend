@@ -104,10 +104,14 @@
 .cart_no,
 .notification_no {
   position: absolute;
-  top: -0.5rem;
-  right: 0;
+  top: -16px;
+  right: -15px;
   font-size: 1rem;
-  color: #ffb327;
+  color: white;
+  background-color: red;
+  padding: 5px 7px;
+
+  border-radius: 50%;
 }
 .relative {
   position: relative;
@@ -244,8 +248,8 @@
 }
 .notification_dropdown_wrapper {
   position: absolute;
-  top: 2rem;
-  left: -4.2rem;
+  top: 2.5rem;
+  left: -3.8rem;
 }
 .user_info_heading {
   font-weight: 400;

@@ -18,3 +18,14 @@
 .data {
   padding: 2px 10px;
 }
+@media screen and (max-width: 520px) {
+  .alluserContainer {
+    margin-left: 0;
+    font-size: 0.6rem;
+    padding: 0;
+    padding-bottom: 1rem;
+  }
+  .data {
+    padding: 2px 5px;
+  }
+}

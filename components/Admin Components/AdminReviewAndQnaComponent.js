@@ -55,7 +55,7 @@ const AdminReviewAndQnaComponent = ({ who, what }) => {
     return <Loading />;
   }
   return (
-    <div style={{ marginLeft: "12rem" }}>
+    <div className={styles.container}>
       {data.totalpages !== 1 && (
         <div className={styles.button_grp}>
           {repeat(data.totalpages).map((s, index) => {

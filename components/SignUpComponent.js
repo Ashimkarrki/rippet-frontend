@@ -32,14 +32,6 @@ export const SignUpComponent = () => {
         headers: { authorization: "Bearer" },
       });
       const sendingData = { ...userData, Role: "user" };
-      // instance
-      //   .post(`users/signup`, sendingData)
-      //   .then((data) => {
-      //     console.log(data);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err, "erooroorororo");
-      //   });
       const myPromise = instance.post(`users/signup`, sendingData);
       toast.promise(
         myPromise,

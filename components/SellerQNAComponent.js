@@ -3,6 +3,7 @@ import { DotSpinner } from "@uiball/loaders";
 import styles from "../styles/SellerQNAComponent.module.css";
 import axios from "axios";
 import Button from "./SubComponent/Button";
+import Image from "next/image";
 const SellerQNAComponent = ({ data, mutate }) => {
   const [replyLoading, setReplyLoading] = useState(false);
   const [reply, setReply] = useState(false);
@@ -37,13 +38,18 @@ const SellerQNAComponent = ({ data, mutate }) => {
   return (
     <div className={styles.item}>
       <div className={styles.image_name_wrapper}>
-        <img
-          className={styles.img}
-          src={data.product.MainImage}
-          alt={data.product.Name}
-        />
+        <div className={styles.image_wrapper}>
+          <Image
+            fill
+            className={styles.img}
+            src={data.product.MainImage}
+            alt={data.product.Name}
+          />
+        </div>
         <div className={styles.product_desc}>
-          <h4 className={styles.heading}>{data.product.Name}</h4>
+          <h4 className={`${styles.heading} ${styles.name}`}>
+            {data.product.Name}
+          </h4>
         </div>
       </div>
       <div className={styles.user_review}>

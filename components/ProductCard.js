@@ -51,8 +51,10 @@ const ProductsCard = ({ id, pic, title, price, discount }) => {
   };
   return (
     <Link className={styles.card} href={`/product/${id}`}>
-      <div className={styles.image_wrapper}>
-        <Image src={pic} alt="product" className={styles.img} fill />
+      <div className={styles.super_wrapper}>
+        <div className={styles.image_wrapper}>
+          <Image src={pic} alt="product" className={styles.img} fill />
+        </div>
       </div>
       <h5 className={styles.title}>{title}</h5>
       <h5 className={styles.price}>

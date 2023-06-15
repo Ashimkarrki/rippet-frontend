@@ -6,6 +6,7 @@ import { DotSpinner } from "@uiball/loaders";
 import Button from "./SubComponent/Button";
 import axios from "axios";
 import Star from "./Star";
+import Image from "next/image";
 const SellerReviewComponent = ({ data, mutate }) => {
   const { userInfo } = useContext(userContext);
   const [replyLoading, setReplyLoading] = useState(false);
@@ -34,20 +35,25 @@ const SellerReviewComponent = ({ data, mutate }) => {
     }
   };
   const editHandler = () => {
-    console.log("onedit");
     setReplyValue(data.Answer);
     setReply(true);
   };
+  console.log(data.product);
   return (
     <div className={styles.item}>
       <div className={styles.image_name_wrapper}>
-        <img
-          className={styles.img}
-          src={data.product.MainImage}
-          alt={data.product.name}
-        />
+        <div className={styles.image_wrapper}>
+          <Image
+            fill
+            className={styles.img}
+            src={data.product.MainImage}
+            alt={data.product.name}
+          />
+        </div>
         <div className={styles.product_desc}>
-          <h4 className={styles.heading}>{data.product.name}</h4>
+          <h4 className={`${styles.heading} ${styles.name}`}>
+            {data.product.Name}
+          </h4>
         </div>
       </div>
       <div className={styles.user_review}>

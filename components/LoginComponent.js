@@ -37,37 +37,31 @@ const LoginComponent = ({ role }) => {
         ...userData,
         Role: role,
       };
-      instance
-        .post(`/users/login`, sendingData)
-        .then((data) => {
-          console.log(data);
-          console.log(data.Role);
-
-          if (data.data.Role === "user") {
-            dataFetched(false);
-            router.replace("/");
-          } else if (data.data.Role === "seller") {
-            dataFetched(false);
-            router.replace("/sellerDashboard");
-          } else if (data.data.Role === "admin") {
-            dataFetched(false);
-            router.replace("/adminDashboard");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          console.log(err?.response?.data?.message);
-
-          setIsLoading(false);
-        });
       const myPromise = instance.post(`/users/login`, sendingData);
       toast.promise(
         myPromise,
         {
           loading: "Loading",
-          success: (data) => "Welcome Back " + data.data.Login.Username,
-          error: (err) =>
-            err?.response?.data?.message || "Internal Error Occured",
+          success: (data) => {
+            if (data.data.Role === "user") {
+              dataFetched(false);
+              router.replace("/");
+            } else if (data.data.Role === "seller") {
+              dataFetched(false);
+              router.replace("/sellerDashboard");
+            } else if (data.data.Role === "admin") {
+              dataFetched(false);
+              router.replace("/adminDashboard");
+            }
+            return "Welcome Back " + data.data.Login.Username;
+          },
+          error: (err) => {
+            console.log(err);
+            console.log(err?.response?.data?.message);
+
+            setIsLoading(false);
+            return err?.response?.data?.message || "Internal Error Occured";
+          },
         },
         {
           success: {
