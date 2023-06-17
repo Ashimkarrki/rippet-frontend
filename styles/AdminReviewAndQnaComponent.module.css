@@ -2,36 +2,6 @@
   margin-left: 12rem;
 }
 
-.button_grp {
-  text-align: center;
-  margin: 1rem 0;
-}
-.button {
-  background-color: white;
-  padding: 5px 8px;
-  border: 1px solid #d1d5db;
-  border-right: none;
-  font-size: medium;
-}
-.button_start {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-.button_end {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-right: 1px solid #d1d5db;
-}
-.button:hover {
-  cursor: pointer;
-  outline: 1px solid #2457aa;
-  outline-offset: -1px;
-}
-.active {
-  background-color: #2457aa;
-  border-color: #2457aa;
-  color: white;
-}
 @media (max-width: 520px) {
   .container {
     margin-left: 0;

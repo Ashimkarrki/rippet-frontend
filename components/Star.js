@@ -1,7 +1,6 @@
 import { AiFillStar } from "react-icons/ai";
 import styles from "../styles/Star.module.css";
 const Star = (children) => {
-  console.log(children);
   const star = children?.className?.split(" ")[0];
   const no_star = children?.className?.split(" ")[1];
 

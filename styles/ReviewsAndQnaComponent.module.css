@@ -97,6 +97,10 @@
 .date {
   color: #67696d;
 }
+.deleting {
+  opacity: 0.5;
+  pointer-events: none;
+}
 @media screen and (max-width: 530px) {
   .box {
     width: 100%;

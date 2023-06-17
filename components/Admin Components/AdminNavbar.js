@@ -35,7 +35,7 @@ const AdminNavbar = () => {
               pathname.slice(16, pathname.length) === "" ? styles.white : ""
             }
           >
-            <Link href={"/adminDashboard/user"}>
+            <Link href={"/adminDashboard/user/1"}>
               <FaUser className={styles.icons_nav} />
               <span className={styles.heading}>User</span>
             </Link>
@@ -45,7 +45,7 @@ const AdminNavbar = () => {
               pathname.slice(16, pathname.length) === "" ? styles.white : ""
             }
           >
-            <Link href={"/adminDashboard/seller"}>
+            <Link href={"/adminDashboard/seller/1"}>
               <FaUserTie className={styles.icons_nav} />
               <span className={styles.heading}>Seller</span>
             </Link>

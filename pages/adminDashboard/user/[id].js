@@ -13,13 +13,14 @@ const User = () => {
   const { data, error, isLoading } = useSWR(`users`, async (url) => {
     try {
       const res = await instance.get(url);
+      console.log(res);
       return res.data.data.users;
     } catch (err) {
       console.log(err);
     }
   });
   if (isLoading) {
-    return <loading />;
+    return <Loading />;
   }
   return (
     <div className={styles.alluserContainer}>
@@ -35,6 +36,7 @@ const User = () => {
               <th className={styles.data}>Verified</th>
               <th className={styles.data}>Reviews </th>
               <th className={styles.data}>Questions </th>
+              <th className={styles.data}>Orders </th>
             </tr>
           </thead>
           <tbody className={styles.body}>
@@ -55,6 +57,11 @@ const User = () => {
                     <Link
                       href={"/adminDashboard/user/questions/" + s.id + "/1"}
                     >
+                      View
+                    </Link>
+                  </td>
+                  <td className={styles.data}>
+                    <Link href={"/adminDashboard/user/orders/" + s.id + "/1"}>
                       View
                     </Link>
                   </td>
