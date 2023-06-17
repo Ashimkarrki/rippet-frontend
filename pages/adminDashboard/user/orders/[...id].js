@@ -32,7 +32,7 @@ const Orders = () => {
       }
     }
   );
-  if (isLoading && !data) {
+  if (isLoading || !data) {
     return <Loading />;
   }
   return (
