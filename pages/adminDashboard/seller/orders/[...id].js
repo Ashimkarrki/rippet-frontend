@@ -22,7 +22,6 @@ const Orders = () => {
     async (url) => {
       try {
         const res = await instance.get(url);
-        console.log(res.data);
         let temp = res.data.orders.map((s) => {
           return {
             ...s,
@@ -31,6 +30,7 @@ const Orders = () => {
             }),
           };
         });
+        console.log(res.data, "+=>res");
         return {
           orders: temp,
           current: res.data.currentPage,
@@ -41,9 +41,10 @@ const Orders = () => {
       }
     }
   );
-  if (isLoading && !data) {
+  if (isLoading || !data) {
     return <Loading />;
   }
+  console.log(data, "=>made");
   return (
     <div className={styles.container}>
       <PageNumber
