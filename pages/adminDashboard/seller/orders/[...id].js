@@ -30,12 +30,12 @@ const Orders = () => {
             }),
           };
         });
-        console.log(res.data, "+=>res");
-        return {
+        const obj = {
           orders: temp,
           current: res.data.currentPage,
           total: res.data.totalpages,
         };
+        return obj;
       } catch (err) {
         console.log(err);
       }
