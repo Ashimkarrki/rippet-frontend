@@ -1,0 +1,25 @@
+.form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.input,
+.btn {
+  padding: 5px;
+  border: none;
+  border: 1px solid grey;
+}
+.btn {
+  border-left: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background: #2457aaa9;
+  color: white;
+}
+.input {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.input:focus {
+  outline: none;
+}

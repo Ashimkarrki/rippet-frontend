@@ -5,6 +5,10 @@ import useSWR from "swr";
 import axios from "axios";
 import Loading from "../../../components/Loading";
 import IsAuth from "../../../utils/IsAuth";
+import UserTable from "../../../components/Admin Components/UserTable";
+import SearchBar from "../../../components/Admin Components/SearchBar";
+import positionStyles from "../../../styles/substyle/AdminDashboardContainer.module.css";
+
 const User = () => {
   const instance = axios.create({
     withCredentials: true,
@@ -23,53 +27,10 @@ const User = () => {
     return <Loading />;
   }
   return (
-    <div className={styles.alluserContainer}>
+    <div className={positionStyles.container}>
+      <SearchBar who={"user"} />
       <div className={styles.headingContainer}>
-        <table className={styles.table} border="1">
-          <caption>All users</caption>
-          <thead className={styles.head}>
-            <tr>
-              <th className={styles.data}>S.N</th>
-              <th className={styles.data}>User Name</th>
-              <th className={styles.data}>Email</th>
-              {/* <th className={styles.data}>Phone Number</th> */}
-              <th className={styles.data}>Verified</th>
-              <th className={styles.data}>Reviews </th>
-              <th className={styles.data}>Questions </th>
-              <th className={styles.data}>Orders </th>
-            </tr>
-          </thead>
-          <tbody className={styles.body}>
-            {data?.map((s, index) => {
-              return (
-                <tr key={s.id}>
-                  <td className={styles.data}>{index + 1}</td>
-                  <td className={styles.data}>{s.Username}</td>
-                  <td className={styles.data}>{s.Email}</td>
-                  {/* <td className={styles.data}>{s.PhoneNumber}</td> */}
-                  <td className={styles.data}>{s.IsVerified}</td>
-                  <td className={styles.data}>
-                    <Link href={"/adminDashboard/user/reviews/" + s.id + "/1"}>
-                      View
-                    </Link>
-                  </td>
-                  <td className={styles.data}>
-                    <Link
-                      href={"/adminDashboard/user/questions/" + s.id + "/1"}
-                    >
-                      View
-                    </Link>
-                  </td>
-                  <td className={styles.data}>
-                    <Link href={"/adminDashboard/user/orders/" + s.id + "/1"}>
-                      View
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <UserTable data={data} />
       </div>
     </div>
   );

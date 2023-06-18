@@ -1,0 +1,16 @@
+.container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  margin-left: 12rem;
+  border-radius: 0.4rem;
+  padding: 1rem;
+}
+@media (max-width: 550px) {
+  .container {
+    font-size: 0.6rem;
+    margin-left: 0;
+    font-size: 0.6rem;
+    padding: 0;
+  }
+}

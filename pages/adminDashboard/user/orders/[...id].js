@@ -44,6 +44,7 @@ const Orders = () => {
       />
       <div>
         {data.orders.map((s) => {
+          console.log(s.id, "=> s");
           return (
             <div key={s.id} className={styles.oneOrder}>
               <div className={styles.intro}>
@@ -70,8 +71,10 @@ const Orders = () => {
                 </thead>
                 <tbody className={tableStyle.body}>
                   {s?.OrderedItems?.map((k) => {
+                    console.log(k.id, "=> k");
+
                     return (
-                      <tr key={k.id}>
+                      <tr key={k._id}>
                         <td className={tableStyle.data}>{k.productId.Name}</td>
                         <td className={tableStyle.data}>{k.productId.Price}</td>
                         <td className={tableStyle.data}>{k.quantity}</td>
