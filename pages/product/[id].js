@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import styles from "../../styles/Product.module.css";
 import QuestionAnswer from "../../components/QuestionAnswer";
 import PopUpMessgenger from "../../components/PopUpMessgenger";
-import { AiOutlineHeart } from "react-icons/ai";
+import { RiMessengerLine } from "react-icons/ri";
 import Review from "../../components/Review";
 import { useContext } from "react";
 import { userContext } from "../../context/userContext";
@@ -50,14 +50,6 @@ const Product = ({ data }) => {
           />
         )}
         <div className={styles.product}>
-          <button
-            className={styles.message}
-            onClick={() => {
-              setIsPopUpMessenger(!isPopUpMessenger);
-            }}
-          >
-            Message Seller
-          </button>
           <div className={styles.image_section}>
             <div className={styles.header_image_wrapper}>
               <Image
@@ -272,6 +264,14 @@ const Product = ({ data }) => {
           setDataInfo={setDataInfo}
         />
       </div>
+      {userInfo.id && (
+        <RiMessengerLine
+          className={styles.fixed}
+          onClick={() => {
+            setIsPopUpMessenger(!isPopUpMessenger);
+          }}
+        />
+      )}
     </div>
   );
 };

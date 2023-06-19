@@ -207,20 +207,24 @@ const Navbar = () => {
 
           {userInfo.id && (
             <div className={` ${styles.relative} ${styles.asd}`}>
-              <button
-                className={`${styles.icons} ${styles.relative}`}
-                onClick={() => {
-                  getNotifications();
-                  setToggleNotification(!toggleNotification);
-                }}
-              >
-                {data !== 0 && !isLoading && data && (
-                  <h5 className={styles.notification_no}>{data}</h5>
-                )}
+              <div className={styles.cover}>
+                <button
+                  className={`${styles.icons} ${styles.relative} ${styles.no_padding}`}
+                  onClick={() => {
+                    getNotifications();
+                    setToggleNotification(!toggleNotification);
+                  }}
+                >
+                  <RiNotificationLine className={styles.navbar_icons} />
+                </button>
+                {data !== 0 &&
+                  !isLoading &&
+                  data &&
+                  typeof data === "number" && (
+                    <h5 className={styles.number}>{data}</h5>
+                  )}
+              </div>
 
-                <RiNotificationLine className={styles.navbar_icons} />
-                {/* </div> */}
-              </button>
               {toggleNotification && (
                 <div
                   className={styles.notification_dropdown_wrapper}
@@ -237,11 +241,11 @@ const Navbar = () => {
           )}
           {userInfo.id && (
             <button className={`${styles.icons} ${styles.relative}`}>
-              <Link href="/Cart">
-                {cartInfo.results !== 0 && (
-                  <h5 className={styles.cart_no}>{cartInfo.results}</h5>
-                )}
+              <Link href="/Cart" className={styles.cover}>
                 <FiShoppingCart className={styles.navbar_icons} />
+                {cartInfo.results !== 0 && (
+                  <h5 className={styles.number}>{cartInfo.results}</h5>
+                )}
               </Link>
             </button>
           )}

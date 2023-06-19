@@ -169,6 +169,16 @@
 .message:hover {
   cursor: pointer;
 }
+.fixed {
+  position: fixed;
+  bottom: 1rem;
+  right: 2rem;
+  font-size: 2rem;
+  color: #2457aa;
+}
+.fixed:hover {
+  cursor: pointer;
+}
 @media (max-width: 600px) {
   .product {
     width: 100%;

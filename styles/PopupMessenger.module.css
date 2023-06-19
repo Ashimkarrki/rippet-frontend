@@ -1,15 +1,13 @@
 .PopUpMessgenger {
   position: fixed;
   z-index: 2;
-  bottom: 2rem;
-  right: 1rem;
+  bottom: 3.2rem;
+  right: 2.6rem;
   height: 30rem;
   width: 25%;
   min-width: 20rem;
-  /* border: 1px solid #aeaeae; */
   background-color: white;
   border-radius: 1rem;
-  /* padding: 1rem; */
   display: grid;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   grid-template-rows: auto auto;
@@ -43,8 +41,6 @@
   background: rgb(196, 196, 196);
 }
 
-
-
 .singlemessagesender {
   padding: 1rem 1rem;
   background-color: #dde0e1;
@@ -68,26 +64,24 @@
   align-self: flex-end;
   margin-top: 0.2rem;
 }
-.textseller{
-  font-size: .4rem;
+.textseller {
+  font-size: 0.4rem;
   font-weight: 300;
-  color: black!important;
+  color: black !important;
 }
-.textuser{
-  font-size: .4rem;
+.textuser {
+  font-size: 0.4rem;
   font-weight: 300;
   color: white;
 }
 
-
 .input_msg {
   display: flex;
   align-items: center;
-   padding-left: 1rem; 
+  padding-left: 1rem;
   padding-bottom: 1rem;
   padding-top: 1rem;
-  padding-right: 1rem; 
-
+  padding-right: 1rem;
 }
 .input {
   width: 90%;
@@ -96,29 +90,31 @@
   font-size: 1rem;
 }
 
-.input::-webkit-input-placeholder { /* Edge */
+.input::-webkit-input-placeholder {
+  /* Edge */
   color: rgb(180, 178, 178);
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
-.input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+.input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: rgb(180, 178, 178);
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
 .input::placeholder {
   color: rgb(180, 178, 178);
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
-.input:focus{
-outline: none;
+.input:focus {
+  outline: none;
 }
 .button {
- cursor: pointer;
+  cursor: pointer;
   color: #2457aa;
   font-size: 1.5rem;
 }
@@ -137,25 +133,25 @@ outline: none;
   margin-top: 0.7rem;
   margin-right: 1rem;
   font-size: 1rem;
-  color: gray!important;
+  color: gray !important;
 }
 .icon:hover {
-  color: red!important;
+  color: red !important;
 }
 .loading {
   color: black;
 }
 
-.heading, .subheading{
+.heading,
+.subheading {
   color: gray;
 }
-.sellerDetail{
+.sellerDetail {
   display: flex;
   gap: 1rem;
-
 }
 
-.topcontainer{
+.topcontainer {
   border-bottom: 1px solid #c6c6c6;
   padding-top: 1rem;
   padding-left: 1rem;
@@ -163,10 +159,8 @@ outline: none;
   /* margin-bottom: -2rem; */
   display: flex;
   justify-content: space-between;
-
-
 }
-.img{
+.img {
   width: 2rem;
   height: 3/4;
 }
