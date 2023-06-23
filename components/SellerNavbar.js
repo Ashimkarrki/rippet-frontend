@@ -7,12 +7,28 @@ import { IoMdClose, IoIosCreate } from "react-icons/io";
 import { BiBorderAll } from "react-icons/bi";
 import { BsQuestionSquareFill } from "react-icons/bs";
 import { MdReviews, MdMessage } from "react-icons/md";
-import { RiMessage2Line } from "react-icons/ri";
 import { useRouter } from "next/router";
+import axios from "axios";
+import useSWR from "swr";
 const SellerNavbar = () => {
+  const { isLoading, data, error } = useSWR(
+    "users/seller/unseen",
+    async (url) => {
+      const instance = axios.create({
+        withCredentials: true,
+        headers: { authorization: "Bearer" },
+      });
+      try {
+        const res = await instance.get(url);
+        console.log(res.data.message);
+        return res.data.message;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  );
   const [nav, setNav] = useState(false);
   const { pathname } = useRouter();
-  console.log(pathname.slice(17, pathname.length));
   return (
     <>
       <button
@@ -58,8 +74,13 @@ const SellerNavbar = () => {
                 : ""
             }
           >
-            <BiBorderAll className={styles.icons_nav} />
-            <span className={styles.heading}>Order</span>
+            <Link href={"/sellerDashboard/order"}>
+              <BiBorderAll className={styles.icons_nav} />
+              <span className={styles.heading}>Order</span>
+              {!isLoading && data && data.order !== 0 && (
+                <span className={styles.notification}>({data.order})</span>
+              )}
+            </Link>
           </li>
           <li
             className={
@@ -71,6 +92,10 @@ const SellerNavbar = () => {
             <Link href={"/sellerDashboard/reviews"}>
               <MdReviews className={styles.icons_nav} />
               <span className={styles.heading}>Reviews</span>
+              {console.log(!isLoading, "x", data)}
+              {!isLoading && data && data.review !== 0 && (
+                <span className={styles.notification}>({data.review})</span>
+              )}
             </Link>
           </li>
           <li
@@ -81,6 +106,9 @@ const SellerNavbar = () => {
             <Link href={"/sellerDashboard/qna"}>
               <BsQuestionSquareFill className={styles.icons_nav} />
               <span className={styles.heading}>QNA</span>
+              {!isLoading && data && data.ask !== 0 && (
+                <span className={styles.notification}>({data.ask})</span>
+              )}
             </Link>
           </li>
           <li

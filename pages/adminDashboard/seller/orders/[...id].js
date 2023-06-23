@@ -2,7 +2,8 @@ import React from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { useRouter } from "next/router";
-import tableStyle from "../../../../styles/Alluser.module.css";
+import tableStyle from "../../../../styles/substyle/Table.module.css";
+
 import styles from "../../../../styles/AdminSellerOrder.module.css";
 import Loading from "../../../../components/Loading";
 import PageNumber from "../../../../components/SubComponent/PageNumber";
@@ -86,7 +87,9 @@ const Orders = () => {
                   </td>
                   <td className={tableStyle.data}>{s.User}</td>
                   <td className={tableStyle.data}>{s.PhoneNumber}</td>
-                  <td className={tableStyle.data}>{s.CreatedAt}</td>
+                  <td className={tableStyle.data}>
+                    {new Date(s.CreatedAt).toDateString()}
+                  </td>
                   <td className={tableStyle.data}>{s.id}</td>
                 </tr>
               );

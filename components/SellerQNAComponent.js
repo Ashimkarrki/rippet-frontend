@@ -4,7 +4,11 @@ import styles from "../styles/SellerQNAComponent.module.css";
 import axios from "axios";
 import Button from "./SubComponent/Button";
 import Image from "next/image";
+import ProductDetailPopup from "./SubComponent/ProductDetailPopup";
+
 const SellerQNAComponent = ({ data, mutate }) => {
+  const [popUpProduct, setPopUpProduct] = useState("");
+
   const [replyLoading, setReplyLoading] = useState(false);
   const [reply, setReply] = useState(false);
   const [replyValue, setReplyValue] = useState();
@@ -31,12 +35,19 @@ const SellerQNAComponent = ({ data, mutate }) => {
     }
   };
   const editHandler = () => {
-    console.log("onedit");
     setReplyValue(data.Answer);
     setReply(true);
   };
+  console.log(data);
   return (
     <div className={styles.item}>
+      {popUpProduct && (
+        <ProductDetailPopup
+          id={popUpProduct}
+          setPopUpProduct={setPopUpProduct}
+        />
+      )}
+      {!data.seenbyseller && <span className={styles.new}>New</span>}
       <div className={styles.image_name_wrapper}>
         <div className={styles.image_wrapper}>
           <Image
@@ -44,6 +55,9 @@ const SellerQNAComponent = ({ data, mutate }) => {
             className={styles.img}
             src={data.product.MainImage}
             alt={data.product.Name}
+            onClick={() => {
+              setPopUpProduct(data.product._id);
+            }}
           />
         </div>
         <div className={styles.product_desc}>

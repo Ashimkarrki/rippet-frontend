@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import useSWR from "swr";
 import styles from "../../../styles/QNA.module.css";
-import { userContext } from "../../../context/userContext";
-import useFetchUser from "../../../features/fetchUser";
 import axios from "axios";
 import SellerQNAComponent from "../../../components/SellerQNAComponent";
 import IsAuth from "../../../utils/IsAuth";

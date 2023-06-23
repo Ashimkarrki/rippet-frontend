@@ -7,7 +7,7 @@ import Loading from "../../../components/Loading";
 import IsAuth from "../../../utils/IsAuth";
 import UserTable from "../../../components/Admin Components/UserTable";
 import SearchBar from "../../../components/Admin Components/SearchBar";
-import positionStyles from "../../../styles/substyle/AdminDashboardContainer.module.css";
+import positionStyles from "../../../styles/substyle/DashboardContainer.module.css";
 
 const User = () => {
   const instance = axios.create({

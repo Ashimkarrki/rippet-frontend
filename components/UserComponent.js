@@ -1,9 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import styles from "../styles/MyOrders.module.css";
-
+import axios from "axios";
 import Link from "next/link";
-const UserComponent = ({ data }) => {
+import toast from "react-hot-toast";
+const UserComponent = ({ data, mutate }) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -26,6 +27,28 @@ const UserComponent = ({ data }) => {
                 <div className={styles.order_info_item}>
                   <p className={styles.black}>Total Amount</p>
                   <p> Rs {s.Amount}</p>
+                </div>
+                <div>
+                  <button
+                    className={styles.cancel}
+                    onClick={async () => {
+                      const instance = axios.create({
+                        withCredentials: true,
+                        headers: { authorization: "Bearer" },
+                      });
+                      try {
+                        const res = await instance.delete("orders/" + s.id);
+                        mutate(res.data.remaingOrder);
+                      } catch (err) {
+                        // console.log();
+                        toast.error(err.response.data.message, {
+                          position: "bottom-left",
+                        });
+                      }
+                    }}
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
               <div className={styles.grid}>
@@ -64,7 +87,6 @@ const UserComponent = ({ data }) => {
                           href={"product/" + k.productId.id}
                           className={styles.grid_last}
                         >
-                          {console.log(k.productId.id)}
                           <p className={styles.blue}>View Product</p>
                         </Link>
                       </div>

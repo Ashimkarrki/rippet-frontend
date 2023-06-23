@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import styles from "../../../styles/Alluser.module.css";
 import useSWR from "swr";
 import Loading from "../../../components/Loading";
-import positionStyles from "../../../styles/substyle/AdminDashboardContainer.module.css";
+import positionStyles from "../../../styles/substyle/DashboardContainer.module.css";
 
 import axios from "axios";
 import { useRouter } from "next/router";

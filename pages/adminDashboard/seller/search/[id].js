@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import axios from "axios";
 import styles from "../../../../styles/Search.module.css";
-import positionStyles from "../../../../styles/substyle/AdminDashboardContainer.module.css";
+import positionStyles from "../../../../styles/substyle/DashboardContainer.module.css";
 import Loading from "../../../../components/Loading";
 import SellerTable from "../../../../components/Admin Components/SellerTable";
 import SearchBar from "../../../../components/Admin Components/SearchBar";

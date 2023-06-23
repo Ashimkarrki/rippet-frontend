@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
 import styles from "../styles/SellerReviewComponent.module.css";
-import { FaPencilAlt } from "react-icons/fa";
-import { userContext } from "../context/userContext";
 import { DotSpinner } from "@uiball/loaders";
 import Button from "./SubComponent/Button";
 import axios from "axios";
 import Star from "./Star";
 import Image from "next/image";
+import ProductDetailPopup from "./SubComponent/ProductDetailPopup";
 const SellerReviewComponent = ({ data, mutate }) => {
-  const { userInfo } = useContext(userContext);
+  const [popUpProduct, setPopUpProduct] = useState("");
+
   const [replyLoading, setReplyLoading] = useState(false);
   const [reply, setReply] = useState(false);
   const [replyValue, setReplyValue] = useState();
@@ -38,9 +38,16 @@ const SellerReviewComponent = ({ data, mutate }) => {
     setReplyValue(data.Answer);
     setReply(true);
   };
-  console.log(data.product);
+  console.log(data);
   return (
     <div className={styles.item}>
+      {popUpProduct && (
+        <ProductDetailPopup
+          id={popUpProduct}
+          setPopUpProduct={setPopUpProduct}
+        />
+      )}
+      {!data.seenbyseller && <span className={styles.new}>New</span>}
       <div className={styles.image_name_wrapper}>
         <div className={styles.image_wrapper}>
           <Image
@@ -48,6 +55,9 @@ const SellerReviewComponent = ({ data, mutate }) => {
             className={styles.img}
             src={data.product.MainImage}
             alt={data.product.name}
+            onClick={() => {
+              setPopUpProduct(data.product._id);
+            }}
           />
         </div>
         <div className={styles.product_desc}>

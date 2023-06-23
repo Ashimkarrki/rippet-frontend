@@ -2,8 +2,6 @@ import React from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
-import ReviewsAndQnaComponent from "../ReviewsAndQnaComponent";
-import Link from "next/link";
 import Loading from "../Loading";
 import styles from "../../styles/AdminReviewAndQnaComponent.module.css";
 import PageNumber from "../SubComponent/PageNumber";
@@ -57,6 +55,8 @@ const AdminReviewAndQnaComponent = ({ who, what }) => {
         content={what}
         data={data[what]}
         who={who}
+        user={data.user}
+        seller={data.seller}
         mutate={mutate}
         current={data.currentPage}
       />

@@ -2,11 +2,10 @@ import React from "react";
 import useSWR from "swr";
 import axios from "axios";
 import Loading from "../../../../components/Loading";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "../../../../styles/AdminUserOrder.module.css";
 
-import tableStyle from "../../../../styles/Alluser.module.css";
+import tableStyle from "../../../../styles/substyle/Table.module.css";
 
 import PageNumber from "../../../../components/SubComponent/PageNumber";
 const Orders = () => {
@@ -42,6 +41,7 @@ const Orders = () => {
         total={data.totalpages}
         url={"/adminDashboard/user/orders/" + router?.query?.id?.at(0) + "/"}
       />
+      <p>User : {data.user}</p>
       <div>
         {data.orders.map((s) => {
           console.log(s.id, "=> s");
@@ -58,6 +58,7 @@ const Orders = () => {
                 </h5>
                 <h5 className={styles.heading}>Ordere Id : {s.id}</h5>
               </div>
+
               <table className={tableStyle.table} border="1">
                 <thead className={tableStyle.head}>
                   <tr>

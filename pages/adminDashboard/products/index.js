@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
-import SellerProductCard from "../../components/SellerProductCard";
-import styles from "../../styles/AllProducts.module.css";
-import ProductDeletePopup from "../../components/ProductDeletePopup";
-import EditProductPopUp from "../../components/EditProductPopUp";
-import IsAuth from "../../utils/IsAuth";
-import Loading from "../../components/Loading";
-import ProductDetailPopup from "../../components/SubComponent/ProductDetailPopup";
+import SellerProductCard from "../../../components/SellerProductCard";
+import styles from "../../../styles/AllProducts.module.css";
+import ProductDeletePopup from "../../../components/ProductDeletePopup";
+import EditProductPopUp from "../../../components/EditProductPopUp";
+import IsAuth from "../../../utils/IsAuth";
+import Loading from "../../../components/Loading";
+import ProductDetailPopup from "../../../components/SubComponent/ProductDetailPopup";
 const AllProducts = () => {
   const [popUpProduct, setPopUpProduct] = useState("");
 

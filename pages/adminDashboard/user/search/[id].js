@@ -1,7 +1,7 @@
 import React from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import positionStyles from "../../../../styles/substyle/AdminDashboardContainer.module.css";
+import positionStyles from "../../../../styles/substyle/DashboardContainer.module.css";
 import axios from "axios";
 import Loading from "../../../../components/Loading";
 import UserTable from "../../../../components/Admin Components/UserTable";

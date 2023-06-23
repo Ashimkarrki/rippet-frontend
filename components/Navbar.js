@@ -20,6 +20,8 @@ import Collapsible from "./Collapsible";
 import { DotSpinner } from "@uiball/loaders";
 import WelcomeNav from "./WelcomeNav";
 const Navbar = () => {
+  const [isCatDropDown, setIsCatDropDown] = useState(false);
+
   const { mutate } = useSWRConfig();
   const [notifications, setNotifications] = useState([]);
   const [toggleNotification, setToggleNotification] = useState(false);
@@ -108,16 +110,9 @@ const Navbar = () => {
   const subDropDown = (children, title, categoriesName, position) => {
     if (children.length === 0) {
       return (
-        <DropdownMenu.Item className={styles.DropdownMenuItem}>
+        <DropdownMenu.Item asChild className={styles.DropdownMenuItem}>
           {categoriesName ? (
-            <Link
-              href={
-                // router.pathname.split("/")[1] === "categories"
-                //   ? categoriesName + "/no/no/1"
-                //   :
-                "/categories/" + categoriesName + "/no/no/1"
-              }
-            >
+            <Link href={"/categories/" + categoriesName + "/no/no/1"}>
               <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
             </Link>
           ) : (
@@ -130,20 +125,14 @@ const Navbar = () => {
         <DropdownMenu.Sub>
           <DropdownMenu.SubTrigger className={styles.DropdownMenuSubTrigger}>
             {categoriesName ? (
-              <Link
-                href={
-                  // router.pathname.split("/")[1] === "categories"
-                  //   ? categoriesName + "/no/no/1"
-                  //   :
-                  "/categories/" + categoriesName + "/no/no/1"
-                }
-              >
+              <Link href={"/categories/" + categoriesName + "/no/no/1"}>
                 <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
               </Link>
             ) : (
               <h6 className={styles.drop_down_user_info_heading}>{title}</h6>
             )}
           </DropdownMenu.SubTrigger>
+
           <DropdownMenu.Portal>
             <DropdownMenu.SubContent
               className={styles.drop_down}
@@ -263,7 +252,10 @@ const Navbar = () => {
       <div className={styles.lower_nav}>
         <div className={styles.first_element}>
           <div className={styles.drop_menu}>
-            <DropdownMenu.Root>
+            <DropdownMenu.Root
+            // open={isCatDropDown}
+            // onOpenChange={() => setIsCatDropDown(true)}
+            >
               <DropdownMenu.Trigger asChild>
                 <h3 className={styles.user_info_heading}>Categories</h3>
               </DropdownMenu.Trigger>

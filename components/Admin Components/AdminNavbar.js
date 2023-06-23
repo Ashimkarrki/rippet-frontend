@@ -4,9 +4,7 @@ import styles from "../../styles/SellerNavbar.module.css";
 import { BsFillHouseDashFill } from "react-icons/bs";
 import { IoIosCreate } from "react-icons/io";
 import { BiBorderAll } from "react-icons/bi";
-import { RiMenu2Fill } from "react-icons/ri";
-import { IoMdClose } from "react-icons/io";
-
+import { BiSearch } from "react-icons/bi";
 import { BsQuestionSquareFill } from "react-icons/bs";
 import { MdReviews, MdMessage } from "react-icons/md";
 import { useRouter } from "next/router";
@@ -82,8 +80,10 @@ const AdminNavbar = () => {
                 : ""
             }
           >
-            <BiBorderAll className={styles.icons_nav} />
-            <span className={styles.heading}>Order</span>
+            <Link href={"/adminDashboard/order"}>
+              <BiBorderAll className={styles.icons_nav} />
+              <span className={styles.heading}>Order</span>
+            </Link>
           </li>
           <li
             className={
@@ -117,6 +117,18 @@ const AdminNavbar = () => {
             <Link href={"/adminDashboard/message"}>
               <MdMessage className={styles.icons_nav} />
               <span className={styles.heading}>Message</span>
+            </Link>
+          </li>
+          <li
+            className={
+              pathname.slice(16, pathname.length) === "message"
+                ? styles.white
+                : ""
+            }
+          >
+            <Link href={"/adminDashboard/search"}>
+              <BiSearch className={styles.icons_nav} />
+              <span className={styles.heading}>Search Order</span>
             </Link>
           </li>
         </ul>

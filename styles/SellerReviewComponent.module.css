@@ -1,4 +1,5 @@
 .item {
+  position: relative;
   margin-bottom: 1rem;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -117,7 +118,15 @@
 .image_name_wrapper {
   width: 6rem;
 }
-
+.new {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  padding: 1px 2px;
+  z-index: 3;
+  background-color: red;
+}
 @media screen and (max-width: 660px) {
   .item {
     margin-left: 0;

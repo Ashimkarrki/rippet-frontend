@@ -11,10 +11,10 @@ const AdminSpecificReviewAndQnaComponent = ({
   who,
   current,
   mutate,
+  user,
+  seller,
 }) => {
-  // console.log(data);
   const [deleteId, setDeleteId] = useState("");
-
   const deletePosts = async ({ reviewId, productId, sellerId, userId }) => {
     setDeleteId(reviewId);
     const instance = axios.create({
@@ -24,7 +24,6 @@ const AdminSpecificReviewAndQnaComponent = ({
     try {
       let res;
       if (content === "reviews") {
-        // console.log(data[0]);
         res = await instance.delete(
           "/admin/" +
             (who === "users" ? "user" : "seller") +
@@ -63,8 +62,12 @@ const AdminSpecificReviewAndQnaComponent = ({
       console.log(err);
     }
   };
+  console.log(data);
   return (
     <div className={styles.container}>
+      <p>
+        {who} : {user || seller}
+      </p>
       <div className={styles.box}>
         <div className={styles.bg_color}>
           {data?.map((s) => {

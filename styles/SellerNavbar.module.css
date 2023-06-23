@@ -43,22 +43,13 @@
   font-size: 1rem;
   margin-right: 0.8rem;
 }
+.notification {
+  /* position: absolute; */
+  /* font-size: 0.7rem; */
+  margin-left: 10px;
+  color: #f87171;
+}
 @media (max-width: 520px) {
-  /* .menu {
-    z-index: 2;
-    display: block;
-    position: fixed;
-    left: 1rem;
-    top: 1rem;
-  }
-  .close {
-    left: 8rem;
-    top: 1.3rem;
-    z-index: 3;
-  }
-  .onOff {
-    display: none;
-  } */
   .navbar {
     bottom: 0;
     top: auto;

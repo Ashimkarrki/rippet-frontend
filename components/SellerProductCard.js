@@ -2,11 +2,13 @@ import React from "react";
 import styles from "../styles/SellerProductCard.module.css";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import Image from "next/image";
+// import ProductDetailPopup from "./SubComponent/ProductDetailPopup";
 const SellerProductCard = ({
   data,
   deleteItem,
   setDeleteItem,
   setEditItem,
+  setPopUpProduct,
 }) => {
   return (
     <div className={styles.card}>
@@ -17,6 +19,9 @@ const SellerProductCard = ({
             alt={data.Name}
             fill
             className={styles.img}
+            onClick={() => {
+              setPopUpProduct(data.id);
+            }}
           />
         </div>
         <h5 className={styles.title}>{data.Name}</h5>

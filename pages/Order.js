@@ -100,7 +100,7 @@ const Order = () => {
             <input
               className={styles.input}
               type="number"
-              name="PhoneNumber..."
+              name="PhoneNumber"
               placeholder="Enter PhoneNumber"
               value={data.PhoneNumber}
               required
