@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import NextButton from "./NextButton";
 import Link from "next/link";
-const CarouselComponent = ({ list, title }) => {
+const CarouselComponent = ({ list, title, more }) => {
   const settings = {
     dots: false,
     infinite: false,
@@ -73,17 +73,7 @@ const CarouselComponent = ({ list, title }) => {
         <h3 className={styles.title}>{title}</h3>
         <div className={styles.button_wrapper}>
           <button className={styles.view_more}>
-            <Link
-              href={
-                title === "Latest Products"
-                  ? "/latest/1"
-                  : title === "Popular Products"
-                  ? "/popular/1"
-                  : ""
-              }
-            >
-              View More
-            </Link>
+            <Link href={more}>View More</Link>
           </button>
         </div>
       </div>

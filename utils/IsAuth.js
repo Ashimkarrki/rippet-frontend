@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { userContext } from "../context/userContext";
-import BarLoader from "react-spinners/BarLoader";
 import axios from "axios";
 import Loading from "../components/Loading";
 function X(props, Children) {
@@ -30,6 +29,7 @@ function X(props, Children) {
     "/product/[id]",
     "/popular/[...id]",
     "/latest/[...id]",
+    "/rated/[...id]",
   ];
   const userSpecificRoute = [
     "/Cart",
@@ -47,7 +47,7 @@ function X(props, Children) {
       });
       try {
         const res = await instance.get("users/isme");
-
+        console.log("req");
         if (res?.data?.Role === "user") {
           setIsloading(false);
           setIsUserAuthorised(true);
@@ -70,23 +70,19 @@ function X(props, Children) {
         dataFetched(true);
       }
     };
-    if (!isDataFetched) {
+    console.log("dataFetched", isDataFetched);
+    console.log("path", router.pathname);
+    if (!isDataFetched && router.pathname !== "/verify-email/[...id]") {
       fetchIsMe();
     }
   }, []);
   // for home page /search /product dont show loading
-  console.log(
-    isSellerAuthorised &&
-      (router.pathname === "/seller/login" ||
-        router.pathname === "/seller/signup")
-  );
   if (freeRoute.includes(router.pathname)) {
-    console.log("1");
     return <Children {...props} />;
   }
 
   // show loading screen
-  else if (isLoading) {
+  else if (isLoading && router.pathname !== "/verify-email/[...id]") {
     return <Loading />;
   }
   // if not authorised then no problem with login sign page
@@ -94,8 +90,6 @@ function X(props, Children) {
     !isUserAuthorised &&
     (router.pathname === "/login" || router.pathname === "/signup")
   ) {
-    console.log("2");
-
     return <Children {...props} />; //kkk
   }
   // if not authorised the redirect to /login
@@ -113,8 +107,6 @@ function X(props, Children) {
   }
   // if authorised then give all other pages
   else if (isUserAuthorised && userSpecificRoute.includes(router.pathname)) {
-    console.log("3");
-
     return <Children {...props} />;
   }
   // is seller but requesting user route
@@ -127,8 +119,6 @@ function X(props, Children) {
     !isSellerAuthorised &&
     router.pathname.split("/")[1] === "sellerDashboard"
   ) {
-    console.log("4");
-
     router.replace("/seller/login");
     return <Loading />;
   }
@@ -137,8 +127,6 @@ function X(props, Children) {
     isSellerAuthorised &&
     router.pathname.split("/")[1] === "sellerDashboard"
   ) {
-    console.log("5");
-
     return <Children {...props} />;
   }
   // is authorised but want to go seller login or sign up

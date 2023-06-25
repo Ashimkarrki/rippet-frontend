@@ -15,13 +15,12 @@ import "react-dropdown/style.css";
 import styles from "../styles/Navbar.module.css";
 import rippet_logo from "../public/rippet_logo.png";
 import NotificationDropDown from "./NotificationDropDown";
-import UserInfoDropDown from "./UserInfoDropDown";
 import Collapsible from "./Collapsible";
 import { DotSpinner } from "@uiball/loaders";
 import WelcomeNav from "./WelcomeNav";
 const Navbar = () => {
-  const [isCatDropDown, setIsCatDropDown] = useState(false);
-
+  // const [isCatDropDown, setIsCatDropDown] = useState(false);
+  const [isMenuOn, setIsMenuOn] = useState(false);
   const { mutate } = useSWRConfig();
   const [notifications, setNotifications] = useState([]);
   const [toggleNotification, setToggleNotification] = useState(false);
@@ -32,7 +31,6 @@ const Navbar = () => {
   // const [data, setData] = useState();
 
   // const [category, setCategory] = useState([]);
-  const [isMenuOn, setIsMenuOn] = useState(false);
   const {
     isLoading: isLoad,
     data: category,
@@ -252,10 +250,7 @@ const Navbar = () => {
       <div className={styles.lower_nav}>
         <div className={styles.first_element}>
           <div className={styles.drop_menu}>
-            <DropdownMenu.Root
-            // open={isCatDropDown}
-            // onOpenChange={() => setIsCatDropDown(true)}
-            >
+            <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <h3 className={styles.user_info_heading}>Categories</h3>
               </DropdownMenu.Trigger>
@@ -265,20 +260,13 @@ const Navbar = () => {
                   align="center"
                   sideOffset={8}
                 >
-                  {console.log(category)}
-                  {console.log("hello")}
-                  {console.log(
-                    !isLoading && category && category?.length !== 0
-                      ? "true"
-                      : "false"
-                  )}
                   {isLoad ? (
                     <div className={styles.spinner}>
                       <DotSpinner color="blue" size={25} />
                     </div>
                   ) : !isLoading && category && category?.length !== 0 ? (
                     category?.map((s, index) => {
-                      console.log("entered");
+                      // console.log("entered");
                       return (
                         <div className={styles.grey} key={s._id}>
                           {subDropDown(
@@ -348,9 +336,9 @@ const Navbar = () => {
                 Category
               </h3>
               <Collapsible
+                setIsMenuOn={setIsMenuOn}
                 child={category}
                 clicked={isCatDrop}
-                setIsMenuOn={setIsMenuOn}
               />
             </div>
           </div>

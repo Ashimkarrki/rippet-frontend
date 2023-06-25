@@ -19,15 +19,6 @@ const NotificationDropDown = ({
     document.addEventListener("mousedown", handleClick);
     return document.addEventListener("mousedown", handleClick);
   }, [setToggleNotification]);
-  const logout = async () => {
-    try {
-      const res = await instance.get("users/logout");
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-    console.log(data);
-  };
   if (notificationLoading) {
     return (
       <div ref={ref} className={`${styles.drop_down} ${styles.width_change}`}>
@@ -80,18 +71,6 @@ const NotificationDropDown = ({
           </Link>
         );
       })}
-      {/* <Link href={"/myorders"}>
-        <h6 className={styles.drop_down_user_info_heading}></h6>
-      </Link>
-      <Link href={"/myquestions"}>
-        <h6 className={styles.drop_down_user_info_heading}>My Questions</h6>
-      </Link>
-      <Link href={"/myreviews"}>
-        <h6 className={styles.drop_down_user_info_heading}>My Reviews</h6>
-      </Link>
-      <h6 className={styles.drop_down_user_info_heading} onClick={logout}>
-        Log Out
-      </h6> */}
     </div>
   );
 };

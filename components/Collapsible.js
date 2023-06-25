@@ -14,16 +14,14 @@ const Collapsible = ({ child, clicked, setIsMenuOn }) => {
   if (child.length === 0) {
     return;
   }
+
   return (
     <ul className={!clicked ? styles.no_show : styles.show}>
       {child?.map((s) => {
         return (
           <li key={s._id} className={styles.li}>
             {s?.categoriesName ? (
-              <Link
-                href={"/categories/" + s.categoriesName + "/no/no/1"}
-                // onClick={() => setIsMenuOn(false)}
-              >
+              <Link href={"/categories/" + s.categoriesName + "/no/no/1"}>
                 <p
                   className={styles.heading}
                   onClick={() => {
@@ -38,6 +36,7 @@ const Collapsible = ({ child, clicked, setIsMenuOn }) => {
                         };
                       });
                     });
+                    setIsMenuOn(false);
                   }}
                 >
                   {parentClicked.find((k) => k.id === s._id).state &&
@@ -77,6 +76,7 @@ const Collapsible = ({ child, clicked, setIsMenuOn }) => {
             )}
             <Collapsible
               child={s.children}
+              setIsMenuOn={setIsMenuOn}
               title={s.title}
               clicked={parentClicked.find((k) => k.id === s._id).state}
             />

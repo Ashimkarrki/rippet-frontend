@@ -1,21 +1,15 @@
 .search {
   width: 100%;
   margin: 0 auto;
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  column-gap: 0.5rem;
-  row-gap: 2rem; */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   justify-items: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 .wrapper {
   width: 100%;
-  /* width: 20%;
-  max-width: 13rem; */
-  /* width: clamp(9rem, 33%, 13rem); */
 }
 
 .button_grp {
