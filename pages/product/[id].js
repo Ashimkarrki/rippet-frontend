@@ -9,7 +9,7 @@ import { userContext } from "../../context/userContext";
 import { DotSpinner } from "@uiball/loaders";
 import axios from "axios";
 import IsAuth from "../../utils/IsAuth";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 const Product = ({ data }) => {
