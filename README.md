@@ -1,2 +1,2 @@
 # Rippet-Frontend
-https://rappitnepal.netlify.app/
+https://rappit-store.netlify.app
