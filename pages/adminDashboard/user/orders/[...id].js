@@ -24,11 +24,8 @@ const Orders = () => {
     async (url) => {
       try {
         const res = await instance.get(url);
-        console.log(res.data);
         return res.data;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   );
   if (isLoading || !data) {
@@ -44,7 +41,6 @@ const Orders = () => {
       <p>User : {data.user}</p>
       <div>
         {data.orders.map((s) => {
-          console.log(s.id, "=> s");
           return (
             <div key={s.id} className={styles.oneOrder}>
               <div className={styles.intro}>
@@ -72,8 +68,6 @@ const Orders = () => {
                 </thead>
                 <tbody className={tableStyle.body}>
                   {s?.OrderedItems?.map((k) => {
-                    console.log(k.id, "=> k");
-
                     return (
                       <tr key={k._id}>
                         <td className={tableStyle.data}>{k.productId.Name}</td>

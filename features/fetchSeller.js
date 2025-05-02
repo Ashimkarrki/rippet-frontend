@@ -14,9 +14,7 @@ const useFetchSeller = () => {
         });
         const res = await instance.get(url);
         addSeller(res.data.user);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   });
 };

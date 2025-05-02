@@ -21,16 +21,11 @@ const User = () => {
     router?.query?.id ? "admin/sellers/" + router.query.id : null,
     async (url) => {
       try {
-        console.log("ran");
-        console.log(data, "->pailako");
         const res = await instance.get(url);
         return res.data;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   );
-  console.log(data);
   if (isLoading || !data) {
     return <Loading />;
   }

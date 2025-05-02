@@ -17,6 +17,8 @@ const Banner = ({ banner }) => {
     arrows: false,
     rows: 1,
   };
+  console.log(banner.MainImages);
+
   return (
     <div className={styles.banner}>
       <div className={styles.mainImage}>

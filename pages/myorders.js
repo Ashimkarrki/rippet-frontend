@@ -12,10 +12,8 @@ const MyOrders = () => {
     });
     try {
       const res = await instance.get(url);
-      console.log(res.data.data.AllOrder);
       return res.data.data.AllOrder;
     } catch (err) {
-      console.log(err);
       return err;
     }
   });

@@ -40,7 +40,6 @@ const UserComponent = ({ data, mutate }) => {
                         const res = await instance.delete("orders/" + s.id);
                         mutate(res.data.remaingOrder);
                       } catch (err) {
-                        // console.log();
                         toast.error(err.response.data.message, {
                           position: "bottom-left",
                         });

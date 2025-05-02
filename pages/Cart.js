@@ -18,7 +18,6 @@ const Cart = () => {
     headers: { authorization: "Bearer" },
   });
   const { isDataFetched, addToCart, cartInfo } = useContext(userContext);
-  console.log("elo");
   const total = () => {
     let sum = 0;
     let array = cartInfo.items.map((s) => {

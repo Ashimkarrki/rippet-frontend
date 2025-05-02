@@ -1,3 +1,4 @@
+import fetching from "../../utils/fetchinstance";
 import React, { useState, useMemo } from "react";
 import styles from "../../styles/Product.module.css";
 import QuestionAnswer from "../../components/QuestionAnswer";
@@ -13,7 +14,6 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 const Product = ({ data }) => {
-  console.log("[id]", data);
   const router = useRouter();
   const [isCartLoading, setIsCartLoading] = useState(false);
   const instance = axios.create({
@@ -27,7 +27,6 @@ const Product = ({ data }) => {
   const [reviewsInfo, setReviewsInfo] = useState({});
   const { addToCart, cartInfo, userInfo } = useContext(userContext);
   const [dataInfo, setDataInfo] = useState(data.data.product);
-  console.log(dataInfo);
   const [cartId, setCartId] = useState();
   const ispresent = useMemo(() => {
     let x = false;
@@ -165,9 +164,7 @@ const Product = ({ data }) => {
                         });
                         addToCart(res.data.data);
                         setIsCartLoading(false);
-                      } catch (error) {
-                        console.log(error.message);
-                      }
+                      } catch (error) {}
                     }}
                     className={`${styles.buttons} ${styles.add_to_cart}`}
                   >
@@ -201,9 +198,7 @@ const Product = ({ data }) => {
                       addToCart(res.data.data);
                       setIsCartLoading(false);
                       setNoOfItem(1);
-                    } catch (error) {
-                      console.log(error.message);
-                    }
+                    } catch (error) {}
                   }}
                 >
                   <h4> ADDED TO CART</h4>
@@ -276,10 +271,10 @@ const Product = ({ data }) => {
   );
 };
 export async function getServerSideProps(context) {
-  const res = await fetch(
-    "https://rappitnepal.cyclic.app/api/v1/products/" + context.params.id
-  );
+  const res = await fetching(`products/${context.params.id}`);
   const data = await res.json();
+  console.log(data);
+
   return {
     props: { data },
   };

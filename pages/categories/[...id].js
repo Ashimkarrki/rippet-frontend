@@ -4,6 +4,7 @@ import ProductsCard from "../../components/ProductCard";
 import styles from "../../styles/CategoriesProduct.module.css";
 import { BiChevronsUp, BiChevronsDown } from "react-icons/bi";
 import Link from "next/link";
+import fetching from "../../utils/fetchinstance";
 import Pagination from "../../components/Pagination";
 import IsAuth from "../../utils/IsAuth";
 const CategoriesProducts = ({ data }) => {
@@ -16,7 +17,6 @@ const CategoriesProducts = ({ data }) => {
     }
     return array;
   };
-  console.log(data);
   return (
     <div className={styles.categoriesProducts_wrapper}>
       <Pagination data={data} from={"category"} />
@@ -25,8 +25,8 @@ const CategoriesProducts = ({ data }) => {
 };
 
 export async function getServerSideProps(context) {
-  const res = await fetch(
-    "https://rappitnepal.cyclic.app/api/v1/products/search/categories/" +
+  const res = await fetching(
+    `products/search/categories/${
       context.params.id[0] +
       "/" +
       context.params.id[1] +
@@ -34,6 +34,7 @@ export async function getServerSideProps(context) {
       context.params.id[2] +
       "/" +
       context.params.id[3]
+    }`
   );
   const data = await res.json();
   if (!data.totalPages) {

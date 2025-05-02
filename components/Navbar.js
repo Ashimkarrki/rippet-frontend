@@ -51,7 +51,6 @@ const Navbar = () => {
         );
         return res.data;
       } catch (err) {
-        console.log(err);
         return err;
       }
     },
@@ -90,9 +89,7 @@ const Navbar = () => {
       setNotifications(res.data.notification);
       setNotificationLoading(false);
       mutate("/notifications/seen");
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   const [searchValue, setSearchValue] = useState(
     router.asPath.split("/")[1] === "search"
@@ -266,7 +263,6 @@ const Navbar = () => {
                     </div>
                   ) : !isLoading && category && category?.length !== 0 ? (
                     category?.map((s, index) => {
-                      // console.log("entered");
                       return (
                         <div className={styles.grey} key={s._id}>
                           {subDropDown(

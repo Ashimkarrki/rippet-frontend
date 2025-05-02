@@ -20,10 +20,7 @@ const UserInfoDropDown = ({ setIsUserInfoToggle }) => {
   const logout = async () => {
     try {
       const res = await instance.get("users/logout");
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   return (
     <div ref={ref} className={styles.drop_down}>

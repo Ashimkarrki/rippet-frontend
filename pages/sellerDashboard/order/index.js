@@ -35,12 +35,9 @@ const Orders = () => {
       );
       setChanging("");
       mutate(res.data.data.updateOrder);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   const { sellerInfo } = useContext(userContext);
-  console.log(sellerInfo.id);
   const { data, isLoading, mutate } = useSWR(
     "/orders/seller/Sellerorder/",
     async (url) => {
@@ -50,11 +47,8 @@ const Orders = () => {
       });
       try {
         const res = await instance.get(url);
-        console.log(filterOut(res.data.order));
         return filterOut(res.data.order);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   );
   if (isLoading) {

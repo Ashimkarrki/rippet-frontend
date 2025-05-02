@@ -18,7 +18,6 @@ const Order = () => {
     State: "",
     Zip: "",
   });
-  console.log(cartInfo);
   const submitHandeler = async (e) => {
     e.preventDefault();
     const instance = axios.create({
@@ -48,9 +47,7 @@ const Order = () => {
         }),
       });
       router.replace("/");
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   const total = () => {
     let sum = 0;

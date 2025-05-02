@@ -16,7 +16,6 @@ const SellerReviewComponent = ({ data, mutate }) => {
     e.preventDefault();
     setReplyLoading(true);
     setReply(false);
-    console.log(replyValue);
     const instance = axios.create({
       withCredentials: true,
       headers: { authorization: "Bearer" },
@@ -30,15 +29,12 @@ const SellerReviewComponent = ({ data, mutate }) => {
       );
       mutate(res.data.data.remainingReview);
       setReplyLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   const editHandler = () => {
     setReplyValue(data.Answer);
     setReply(true);
   };
-  console.log(data);
   return (
     <div className={styles.item}>
       {popUpProduct && (

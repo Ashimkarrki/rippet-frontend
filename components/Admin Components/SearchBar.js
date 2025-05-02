@@ -19,7 +19,6 @@ const SearchBar = ({ who, term }) => {
         required
         value={value}
         onChange={(e) => {
-          console.log(e.target.value);
           setValue(e.target.value);
         }}
       />

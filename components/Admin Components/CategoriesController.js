@@ -18,12 +18,9 @@ const CategoriesController = () => {
     async (url) => {
       try {
         const res = await axios.get(url);
-        console.log(res.data);
         setChild(res.data);
         return res.data;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     },
     {
       revalidateIfStale: false,
@@ -44,11 +41,8 @@ const CategoriesController = () => {
       [e.target.name]: e.target.value,
     });
   };
-  // console.log(formData);
   const submitHandeler = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    console.log(track[track.length - 1]);
     let postData = {
       title: formData.name,
       parent: track?.at(track?.length - 1)?.id,
@@ -72,10 +66,7 @@ const CategoriesController = () => {
       setIsNewCat(false);
       setTrack([]);
       setSelectValue("select");
-    } catch (err) {
-      console.log(err);
-    }
-    console.log(postData);
+    } catch (err) {}
   };
 
   const clickhandeler = (e, index) => {
@@ -111,14 +102,11 @@ const CategoriesController = () => {
         const res = await instance.delete(
           "/categories/" + track[track.length - 1].id
         );
-        console.log(res.data);
         mutate(res.data.remainingCategories);
         setTrack([]);
         setChild(res.data.remainingCategories);
         setSelectValue("select");
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
       return;
     }
     if (val) {

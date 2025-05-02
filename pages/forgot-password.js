@@ -19,13 +19,10 @@ const Forgot_password = () => {
       instance
         .post(`users/forgotpassword/user`, Email)
         .then((data) => {
-          console.log(data);
           setEmailsent(true);
         })
         .catch((err) => {});
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (

@@ -7,7 +7,6 @@ import axios from "axios";
 const ProductDeletePopup = ({ deleteItem, setDeleteItem, setProducts }) => {
   const [isLoading, setIsLoading] = useState(false);
   const deleteProduct = async () => {
-    console.log("delete");
     setIsLoading(true);
     const instance = axios.create({
       withCredentials: true,
@@ -22,11 +21,8 @@ const ProductDeletePopup = ({ deleteItem, setDeleteItem, setProducts }) => {
       mutate("products/seller/allproducts");
       setDeleteItem("");
       setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
-  console.log(deleteItem);
   return (
     <div className={styles.pop_up} onClick={() => setDeleteItem()}>
       <div className={styles.pop_up_child} onClick={(e) => e.stopPropagation()}>

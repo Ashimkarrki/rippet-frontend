@@ -82,11 +82,8 @@ const Review = ({
     });
     try {
       const res = await instance.get(url);
-      console.log(res.data, "helloooooo");
       return res.data.message;
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   });
 
   return (
@@ -177,7 +174,6 @@ const Review = ({
         <div></div>
       </div>
       <div className={styles.allreviewcontainer}>
-        {console.log(reviews)}
         {reviews ? (
           <>
             {reviews?.data.map(({ _id, review, rating, user }) => {
@@ -192,7 +188,6 @@ const Review = ({
                   <h5 className={styles.name}>{user?.Username}</h5>
                   <Star num={rating} />
                   <p>{review}</p>
-                  {console.log("is", isDeleteLoading)}
                   {user?.id === userInfo.id &&
                     (isDeleteLoading ? (
                       <button className={styles.review_button_delete}>
@@ -224,9 +219,7 @@ const Review = ({
                             });
                             setIsDeleteLoading(false);
                             setDeletedId("");
-                          } catch (err) {
-                            console.log(err);
-                          }
+                          } catch (err) {}
                         }}
                       >
                         Delete

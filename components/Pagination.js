@@ -5,7 +5,6 @@ import Link from "next/link";
 import styles from "../styles/Pagination.module.css";
 const Pagination = ({ data, from }) => {
   const [filter, setFilter] = useState("");
-  console.log(data);
   const router = useRouter();
   const repeat = (time) => {
     let array = [];
@@ -83,7 +82,6 @@ const Pagination = ({ data, from }) => {
           </select>
         </div>
       )}
-      {console.log(data.totalpages, "jhag")}
       {data.totalPages !== 1 && data.totalpages !== 1 && (
         <div className={styles.button_grp}>
           {repeat(data.totalpages || data.totalPages).map((s, index) => {

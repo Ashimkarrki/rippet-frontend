@@ -37,15 +37,12 @@ const Orders = () => {
           total: res.data.totalpages,
         };
         return obj;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   );
   if (isLoading || !data) {
     return <Loading />;
   }
-  console.log(data, "=>made");
   return (
     <div className={styles.container}>
       <PageNumber

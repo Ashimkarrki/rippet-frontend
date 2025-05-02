@@ -17,11 +17,8 @@ const User = () => {
   const { data, error, isLoading } = useSWR(`users`, async (url) => {
     try {
       const res = await instance.get(url);
-      console.log(res);
       return res.data.data.users;
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   });
   if (isLoading) {
     return <Loading />;

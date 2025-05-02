@@ -47,7 +47,6 @@ function X(props, Children) {
       });
       try {
         const res = await instance.get("users/isme");
-        console.log("req");
         if (res?.data?.Role === "user") {
           setIsloading(false);
           setIsUserAuthorised(true);
@@ -70,8 +69,7 @@ function X(props, Children) {
         dataFetched(true);
       }
     };
-    console.log("dataFetched", isDataFetched);
-    console.log("path", router.pathname);
+
     if (!isDataFetched && router.pathname !== "/verify-email/[...id]") {
       fetchIsMe();
     }
@@ -135,7 +133,6 @@ function X(props, Children) {
     (router.pathname === "/seller/login" ||
       router.pathname === "/seller/signup")
   ) {
-    console.log("enteres");
     router.replace("/sellerDashboard");
     return <Loading />;
   }

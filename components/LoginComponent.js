@@ -27,7 +27,6 @@ const LoginComponent = ({ role }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!isLoading) {
-      console.log("submit");
       setIsLoading(true);
       const instance = axios.create({
         withCredentials: true,
@@ -56,9 +55,6 @@ const LoginComponent = ({ role }) => {
             return "Welcome Back " + data.data.Login.Username;
           },
           error: (err) => {
-            console.log(err);
-            console.log(err?.response?.data?.message);
-
             setIsLoading(false);
             return err?.response?.data?.message || "Internal Error Occured";
           },

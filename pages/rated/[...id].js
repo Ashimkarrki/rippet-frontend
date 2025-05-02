@@ -10,10 +10,8 @@ const Rated = ({ data }) => {
   );
 };
 export const getServerSideProps = async (context) => {
-  console.log(context.params.id);
-  const res = await fetch(
-    "https://rappitnepal.cyclic.app/api/v1/products/rated/product/all/" +
-      context.params.id[0] || 1
+  const res = await fetching(
+    `products/rated/product/all/${context.params.id[0] || 1}`
   );
   const data = await res.json();
   if (!data.totalPages) {

@@ -56,13 +56,9 @@ const AdminSpecificReviewAndQnaComponent = ({
             current
         );
       }
-      console.log(res.data, "=> delete");
       mutate(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
-  console.log(data);
   return (
     <div className={styles.container}>
       <p>

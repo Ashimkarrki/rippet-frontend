@@ -6,7 +6,6 @@ const EditProductPopUp = ({ product, setEditItem }) => {
     withCredentials: true,
     headers: { authorization: "Bearer" },
   });
-  console.log(product);
   const [data, setData] = useState({
     Name: product.Name,
     Price: product.Price,
@@ -24,7 +23,6 @@ const EditProductPopUp = ({ product, setEditItem }) => {
   });
 
   const onChangeState = (e) => {
-    console.log(data.MainImage);
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -51,21 +49,15 @@ const EditProductPopUp = ({ product, setEditItem }) => {
         onSubmit={(e) => {
           e.preventDefault();
           let formData = new FormData();
-          console.log(files);
           formData.set("MainImage", files.MainImage);
           formData.set("Images", [files.Image1, files.Image2, files.Image3]);
           Object.keys(data).map((s) => {
             formData.set(s, data[s]);
           });
-          console.log(formData);
           instance
             .post("/products", formData)
-            .then((result) => {
-              console.log(result);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+            .then((result) => {})
+            .catch((err) => {});
 
           setData((prev) => {
             return {
@@ -158,63 +150,63 @@ const EditProductPopUp = ({ product, setEditItem }) => {
           </div>
         </div>
         <div className={styles.half}>
-        <div>
-          <h4 className={styles.heading}>Main Image</h4>
-          <input
-            // value={files.MainImage}
-            // className={styles.input}
-          
-            type="file"
-            name="MainImage"
-            required
-            accept="image/png, image/jpeg"
-            onChange={onFileChange}
-            className={styles.filebutton}
-          />
-        </div>
-        </div>
-        <div className={styles.half}>
-        <div>
-          <h4 className={styles.heading}>SideImage1</h4>
-          <input
-            // value={files.Image1}
-            // className={styles.input}
-            type="file"
-            name="Image1"
-            required
-            accept="image/png, image/jpeg"
-            onChange={onFileChange}
-            className={styles.filebutton}
-          />
-        </div>
-        <div>
-          <h4 className={styles.heading}>SideImage2</h4>
-          <input
-            // className={styles.input}
-            // value={files.Image2}
-            type="file"
-            name="Image2"
-            required
-            accept="image/png, image/jpeg"
-            onChange={onFileChange}
-            className={styles.filebutton}
-          />
-        </div>
+          <div>
+            <h4 className={styles.heading}>Main Image</h4>
+            <input
+              // value={files.MainImage}
+              // className={styles.input}
+
+              type="file"
+              name="MainImage"
+              required
+              accept="image/png, image/jpeg"
+              onChange={onFileChange}
+              className={styles.filebutton}
+            />
+          </div>
         </div>
         <div className={styles.half}>
-        <div>
-          <h4 className={styles.heading}>SideImage3</h4>
-          <input
-            // value={files.Image3}
-            // className={styles.input}
-            type="file"
-            name="Image3"
-            required
-            accept="image/png, image/jpeg"
-            onChange={onFileChange}
-            className={styles.filebutton}
-          />
+          <div>
+            <h4 className={styles.heading}>SideImage1</h4>
+            <input
+              // value={files.Image1}
+              // className={styles.input}
+              type="file"
+              name="Image1"
+              required
+              accept="image/png, image/jpeg"
+              onChange={onFileChange}
+              className={styles.filebutton}
+            />
+          </div>
+          <div>
+            <h4 className={styles.heading}>SideImage2</h4>
+            <input
+              // className={styles.input}
+              // value={files.Image2}
+              type="file"
+              name="Image2"
+              required
+              accept="image/png, image/jpeg"
+              onChange={onFileChange}
+              className={styles.filebutton}
+            />
+          </div>
         </div>
+        <div className={styles.half}>
+          <div>
+            <h4 className={styles.heading}>SideImage3</h4>
+            <input
+              // value={files.Image3}
+              // className={styles.input}
+              type="file"
+              name="Image3"
+              required
+              accept="image/png, image/jpeg"
+              onChange={onFileChange}
+              className={styles.filebutton}
+            />
+          </div>
         </div>
         <div>
           <h4 className={styles.heading}>Description</h4>
@@ -227,9 +219,9 @@ const EditProductPopUp = ({ product, setEditItem }) => {
           />
         </div>
         <div className={styles.buttonwrapper}>
-        <button type="submit" className={styles.submit}>
-          Submit
-        </button>
+          <button type="submit" className={styles.submit}>
+            Submit
+          </button>
         </div>
       </form>
     </div>

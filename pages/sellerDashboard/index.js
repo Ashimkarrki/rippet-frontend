@@ -23,12 +23,9 @@ const AllProducts = () => {
     async (url) => {
       try {
         const res = await instance.get(url);
-        console.log("fetching");
         setProducts(res.data.data);
         return res.data.data;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   );
   if (isLoading) {

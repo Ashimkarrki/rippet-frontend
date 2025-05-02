@@ -8,7 +8,6 @@ import UserTable from "../../../../components/Admin Components/UserTable";
 import SearchBar from "../../../../components/Admin Components/SearchBar";
 const Search = () => {
   const router = useRouter();
-  console.log(router?.query?.id);
   const instance = axios.create({
     withCredentials: true,
     headers: { authorization: "Bearer" },
@@ -18,11 +17,8 @@ const Search = () => {
     async (url) => {
       try {
         const res = await instance.get(url);
-        console.log(res.data);
         return res.data;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   );
   if (!data || isLoading) {

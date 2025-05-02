@@ -7,33 +7,24 @@ import IsAuth from "../../../utils/IsAuth";
 const Message = () => {
   const [allchat, setallchat] = useState([]);
   const [currentchat, setcurrentchat] = useState(allchat[0]);
-  // const URL = "https://adorable-leather-jacket-foal.cyclic.app/";
 
-  const { data, error, isLoading } = useSWR(
-    `chats`,
-    async (url) => {
-      const instance = axios.create({
-        withCredentials: true,
-        headers: { authorization: "Bearer" },
+  const { data, error, isLoading } = useSWR(`chats`, async (url) => {
+    const instance = axios.create({
+      withCredentials: true,
+      headers: { authorization: "Bearer" },
+    });
+    try {
+      const res = await instance.get(`chats`);
+      let AllChat = res.data.message;
+      setallchat((prev) => {
+        return [...AllChat];
       });
-      try {
-        const res = await instance.get(`chats`);
-        console.log("Hello Before");
-        console.log(res.data.message);
-        let AllChat = res.data.message;
-        setallchat((prev) => {
-          return [...AllChat];
-        });
-        console.log("Hello After");
-      } catch (err) {
-        console.log(err);
-        return err;
-      }
+    } catch (err) {
+      return err;
     }
-  );
+  });
 
   const colorchangeHandler = (data) => {
-    console.log(data);
     setcurrentchat(data);
   };
 

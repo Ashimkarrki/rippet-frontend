@@ -17,9 +17,7 @@ const SellerReviews = () => {
       try {
         const res = await instance.get(url);
         return res.data.data;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   );
   if (isLoading) {

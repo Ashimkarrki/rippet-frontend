@@ -26,11 +26,8 @@ const AdminReviewAndQnaComponent = ({ who, what }) => {
       });
       try {
         const res = await instance.get(url);
-        console.log(res.data, "=>original");
         return res.data;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   );
   if (isLoading || !data) {

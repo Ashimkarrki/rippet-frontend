@@ -24,7 +24,6 @@ const AddProduct = () => {
   });
 
   const onChangeState = (e) => {
-    console.log(data.MainImage);
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -43,8 +42,7 @@ const AddProduct = () => {
         onSubmit={(e) => {
           e.preventDefault();
           let formData = new FormData();
-          // console.log(files);
-          console.log(files);
+
           formData.set("MainImage", files.MainImage);
           formData.set("Image1", files.Image1);
           formData.set("Image2", files.Image2);
@@ -54,29 +52,10 @@ const AddProduct = () => {
           });
           instance
             .post("/products", formData)
-            .then((result) => {
-              console.log(result);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+            .then((result) => {})
+            .catch((err) => {});
           for (const value of formData.values()) {
-            console.log(value);
           }
-          // instance
-          //   .post("/products", formData)
-          //   .then((result) => {
-          //     console.log(result);
-          //   })
-          //   .catch((err) => {
-          //     console.log(err);
-          //   });
-
-          // setData((prev) => {
-          //   return {
-          //     ...prev,
-          //   };
-          // });
         }}
       >
         <div>

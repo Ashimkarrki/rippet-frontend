@@ -4,7 +4,6 @@ import Star from "./Star";
 import Link from "next/link";
 import styles from "../styles/ReviewsAndQnaComponent.module.css";
 const ReviewsAndQnaComponent = ({ content, data }) => {
-  console.log(data);
   return (
     <div className={styles.container}>
       <div className={styles.box}>

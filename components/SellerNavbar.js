@@ -20,11 +20,8 @@ const SellerNavbar = () => {
       });
       try {
         const res = await instance.get(url);
-        console.log(res.data.message);
         return res.data.message;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   );
   const [nav, setNav] = useState(false);
@@ -92,7 +89,6 @@ const SellerNavbar = () => {
             <Link href={"/sellerDashboard/reviews"}>
               <MdReviews className={styles.icons_nav} />
               <span className={styles.heading}>Reviews</span>
-              {console.log(!isLoading, "x", data)}
               {!isLoading && data && data.review !== 0 && (
                 <span className={styles.notification}>({data.review})</span>
               )}

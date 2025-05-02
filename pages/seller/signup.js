@@ -38,7 +38,6 @@ const SignUpComponent = () => {
           router.push("/seller/login");
         })
         .catch((err) => {
-          console.log(err?.response?.data?.message);
           let error_string = err?.response?.data?.message;
 
           setIsLoading(false);

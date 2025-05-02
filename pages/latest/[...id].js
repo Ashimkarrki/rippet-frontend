@@ -1,3 +1,4 @@
+import fetching from "../../utils/fetchinstance";
 import React from "react";
 import Pagination from "../../components/Pagination";
 import IsAuth from "../../utils/IsAuth";
@@ -10,10 +11,8 @@ const Latest = ({ data }) => {
   );
 };
 export const getServerSideProps = async (context) => {
-  console.log(context.params.id);
-  const res = await fetch(
-    "https://rappitnepal.cyclic.app/api/v1/products/latestProduct/product/all/" +
-      context.params.id[0] || 1
+  const res = await fetching(
+    `products/latestProduct/product/all/${context.params.id[0] || 1}`
   );
   const data = await res.json();
   if (!data.totalPages) {

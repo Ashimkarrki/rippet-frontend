@@ -17,7 +17,6 @@ const Reviews = () => {
         const res = await instance.get(url);
         return res.data.data;
       } catch (err) {
-        console.log(err);
         return err;
       }
     }

@@ -31,9 +31,7 @@ const QuestionAnswer = ({ qa, id, dataInfo, setDataInfo, sellerId }) => {
         setQuestion("");
         setIsSubmitLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   return (

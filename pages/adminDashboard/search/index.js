@@ -20,11 +20,8 @@ const Search = () => {
               headers: { authorization: "Bearer" },
             });
             const res = await instance.get("admin/orderSearch/" + value);
-            console.log(res.data);
             setData(res.data.order);
-          } catch (err) {
-            console.log(err);
-          }
+          } catch (err) {}
         }}
       >
         <input
@@ -34,7 +31,6 @@ const Search = () => {
           required
           value={value}
           onChange={(e) => {
-            console.log(e.target.value);
             setValue(e.target.value);
           }}
         />

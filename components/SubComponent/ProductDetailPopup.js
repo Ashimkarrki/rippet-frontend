@@ -8,11 +8,8 @@ const ProductDetailPopup = ({ id, setPopUpProduct }) => {
   const { isLoading, data, error } = useSWR("/products/" + id, async (url) => {
     try {
       const res = await axios.get(url);
-      console.log(res.data.data.product);
       return res.data.data.product;
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   });
   if (isLoading) {
     return (

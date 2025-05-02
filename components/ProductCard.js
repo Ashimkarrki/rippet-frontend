@@ -45,9 +45,7 @@ const ProductsCard = ({ id, pic, title, price, discount }) => {
       });
       addToCart(res.data.data);
       setIsCartLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   return (
     <Link className={styles.card} href={`/product/${id}`}>

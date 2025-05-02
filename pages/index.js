@@ -5,6 +5,7 @@ import Services from "../components/Services";
 import Category from "../components/Category";
 import SellerHomecomponenet from "../components/SellerHomeComponenet";
 import IsAuth from "../utils/IsAuth";
+import fetching from "../utils/fetchinstance";
 function Home({
   allProducts,
   latestProducts,
@@ -40,22 +41,15 @@ function Home({
 }
 export default IsAuth(Home);
 export async function getServerSideProps(context) {
-  console.log(context.req.headers);
-  const res1 = await fetch("https://rappitnepal.cyclic.app/api/v1/products");
+  const res1 = await fetching("products");
   const allProducts = await res1.json();
-  const res2 = await fetch(
-    "https://rappitnepal.cyclic.app/api/v1/products/latestProduct/product"
-  );
+  const res2 = await fetching("products/latestProduct/product");
   const latestProducts = await res2.json();
-  const res3 = await fetch(
-    "https://rappitnepal.cyclic.app/api/v1/products/popular/product"
-  );
+  const res3 = await fetching("products/popular/product");
   const popularProducts = await res3.json();
-  const res4 = await fetch(
-    "https://rappitnepal.cyclic.app/api/v1/products/rated/product"
-  );
+  const res4 = await fetching("products/rated/product");
   const ratedProducts = await res4.json();
-  const res5 = await fetch("https://rappitnepal.cyclic.app/api/v1/banner");
+  const res5 = await fetching("banner");
   const banner = await res5.json();
   return {
     props: {

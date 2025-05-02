@@ -5,9 +5,8 @@ import UserProvider from "../context/userContext";
 import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }) {
-  axios.defaults.baseURL = "https://rappitnepal.cyclic.app/api/v1/";
+  axios.defaults.baseURL = "https://rappit-backend-7wcs.vercel.app/api/v1/";
   axios.defaults.withCredentials = true;
-  //expensive-cod-handkerchief.cyclic.app/
   https: return (
     <UserProvider>
       <Toaster />

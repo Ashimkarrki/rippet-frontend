@@ -30,12 +30,9 @@ const Id = () => {
     instance
       .patch(`users/resetpassword/${id}/${role}`, resetdata)
       .then((data) => {
-        console.log(data);
         router.replace("/");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
     const myPromise = instance.patch(
       `users/resetpassword/${id}/${role}`,
       resetdata

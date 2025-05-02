@@ -6,7 +6,6 @@ import axios from "axios";
 const SellerTable = ({ data, mutate, all }) => {
   const [deleteId, setDeleteId] = useState("");
 
-  console.log(data);
   return (
     <table className={styles.table} border="1">
       <caption>All Sellers</caption>
@@ -62,25 +61,19 @@ const SellerTable = ({ data, mutate, all }) => {
                       const res = await instance.post(
                         "/admin/approved/" + s.id
                       );
-                      console.log("post");
                       let temp = data.map((k) => {
-                        console.log(s.id, " gap ", k.id);
                         if (s.id === k.id) {
                           return res.data.seller;
                         } else {
                           return k;
                         }
                       });
-                      console.log(temp);
                       mutate({
                         ...all,
                         sellers: temp,
                       });
                       setDeleteId("");
-                      console.log(res);
-                    } catch (err) {
-                      console.log(err);
-                    }
+                    } catch (err) {}
                   }}
                 />
               </td>
