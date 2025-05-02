@@ -1,5 +1,5 @@
+https://rappitnepal.netlify.app/
 # Rippet-Frontend
-
 A eCommerce solution developed with Next.js and Node.js, Express, MongoDB as its backend targeted mainly towards students. This application enables users to explore products, manage their shopping cart , ask questions about products , write reviews and see the notifications all while offering an engaging, responsive design
 
 ## 🚀 Features
